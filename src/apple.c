@@ -21,10 +21,10 @@ Apple *moveApple(Apple *apple) {
 RandomPos randomApplePos(int screenHeight, int screenWidth, int moveInterval) {
 
     int xCount = screenWidth / moveInterval;
-    int Xindex = rand() % xCount;
+    int xIndex = rand() % xCount;
 
     int yCount = screenHeight / moveInterval;
     int yIndex = rand() % yCount;
 
-    return (RandomPos){Xindex * moveInterval, yIndex * moveInterval};
+    return (RandomPos){xIndex * moveInterval, yIndex * moveInterval};
 };
