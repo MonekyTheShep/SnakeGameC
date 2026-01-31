@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-LinkedList createList(int data)
+LinkedList createList(SnakeNode snake_node)
 {
     LinkedList list;
     list.head = (Node *)malloc(sizeof(Node));
@@ -13,15 +13,15 @@ LinkedList createList(int data)
         return (LinkedList){NULL, NULL};
     }
 
-    list.head->data = data;
+    list.head->snake_node = snake_node;
     list.tail = list.head;
     return list;
 }
 
-Node *createNode(int data)
+Node *createNode(SnakeNode snake_node)
 {
     Node *newNode = (Node *)malloc(sizeof(Node));
-    newNode->data = data;
+    newNode->snake_node = snake_node;
 
     if (!newNode) 
     {
@@ -32,9 +32,9 @@ Node *createNode(int data)
     return newNode;
 }
 
-Node *insertAtHead(LinkedList *list, int data)
+Node *insertAtHead(LinkedList *list, SnakeNode snake_node)
 {
-    Node *newNode = createNode(data);
+    Node *newNode = createNode(snake_node);
 
     // swap the tail with new node
 
@@ -45,9 +45,9 @@ Node *insertAtHead(LinkedList *list, int data)
     return newNode;
 }
 
-Node *insertAtTail(LinkedList *list, int data)
+Node *insertAtTail(LinkedList *list, SnakeNode snake_node)
 {
-    Node *newNode = createNode(data);
+    Node *newNode = createNode(snake_node);
 
     // swap the tail with new node
 
@@ -59,7 +59,7 @@ Node *insertAtTail(LinkedList *list, int data)
     return newNode;
 }
 
-Node *insertAtNode(LinkedList *list, Node *node, int data)
+Node *insertAtNode(LinkedList *list, Node *node, SnakeNode snake_node)
 {
     if (node == NULL) 
     {
@@ -67,7 +67,7 @@ Node *insertAtNode(LinkedList *list, Node *node, int data)
         return NULL;
     }
 
-    Node *newNode = createNode(data);
+    Node *newNode = createNode(snake_node);
 
     if (node == list->head)
     {
@@ -89,7 +89,7 @@ Node *insertAtNode(LinkedList *list, Node *node, int data)
         return newNode;
     }
 
-    // if the node isnt the head
+    // if the node isn't the head
     Node *temp = list->head;
     Node *prev;
     int hasNode = 0;
@@ -248,7 +248,7 @@ void printLinkedList(LinkedList *list)
 
     while (temp != NULL)
     {
-        printf("%d -> ", temp->data);
+        printf("(X:%d, Y:%d) -> ", temp->snake_node.x, temp->snake_node.y);
         temp = temp->next;
     }
 
