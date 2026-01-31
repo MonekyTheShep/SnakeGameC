@@ -18,6 +18,31 @@ void *moveSnake(void *arg)
 {
     const SnakeData *tdata=(SnakeData *)arg;
 
+
+
+
+    // store previous values before moving
+    Node *temp = tdata->list->head->next;
+    int prevX = tdata->list->head->snake_node.x;
+    int prevY = tdata->list->head->snake_node.y;
+
+    while (temp != NULL)
+    {
+        int tempPrevX = temp->snake_node.x;
+        int tempPrevY = temp->snake_node.y;
+
+        temp->snake_node.x = prevX;
+        temp->snake_node.y = prevY;
+
+
+        prevX = tempPrevX;
+        prevY = tempPrevY;
+
+        temp = temp->next;
+
+    }
+
+    // move the head
     switch (*tdata->direction)
     {
         case UP:
@@ -39,6 +64,7 @@ void *moveSnake(void *arg)
     if (tdata->list->head->snake_node.x < 0) tdata->list->head->snake_node.x = screenWidth;
     if (tdata->list->head->snake_node.y > screenHeight) tdata->list->head->snake_node.y = 0;
     if (tdata->list->head->snake_node.x > screenWidth) tdata->list->head->snake_node.x = 0;
+
 
     usleep(100000);
     threadRunning = 0;
@@ -74,6 +100,23 @@ int main(void)
 
     while (!WindowShouldClose())
     {
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
+
+        Node *temp = snake.head->next;
+
+        // move tail to previous positions
+        while (temp != NULL) {
+            int newEndTail = temp == snake.tail && (snake.tail->snake_node.x == 0 && snake.tail->snake_node.y == 0);
+
+            if (!newEndTail) {
+                Rectangle tail = { temp->snake_node.x, temp->snake_node.y,  moveInterval,  moveInterval };
+                DrawRectangleRec(tail, BLUE);
+            }
+
+            temp = temp->next;
+        }
+
         if (!threadRunning)
         {
             threadRunning = true;
@@ -86,9 +129,6 @@ int main(void)
         if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S) && direction != UP) direction = DOWN;
         if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W) && direction != DOWN) direction = UP;
 
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-
         int appleOverlapSnakeX = (float) snake.head->snake_node.x == apple.x;
         int appleOverlapSnakeY = (float) snake.head->snake_node.y == apple.y;
 
@@ -98,6 +138,7 @@ int main(void)
             score += 1;
             growSnake(&snake);
         }
+
 
         apple.x = (float) pos.x;
         apple.y = (float) pos.y;

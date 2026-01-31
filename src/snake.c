@@ -3,9 +3,7 @@
 
 LinkedList createSnake()
 {
-    SnakeNode snake_node;
-    snake_node.x = 0;
-    snake_node.y = 0;
+    SnakeNode snake_node = {0, 0};
     LinkedList snake = createList(snake_node);
 
     return snake;
@@ -13,14 +11,15 @@ LinkedList createSnake()
 
 SnakeNode createSnakeNode()
 {
-    SnakeNode snake_node;
-    snake_node.x = 0;
-    snake_node.y = 0;
+    SnakeNode snake_node = {0,0};
     return snake_node;
 };
 
 int growSnake(LinkedList *snake)
 {
-    insertAtTail(snake, createSnakeNode());
+    SnakeNode snake_node = {0,0};
+    snake_node.x = snake->tail->snake_node.x;
+    snake_node.y = snake->tail->snake_node.y;
+    insertAtTail(snake, snake_node);
     return 0;
 };
