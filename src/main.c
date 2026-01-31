@@ -90,7 +90,7 @@ int main(void)
 
     SetTargetFPS(60);
 
-    Rectangle square = { 0, 0, moveInterval, moveInterval }; // x, y, width, height
+    Rectangle snakeHead = { 0, 0, moveInterval, moveInterval }; // x, y, width, height
     Rectangle apple = { -10, -10, moveInterval, moveInterval }; // x, y, width, height
 
     RandomPos pos = randomApplePos(screenHeight, screenWidth, (int) moveInterval);
@@ -104,12 +104,10 @@ int main(void)
 
         // move tail to previous positions
         while (temp != NULL) {
-            int newEndTail = temp == snake.tail && (snake.tail->snake_node.x == 0 && snake.tail->snake_node.y == 0);
 
-            if (!newEndTail) {
-                Rectangle tail = { temp->snake_node.x, temp->snake_node.y,  moveInterval,  moveInterval };
-                DrawRectangleRec(tail, BLUE);
-            }
+            Rectangle tail = { temp->snake_node.x, temp->snake_node.y,  moveInterval,  moveInterval };
+            DrawRectangleRec(tail, BLUE);
+
 
             temp = temp->next;
         }
@@ -140,12 +138,13 @@ int main(void)
         apple.x = (float) pos.x;
         apple.y = (float) pos.y;
 
-        square.x = (float) snake.head->snake_node.x;
-        square.y = (float) snake.head->snake_node.y;
+        snakeHead.x = (float) snake.head->snake_node.x;
+        snakeHead.y = (float) snake.head->snake_node.y;
 
-        // Draw the snake head as blue square.
-        DrawRectangleRec(square, BLUE);
+
         DrawRectangleRec(apple, RED);
+        // Draw the snake head as blue square.
+        DrawRectangleRec(snakeHead, BLUE);
 
         DrawText(TextFormat("Score: %0i", score), 0, 0, 50, GREEN);
 
@@ -158,7 +157,7 @@ int main(void)
     {
         pthread_join(moveSnakeThread, NULL);
     }
-    
+
     freeLinkedList(&snake);
     return 0;
 }
