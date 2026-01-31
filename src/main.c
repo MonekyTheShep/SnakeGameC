@@ -20,24 +20,24 @@ void *moveSnake(void *arg)
 
     switch (*tdata->direction) {
         case UP:
-            tdata->list->head->snake_node.y -= *tdata->moveInterval;
+            tdata->list->head->snake_node.y -= (int) *tdata->moveInterval;
             break;
         case DOWN:
-            tdata->list->head->snake_node.y += *tdata->moveInterval;
+            tdata->list->head->snake_node.y += (int) *tdata->moveInterval;
             break;
         case LEFT:
-            tdata->list->head->snake_node.x -= *tdata->moveInterval;
+            tdata->list->head->snake_node.x -= (int) *tdata->moveInterval;
             break;
         case RIGHT:
-            tdata->list->head->snake_node.x += *tdata->moveInterval;
+            tdata->list->head->snake_node.x += (int) *tdata->moveInterval;
             break;
     }
 
     // screen wrapping
-    if (tdata->list->head->snake_node.y < 0) tdata->list->head->snake_node.y = (float) screenHeight;
-    if (tdata->list->head->snake_node.x < 0) tdata->list->head->snake_node.x = (float) screenWidth;
-    if (tdata->list->head->snake_node.y > (float) screenHeight) tdata->list->head->snake_node.y = 0;
-    if (tdata->list->head->snake_node.x > (float) screenWidth) tdata->list->head->snake_node.x = 0;
+    if (tdata->list->head->snake_node.y < 0) tdata->list->head->snake_node.y = screenHeight;
+    if (tdata->list->head->snake_node.x < 0) tdata->list->head->snake_node.x = screenWidth;
+    if (tdata->list->head->snake_node.y > screenHeight) tdata->list->head->snake_node.y = 0;
+    if (tdata->list->head->snake_node.x > screenWidth) tdata->list->head->snake_node.x = 0;
 
     usleep(100000);
     threadRunning = 0;
@@ -83,8 +83,8 @@ int main(void) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
-        int appleOverlapSnakeX = snake.head->snake_node.x == apple.x;
-        int appleOverlapSnakeY = snake.head->snake_node.y == apple.y;
+        int appleOverlapSnakeX = (float) snake.head->snake_node.x == apple.x;
+        int appleOverlapSnakeY = (float) snake.head->snake_node.y == apple.y;
 
         if (appleOverlapSnakeX && appleOverlapSnakeY) {
             pos = randomApplePos(screenHeight, screenWidth, (int) moveInterval);
@@ -95,8 +95,8 @@ int main(void) {
         apple.y = (float) pos.y;
 
 
-        square.x = snake.head->snake_node.x;
-        square.y = snake.head->snake_node.y;
+        square.x = (float) snake.head->snake_node.x;
+        square.y = (float) snake.head->snake_node.y;
 
         // Draw the snake head as blue square.
         DrawRectangleRec(square, BLUE);

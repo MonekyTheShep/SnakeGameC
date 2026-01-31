@@ -1,8 +1,8 @@
 #pragma once
 
 typedef struct SnakeNode {
-    float x;
-    float y;
+    int x;
+    int y;
 } SnakeNode;
 
 typedef struct Node {              
