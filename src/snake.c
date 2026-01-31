@@ -2,6 +2,19 @@
 #include "snake.h"
 
 LinkedList createSnake() {
+    SnakeNode snake_node;
+    snake_node.x = 0;
+    snake_node.y = 0;
+    LinkedList snake = createList(snake_node);
 
-    return (LinkedList){NULL, NULL};
+    return snake;
 }
+
+
+SnakeNode *createSnakeNode() {
+    return NULL;
+};
+
+int growSnake(LinkedList *snake) {
+    return 0;
+};

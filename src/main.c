@@ -9,16 +9,8 @@
 #include "apple.h"
 
 
-enum Direction {
-    UP, DOWN, LEFT, RIGHT
-};
-
-typedef struct SnakeData {
-    enum Direction *direction;
-    LinkedList *list;
-    const float *moveInterval;
-
-} SnakeData;
+const int screenWidth = 800;
+const int screenHeight = 600;
 
 int threadRunning = 0;
 
@@ -26,10 +18,27 @@ void *moveSnake(void *arg)
 {
     const SnakeData *tdata=(SnakeData *)arg;
 
-    if (*tdata->direction == RIGHT) tdata->list->head->snake_node.x += *tdata->moveInterval;
-    if (*tdata->direction == LEFT) tdata->list->head->snake_node.x -= *tdata->moveInterval;
-    if (*tdata->direction== DOWN) tdata->list->head->snake_node.y += *tdata->moveInterval;
-    if (*tdata->direction == UP) tdata->list->head->snake_node.y -= *tdata->moveInterval;
+    switch (*tdata->direction) {
+        case UP:
+            tdata->list->head->snake_node.y -= *tdata->moveInterval;
+            break;
+        case DOWN:
+            tdata->list->head->snake_node.y += *tdata->moveInterval;
+            break;
+        case LEFT:
+            tdata->list->head->snake_node.x -= *tdata->moveInterval;
+            break;
+        case RIGHT:
+            tdata->list->head->snake_node.x += *tdata->moveInterval;
+            break;
+    }
+
+    // screen wrapping
+    if (tdata->list->head->snake_node.y < 0) tdata->list->head->snake_node.y = (float) screenHeight;
+    if (tdata->list->head->snake_node.x < 0) tdata->list->head->snake_node.x = (float) screenWidth;
+    if (tdata->list->head->snake_node.y > (float) screenHeight) tdata->list->head->snake_node.y = 0;
+    if (tdata->list->head->snake_node.x > (float) screenWidth) tdata->list->head->snake_node.x = 0;
+
     usleep(100000);
     threadRunning = 0;
     pthread_exit(NULL);
@@ -38,15 +47,10 @@ void *moveSnake(void *arg)
 
 int main(void) {
     // Initialise SNAKE shit
+    LinkedList snake = createSnake();
+
     enum Direction direction = RIGHT;
     const float moveInterval = 50;
-
-    SnakeNode snake_node;
-    snake_node.x = 0;
-    snake_node.y = 0;
-
-    LinkedList snake;
-    snake = createList(snake_node);
 
     SnakeData data;
     data.moveInterval = &moveInterval;
@@ -55,12 +59,7 @@ int main(void) {
 
     pthread_t moveSnakeThread;
 
-
     // Initialise Raylib shit
-
-    const int screenWidth = 800;
-    const int screenHeight = 600;
-
     InitWindow(screenWidth, screenHeight, "Snake Game");
 
     SetTargetFPS(60);
@@ -76,10 +75,10 @@ int main(void) {
             pthread_create(&moveSnakeThread, NULL, moveSnake, (void *)&data);
         }
 
-        if (IsKeyDown(KEY_RIGHT)) direction = RIGHT;
-        if (IsKeyDown(KEY_LEFT)) direction = LEFT;
-        if (IsKeyDown(KEY_DOWN)) direction = DOWN;
-        if (IsKeyDown(KEY_UP)) direction = UP;
+        if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D) && direction != LEFT) direction = RIGHT;
+        if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)  && direction != RIGHT) direction = LEFT;
+        if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)  && direction != UP) direction = DOWN;
+        if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)  && direction != DOWN) direction = UP;
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -115,9 +114,6 @@ int main(void) {
 
     // ignore this it will be used to move tails based on head
     // while (1) {
-    //     list.head->snake_node.x += moveInterval;
-    //     list.head->snake_node.y += moveInterval;
-    //
     //     Node *temp = list.head->next;
     //     int prevX = list.head->snake_node.x;
     //     int prevY = list.head->snake_node.y;
