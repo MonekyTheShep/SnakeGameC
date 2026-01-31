@@ -1,8 +1,13 @@
 #include <stdio.h>
-#include "linkedlist.h"
-#include <raylib.h>
 #include <pthread.h>
 #include <unistd.h>
+
+#include <raylib.h>
+
+#include "linkedlist.h"
+#include "snake.h"
+#include "apple.h"
+
 
 enum Direction {
     UP, DOWN, LEFT, RIGHT
@@ -61,7 +66,9 @@ int main(void) {
     SetTargetFPS(60);
 
     Rectangle square = { 0, 0, moveInterval, moveInterval }; // x, y, width, height
+    Rectangle apple = { 0, 0, moveInterval, moveInterval }; // x, y, width, height
 
+    RandomPos pos = randomApplePos(screenHeight, screenWidth, (int) moveInterval);
 
     while (!WindowShouldClose()) {
         if (!threadRunning) {
@@ -77,11 +84,24 @@ int main(void) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
+        int appleOverlapSnakeX = snake.head->snake_node.x == apple.x;
+        int appleOverlapSnakeY = snake.head->snake_node.y == apple.y;
+
+        if (appleOverlapSnakeX && appleOverlapSnakeY) {
+            pos = randomApplePos(screenHeight, screenWidth, (int) moveInterval);
+        }
+
+
+        apple.x = (float) pos.x;
+        apple.y = (float) pos.y;
+
+
         square.x = snake.head->snake_node.x;
         square.y = snake.head->snake_node.y;
 
         // Draw the snake head as blue square.
         DrawRectangleRec(square, BLUE);
+        DrawRectangleRec(apple, RED);
 
         EndDrawing();
     }
@@ -121,7 +141,7 @@ int main(void) {
     //
     //     sleep(1);
     // }
-    
+
     freeLinkedList(&snake);
     return 0;
 }
