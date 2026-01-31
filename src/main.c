@@ -18,7 +18,8 @@ void *moveSnake(void *arg)
 {
     const SnakeData *tdata=(SnakeData *)arg;
 
-    switch (*tdata->direction) {
+    switch (*tdata->direction)
+    {
         case UP:
             tdata->list->head->snake_node.y -= (int) *tdata->moveInterval;
             break;
@@ -45,7 +46,8 @@ void *moveSnake(void *arg)
 }
 
 
-int main(void) {
+int main(void)
+{
     // Initialise SNAKE shit
     LinkedList snake = createSnake();
 
@@ -70,16 +72,19 @@ int main(void) {
 
     RandomPos pos = randomApplePos(screenHeight, screenWidth, (int) moveInterval);
 
-    while (!WindowShouldClose()) {
-        if (!threadRunning) {
+    while (!WindowShouldClose())
+    {
+        if (!threadRunning)
+        {
             threadRunning = true;
+            printLinkedList(&snake);
             pthread_create(&moveSnakeThread, NULL, moveSnake, (void *)&data);
         }
 
         if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D) && direction != LEFT) direction = RIGHT;
-        if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)  && direction != RIGHT) direction = LEFT;
-        if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)  && direction != UP) direction = DOWN;
-        if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)  && direction != DOWN) direction = UP;
+        if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A) && direction != RIGHT) direction = LEFT;
+        if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S) && direction != UP) direction = DOWN;
+        if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W) && direction != DOWN) direction = UP;
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -87,9 +92,11 @@ int main(void) {
         int appleOverlapSnakeX = (float) snake.head->snake_node.x == apple.x;
         int appleOverlapSnakeY = (float) snake.head->snake_node.y == apple.y;
 
-        if (appleOverlapSnakeX && appleOverlapSnakeY) {
+        if (appleOverlapSnakeX && appleOverlapSnakeY)
+        {
             pos = randomApplePos(screenHeight, screenWidth, (int) moveInterval);
             score += 1;
+            growSnake(&snake);
         }
 
         apple.x = (float) pos.x;
@@ -109,7 +116,8 @@ int main(void) {
 
     CloseWindow();
 
-    if (threadRunning) {
+    if (threadRunning)
+    {
         pthread_join(moveSnakeThread, NULL);
     }
 

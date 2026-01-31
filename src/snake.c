@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include "snake.h"
 
-LinkedList createSnake() {
+LinkedList createSnake()
+{
     SnakeNode snake_node;
     snake_node.x = 0;
     snake_node.y = 0;
@@ -10,11 +11,16 @@ LinkedList createSnake() {
     return snake;
 }
 
-
-SnakeNode *createSnakeNode() {
-    return NULL;
+SnakeNode createSnakeNode()
+{
+    SnakeNode snake_node;
+    snake_node.x = 0;
+    snake_node.y = 0;
+    return snake_node;
 };
 
-int growSnake(LinkedList *snake) {
+int growSnake(LinkedList *snake)
+{
+    insertAtTail(snake, createSnakeNode());
     return 0;
 };
