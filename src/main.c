@@ -18,9 +18,6 @@ void *moveSnake(void *arg)
 {
     const SnakeData *tdata=(SnakeData *)arg;
 
-
-
-
     // store previous values before moving
     Node *temp = tdata->list->head->next;
     int prevX = tdata->list->head->snake_node.x;
@@ -161,34 +158,7 @@ int main(void)
     {
         pthread_join(moveSnakeThread, NULL);
     }
-
-
-    // ignore this it will be used to move tails based on head
-    // while (1) {
-    //     Node *temp = list.head->next;
-    //     int prevX = list.head->snake_node.x;
-    //     int prevY = list.head->snake_node.y;
-    //
-    //     while (temp != NULL)
-    //     {
-    //         int tempPrevX = temp->snake_node.x;
-    //         int tempPrevY = temp->snake_node.y;
-    //
-    //         temp->snake_node.x = prevX;
-    //         temp->snake_node.y = prevY;
-    //
-    //         prevX = tempPrevX;
-    //         prevY = tempPrevY;
-    //
-    //         temp = temp->next;
-    //
-    //     }
-    //
-    //     printLinkedList(&list);
-    //
-    //     sleep(1);
-    // }
-
+    
     freeLinkedList(&snake);
     return 0;
 }
