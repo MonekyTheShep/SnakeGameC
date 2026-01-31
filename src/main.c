@@ -51,6 +51,7 @@ int main(void) {
 
     enum Direction direction = RIGHT;
     const float moveInterval = 50;
+    int score = 0;
 
     SnakeData data;
     data.moveInterval = &moveInterval;
@@ -65,7 +66,7 @@ int main(void) {
     SetTargetFPS(60);
 
     Rectangle square = { 0, 0, moveInterval, moveInterval }; // x, y, width, height
-    Rectangle apple = { 0, 0, moveInterval, moveInterval }; // x, y, width, height
+    Rectangle apple = { -10, -10, moveInterval, moveInterval }; // x, y, width, height
 
     RandomPos pos = randomApplePos(screenHeight, screenWidth, (int) moveInterval);
 
@@ -88,12 +89,11 @@ int main(void) {
 
         if (appleOverlapSnakeX && appleOverlapSnakeY) {
             pos = randomApplePos(screenHeight, screenWidth, (int) moveInterval);
+            score += 1;
         }
-
 
         apple.x = (float) pos.x;
         apple.y = (float) pos.y;
-
 
         square.x = (float) snake.head->snake_node.x;
         square.y = (float) snake.head->snake_node.y;
@@ -101,6 +101,8 @@ int main(void) {
         // Draw the snake head as blue square.
         DrawRectangleRec(square, BLUE);
         DrawRectangleRec(apple, RED);
+
+        DrawText(TextFormat("Score: %0i", score), 0, 0, 50, GREEN);
 
         EndDrawing();
     }
