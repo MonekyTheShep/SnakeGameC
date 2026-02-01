@@ -135,7 +135,7 @@ int main(void)
 
 
         DrawRectangleRec(apple, RED);
-        // Draw the snake head as blue square.
+        // Draw the snake head as dark green square.
         DrawRectangleRec(snakeHead, DARKGREEN);
 
         DrawText(TextFormat("Score: %0i", score), 0, 0, 50, BLACK);
