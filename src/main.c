@@ -138,7 +138,7 @@ int main(void)
 
 
         // store prev position then move the snake position x and y
-        int beenOneSecond = accumulatedTime > 0.1;
+        int beenOneSecond = accumulatedTime > 0.1f;
         if (!gameOver && beenOneSecond)
         {
             accumulatedTime = 0.0f;
