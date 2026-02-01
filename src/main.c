@@ -139,12 +139,14 @@ int main(void)
 
             temp = temp->next;
         }
-a
+
         // store prev position then move the snake position x and y
-        pthread_mutex_lock(&snakeMutex);
+
         if (!gameOver && !threadRunning)
         {
+            pthread_mutex_lock(&snakeMutex);
             threadRunning = true;
+            pthread_mutex_unlock(&snakeMutex);
 
             if (verboseMode) {
                 printLinkedList(&snake);
@@ -155,7 +157,7 @@ a
 
             pthread_create(&moveSnakeThread, NULL, moveSnake, &data);
         }
-        pthread_mutex_unlock(&snakeMutex);
+
 
         // input checking
         if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && direction != LEFT) direction = RIGHT;
