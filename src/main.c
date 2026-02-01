@@ -3,6 +3,8 @@
 #include <unistd.h>
 
 #include <raylib.h>
+#define RAYGUI_IMPLEMENTATION
+#include <raygui.h>
 
 #include "linkedlist.h"
 #include "snake.h"
@@ -20,6 +22,13 @@ int verboseMode = 0;
 
 pthread_mutex_t snakeMutex;
 
+void resetGame(LinkedList *snake, SnakeData *data) {
+    // reset snake by freeing and creating new snake
+    freeLinkedList(snake);
+    *data->direction = RIGHT;
+    *snake = createSnake();
+    gameOver = 0;
+}
 void *moveSnake(void *arg)
 {
     const SnakeData *tdata=(SnakeData *)arg;
@@ -124,6 +133,12 @@ int main(void)
     {
         BeginDrawing();
         ClearBackground(RAYWHITE);
+
+        if (gameOver) {
+            if (GuiButton((Rectangle){350, 250, 100, 50}, "Reset")) {
+                resetGame(&snake, &data);
+            }
+        }
 
         // prev pos stored after the head position
         Node *temp = snake.head->next;

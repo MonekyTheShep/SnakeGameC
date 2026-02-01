@@ -204,11 +204,11 @@ Node *shiftList(LinkedList *list)
     prev->next = NULL;
     return prev;
 }
-
-Node *popList(LinkedList *list)
-{
-    return NULL;
-}
+//
+// Node *popList(LinkedList *list)
+// {
+//     return NULL;
+// }
 
 int sizeOfLinkedList(LinkedList *list)
 {

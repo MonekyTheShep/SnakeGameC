@@ -17,6 +17,16 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(raylib)
 
+# Adding raygui
+FetchContent_Declare(
+        raygui
+        GIT_REPOSITORY "https://github.com/raysan5/raygui.git"
+        GIT_TAG "master"
+        GIT_PROGRESS TRUE
+)
+
+FetchContent_MakeAvailable(raygui)
+
 # Explicitly set the include directory
 set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
@@ -29,6 +39,7 @@ set(PROJECT_INCLUDE "${CMAKE_CURRENT_LIST_DIR}/include/") # Define PROJECT_INCLU
 add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_INCLUDE})
+target_include_directories(${PROJECT_NAME} PRIVATE ${raygui_SOURCE_DIR}/src)
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 
 target_compile_options(${PROJECT_NAME} PRIVATE
