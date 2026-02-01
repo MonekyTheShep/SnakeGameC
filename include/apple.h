@@ -1,4 +1,6 @@
 #pragma once
+#include "raylib.h"
+#include "linkedlist.h"
 
 typedef struct RandomPos {
     int x;
@@ -6,4 +8,6 @@ typedef struct RandomPos {
 } RandomPos;
 
 
-RandomPos randomApplePos(int screenHeight, int screenWidth, int moveInterval);
+RandomPos randomApplePos(int screenWidth, int screenHeight, int moveInterval);
+
+RandomPos moveApple(Rectangle apple, LinkedList *snake, int screenWidth, int screenHeight, int moveInterval);

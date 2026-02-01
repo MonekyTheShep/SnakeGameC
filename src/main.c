@@ -15,6 +15,7 @@ const int screenHeight = 600;
 // only one thread can run at once
 int threadRunning = 0;
 int gameOver = 0;
+int verboseMode = 0;
 
 
 void *moveSnake(void *arg)
@@ -97,9 +98,10 @@ int main(void)
     SetTargetFPS(60);
 
     Rectangle snakeHead = { 0, 0, moveInterval, moveInterval }; // x, y, width, height
-    Rectangle apple = { -10, -10, moveInterval, moveInterval }; // x, y, width, height
 
-    RandomPos pos = randomApplePos(screenHeight, screenWidth, (int) moveInterval);
+
+    RandomPos pos = randomApplePos(screenWidth, screenHeight, (int) moveInterval);
+    Rectangle apple = { (float) pos.x, (float) pos.y, moveInterval, moveInterval }; // x, y, width, height
 
     while (!WindowShouldClose())
     {
@@ -131,18 +133,22 @@ int main(void)
         if (!threadRunning && !gameOver)
         {
             threadRunning = true;
-            printLinkedList(&snake);
-            printf("%d\n", sizeOfLinkedList(&snake));
-            printf("%d\n", gameOver);
+
+            if (verboseMode) {
+                printLinkedList(&snake);
+                printf("%d\n", sizeOfLinkedList(&snake));
+                printf("%d\n", gameOver);
+            }
+
 
             pthread_create(&moveSnakeThread, NULL, moveSnake, &data);
         }
 
         // input checking
         if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D) && direction != LEFT) direction = RIGHT;
-        if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A) && direction != RIGHT) direction = LEFT;
-        if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S) && direction != UP) direction = DOWN;
-        if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W) && direction != DOWN) direction = UP;
+        else if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A) && direction != RIGHT) direction = LEFT;
+        else if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S) && direction != UP) direction = DOWN;
+        else if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W) && direction != DOWN) direction = UP;
 
         // if the apple is overlapping head. I need to add check so it doesn't spawn in the body.
         int appleOverlapSnakeX = (float) snake.head->snake_node.x == apple.x;
@@ -150,9 +156,10 @@ int main(void)
 
         if (appleOverlapSnakeX && appleOverlapSnakeY)
         {
-            pos = randomApplePos(screenHeight, screenWidth, (int) moveInterval);
             score += 1;
             growSnake(&snake);
+            pos = moveApple(apple, &snake, screenWidth, screenHeight, (int) moveInterval);
+
         }
 
 
