@@ -82,6 +82,8 @@ Node *insertAtNode(LinkedList *list, Node *node, SnakeNode snake_node)
         return newNode;
     }
 
+    newNode = createNode(snake_node);
+
     // if the node isn't the head
     Node *temp = list->head;
     Node *prev;
