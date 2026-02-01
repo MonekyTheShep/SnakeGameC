@@ -14,3 +14,4 @@ typedef struct SnakeData {
 
 LinkedList createSnake(void);
 int growSnake(LinkedList *snake);
+void moveSnake(void *arg, int screenWidth, int screenHeight);
