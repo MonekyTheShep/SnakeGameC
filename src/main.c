@@ -20,14 +20,13 @@ int score = 0;
 
 int verboseMode = 0;
 
-void resetGame(LinkedList *snake, Rectangle *apple, SnakeData *data) {
+void resetGame(LinkedList *snake, SnakeData *data) {
     // reset snake by freeing and creating new snake
 
     *snake = clearList(snake);
     *snake = createSnake();
-    RandomPos pos = moveApple(snake, screenWidth, screenHeight, (int) moveInterval);
-    apple->x = (float) pos.x;
-    apple->y = (float) pos.y;
+
+
 
     *data->direction = RIGHT;
     score = 0;
@@ -68,7 +67,10 @@ int main(void)
 
         if (gameOver) {
             if (GuiButton((Rectangle){350, 250, 100, 50}, "Reset")) {
-                resetGame(&snake, &apple, &data);
+                resetGame(&snake, &data);
+                applePos = moveApple(&snake, screenWidth, screenHeight, (int) moveInterval);
+                apple.x = (float) applePos.x;
+                apple.y = (float) applePos.y;
             }
         }
 
