@@ -132,10 +132,8 @@ int main(void)
             }
         }
 
-        // prev pos stored after the head position
-        Node *temp = snake.head->next;
 
-        int length = 0;
+
 
 
         // store prev position then move the snake position x and y
@@ -151,6 +149,10 @@ int main(void)
                 printf("%d\n", gameOver);
             }
         }
+
+        // prev pos stored after the head position
+        Node *temp = snake.head->next;
+        int length = 0;
 
         // move tail to previous positions and check if those tails are touching head
         while (temp != NULL) {
