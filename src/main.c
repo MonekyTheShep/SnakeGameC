@@ -111,8 +111,11 @@ int main(void)
         // prev pos stored after the head position
         Node *temp = snake.head->next;
 
+        int length = 0;
+
         // move tail to previous positions and check if those tails are touching head
         while (temp != NULL) {
+            length++;
 
             Rectangle tail = { (float) temp->snake_node.x, (float) temp->snake_node.y,  moveInterval,  moveInterval };
             DrawRectangleRec(tail, GREEN);
@@ -120,9 +123,8 @@ int main(void)
             int tailOverlapHeadX = temp->snake_node.x == snake.head->snake_node.x;
             int tailOverlapHeadY = temp->snake_node.y == snake.head->snake_node.y;
             // it has to be longer than 1
-            int hasTails = temp->next != NULL;
 
-            if (tailOverlapHeadX && tailOverlapHeadY && hasTails) {
+            if (tailOverlapHeadX && tailOverlapHeadY && length > 1) {
                 gameOver = 1;
 
             }

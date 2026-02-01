@@ -35,7 +35,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
         -Wall
         -Wextra
         -Wpedantic
-        -fsanitize=address
+        -fsanitize=address -g
 )
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address")

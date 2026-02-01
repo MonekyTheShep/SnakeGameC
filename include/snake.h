@@ -13,5 +13,4 @@ typedef struct SnakeData {
 } SnakeData;
 
 LinkedList createSnake(void);
-SnakeNode createSnakeNode(void);
 int growSnake(LinkedList *snake);

@@ -9,12 +9,6 @@ LinkedList createSnake(void)
     return snake;
 }
 
-SnakeNode createSnakeNode(void)
-{
-    SnakeNode snake_node = {0,0};
-    return snake_node;
-}
-
 int growSnake(LinkedList *snake)
 {
     SnakeNode snake_node = {0,0};
