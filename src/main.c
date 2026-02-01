@@ -15,8 +15,9 @@ const int screenHeight = 600;
 // only one thread can run at once
 int threadRunning = 0;
 int gameOver = 0;
-int verboseMode = 0;
+int verboseMode = 1;
 
+pthread_mutex_t snakeMutex;
 
 void *moveSnake(void *arg)
 {
@@ -69,8 +70,12 @@ void *moveSnake(void *arg)
     if (tdata->list->head->snake_node.x > screenWidth) tdata->list->head->snake_node.x = 0;
 
 
+
     usleep(100000);
+
+    pthread_mutex_lock(&snakeMutex);
     threadRunning = 0;
+    pthread_mutex_unlock(&snakeMutex);
     pthread_exit(NULL);
 }
 
@@ -90,6 +95,8 @@ int main(void)
     data.list = &snake;
 
     pthread_t moveSnakeThread;
+    // Initialize mutex
+    pthread_mutex_init(&snakeMutex, NULL);
 
 
     // Initialise Raylib shit
@@ -122,18 +129,20 @@ int main(void)
 
             int tailOverlapHeadX = temp->snake_node.x == snake.head->snake_node.x;
             int tailOverlapHeadY = temp->snake_node.y == snake.head->snake_node.y;
+            int hasTails = length > 1;
             // it has to be longer than 1
 
-            if (tailOverlapHeadX && tailOverlapHeadY && length > 1) {
+            if (tailOverlapHeadX && tailOverlapHeadY && hasTails) {
                 gameOver = 1;
 
             }
 
             temp = temp->next;
         }
-
+a
         // store prev position then move the snake position x and y
-        if (!threadRunning && !gameOver)
+        pthread_mutex_lock(&snakeMutex);
+        if (!gameOver && !threadRunning)
         {
             threadRunning = true;
 
@@ -146,12 +155,13 @@ int main(void)
 
             pthread_create(&moveSnakeThread, NULL, moveSnake, &data);
         }
+        pthread_mutex_unlock(&snakeMutex);
 
         // input checking
-        if (IsKeyDown(KEY_RIGHT) || (IsKeyDown(KEY_D) && direction != LEFT)) direction = RIGHT;
-        else if (IsKeyDown(KEY_LEFT) || (IsKeyDown(KEY_A) && direction != RIGHT)) direction = LEFT;
-        else if (IsKeyDown(KEY_DOWN) || (IsKeyDown(KEY_S) && direction != UP)) direction = DOWN;
-        else if (IsKeyDown(KEY_UP) || (IsKeyDown(KEY_W) && direction != DOWN)) direction = UP;
+        if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && direction != LEFT) direction = RIGHT;
+        else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && direction != RIGHT) direction = LEFT;
+        else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && direction != UP) direction = DOWN;
+        else if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && direction != DOWN) direction = UP;
 
         // if the apple is overlapping head.
         int appleOverlapSnakeX = (float) snake.head->snake_node.x == apple.x;
@@ -184,10 +194,12 @@ int main(void)
 
     CloseWindow();
 
-    if (threadRunning)
-    {
+
+    if (threadRunning) {
         pthread_join(moveSnakeThread, NULL);
     }
+
+    pthread_mutex_destroy(&snakeMutex);
 
     freeLinkedList(&snake);
     return 0;
