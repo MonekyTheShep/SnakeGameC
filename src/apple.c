@@ -16,14 +16,12 @@ RandomPos randomApplePos(int screenWidth, int screenHeight, int moveInterval)
 
 RandomPos moveApple(LinkedList *snake, int screenWidth, int screenHeight, int moveInterval) {
     int validPosition = 0;
-    RandomPos pos = {};
+    RandomPos pos = randomApplePos(screenWidth, screenHeight, moveInterval);
     while (!validPosition) {
         // assume valid position until proven not
         validPosition = 1;
 
-        pos = randomApplePos(screenWidth, screenHeight, (int) moveInterval);
-
-        // if apple overlaps new pos
+        // if new apple overlaps snake head
         int appleOverlapSnakeX = snake->head->snake_node.x == pos.x;
         int appleOverlapSnakeY = snake->head->snake_node.y == pos.y;
 
@@ -39,7 +37,7 @@ RandomPos moveApple(LinkedList *snake, int screenWidth, int screenHeight, int mo
         while (temp != NULL) {
             int tailOverlapAppleX = temp->snake_node.x == pos.x;
             int tailOverlapAppleY = temp->snake_node.y == pos.y;
-            int hasTails = sizeOfLinkedList(snake) > 1;
+            int hasTails = temp->next != NULL;
 
             if (tailOverlapAppleX  && tailOverlapAppleY && hasTails) {
                 validPosition = 0;
@@ -51,7 +49,7 @@ RandomPos moveApple(LinkedList *snake, int screenWidth, int screenHeight, int mo
         }
 
         if (!validPosition) {
-            pos = randomApplePos(screenWidth, screenHeight, (int) moveInterval);
+            pos = randomApplePos(screenWidth, screenHeight, moveInterval);
         }
     }
     return pos;
