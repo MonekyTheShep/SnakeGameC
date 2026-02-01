@@ -14,13 +14,10 @@
 const int screenWidth = 800;
 const int screenHeight = 600;
 
-// only one thread can run at once
-int threadRunning = 0;
 int gameOver = 0;
 
 int verboseMode = 0;
 
-pthread_mutex_t snakeMutex;
 
 void resetGame(LinkedList *snake, SnakeData *data) {
     // reset snake by freeing and creating new snake
@@ -30,7 +27,8 @@ void resetGame(LinkedList *snake, SnakeData *data) {
     *data->direction = RIGHT;
     gameOver = 0;
 }
-void *moveSnake(void *arg)
+
+void moveSnake(void *arg)
 {
     const SnakeData *tdata=(SnakeData *)arg;
 
@@ -90,13 +88,6 @@ void *moveSnake(void *arg)
         tdata->list->head->snake_node.x = 0;
     }
 
-
-    usleep(100000);
-
-    pthread_mutex_lock(&snakeMutex);
-    threadRunning = 0;
-    pthread_mutex_unlock(&snakeMutex);
-    pthread_exit(NULL);
 }
 
 
@@ -114,11 +105,6 @@ int main(void)
     data.direction = &direction;
     data.list = &snake;
 
-    pthread_t moveSnakeThread;
-    // Initialize mutex
-    pthread_mutex_init(&snakeMutex, NULL);
-
-
     // Initialise Raylib shit
     InitWindow(screenWidth, screenHeight, "Snake Game");
 
@@ -127,11 +113,16 @@ int main(void)
     Rectangle snakeHead = { 0, 0, moveInterval, moveInterval }; // x, y, width, height
 
 
+    float accumulatedTime = 0.0f; // Total elapsed time
+
     RandomPos applePos = moveApple(&snake, screenWidth, screenHeight, (int) moveInterval);
     Rectangle apple = { (float) applePos.x, (float) applePos.y, moveInterval, moveInterval }; // x, y, width, height
 
     while (!WindowShouldClose())
     {
+        float deltaTime = GetFrameTime(); // Time since last frame
+        accumulatedTime += deltaTime;      // Add to total
+
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
@@ -167,21 +158,17 @@ int main(void)
         }
 
         // store prev position then move the snake position x and y
-
-        if (!gameOver && !threadRunning)
+        int beenOneSecond = accumulatedTime > 0.1;
+        if (!gameOver && beenOneSecond)
         {
-            pthread_mutex_lock(&snakeMutex);
-            threadRunning = true;
-            pthread_mutex_unlock(&snakeMutex);
+            accumulatedTime = 0.0f;
+            moveSnake(&data);
 
             if (verboseMode) {
                 printLinkedList(&snake);
                 printf("%d\n", sizeOfLinkedList(&snake));
                 printf("%d\n", gameOver);
             }
-
-
-            pthread_create(&moveSnakeThread, NULL, moveSnake, &data);
         }
 
 
@@ -221,13 +208,6 @@ int main(void)
     }
 
     CloseWindow();
-
-
-    if (threadRunning) {
-        pthread_join(moveSnakeThread, NULL);
-    }
-
-    pthread_mutex_destroy(&snakeMutex);
 
     freeLinkedList(&snake);
     return 0;
