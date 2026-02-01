@@ -117,7 +117,7 @@ int main(void)
 
             int tailOverlapHeadX = temp->snake_node.x == snake.head->snake_node.x;
             int tailOverlapHeadY = temp->snake_node.y == snake.head->snake_node.y;
-            int hasTails = sizeOfLinkedList(&snake) != 1;
+            int hasTails = sizeOfLinkedList(&snake) > 1;
 
             if (tailOverlapHeadX && tailOverlapHeadY && hasTails) {
                 gameOver = 1;
