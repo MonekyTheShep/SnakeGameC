@@ -19,7 +19,6 @@ int score = 0;
 
 int verboseMode = 0;
 
-
 void resetGame(LinkedList *snake, SnakeData *data) {
     // reset snake by freeing and creating new snake
 
@@ -30,12 +29,10 @@ void resetGame(LinkedList *snake, SnakeData *data) {
     gameOver = 0;
 }
 
-
 int main(void)
 {
     // Initialise SNAKE shit
     LinkedList snake = createSnake();
-
     enum Direction direction = RIGHT;
     const float moveInterval = 50;
 
@@ -108,9 +105,6 @@ int main(void)
             temp = temp->next;
         }
 
-
-
-
         // input checking
         if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && direction != LEFT) direction = RIGHT;
         else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && direction != RIGHT) direction = LEFT;
@@ -128,7 +122,6 @@ int main(void)
             applePos = moveApple(&snake, screenWidth, screenHeight, (int) moveInterval);
 
         }
-
 
         apple.x = (float) applePos.x;
         apple.y = (float) applePos.y;
