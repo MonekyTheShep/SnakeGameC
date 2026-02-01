@@ -137,6 +137,21 @@ int main(void)
 
         int length = 0;
 
+
+        // store prev position then move the snake position x and y
+        int beenOneSecond = accumulatedTime > 0.1;
+        if (!gameOver && beenOneSecond)
+        {
+            accumulatedTime = 0.0f;
+            moveSnake(&data);
+
+            if (verboseMode) {
+                printLinkedList(&snake);
+                printf("%d\n", sizeOfLinkedList(&snake));
+                printf("%d\n", gameOver);
+            }
+        }
+
         // move tail to previous positions and check if those tails are touching head
         while (temp != NULL) {
             length++;
@@ -157,19 +172,7 @@ int main(void)
             temp = temp->next;
         }
 
-        // store prev position then move the snake position x and y
-        int beenOneSecond = accumulatedTime > 0.1;
-        if (!gameOver && beenOneSecond)
-        {
-            accumulatedTime = 0.0f;
-            moveSnake(&data);
 
-            if (verboseMode) {
-                printLinkedList(&snake);
-                printf("%d\n", sizeOfLinkedList(&snake));
-                printf("%d\n", gameOver);
-            }
-        }
 
 
         // input checking
