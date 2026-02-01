@@ -100,8 +100,8 @@ int main(void)
     Rectangle snakeHead = { 0, 0, moveInterval, moveInterval }; // x, y, width, height
 
 
-    RandomPos pos = randomApplePos(screenWidth, screenHeight, (int) moveInterval);
-    Rectangle apple = { (float) pos.x, (float) pos.y, moveInterval, moveInterval }; // x, y, width, height
+    RandomPos applePos = randomApplePos(screenWidth, screenHeight, (int) moveInterval);
+    Rectangle apple = { (float) applePos.x, (float) applePos.y, moveInterval, moveInterval }; // x, y, width, height
 
     while (!WindowShouldClose())
     {
@@ -150,7 +150,7 @@ int main(void)
         else if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S) && direction != UP) direction = DOWN;
         else if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W) && direction != DOWN) direction = UP;
 
-        // if the apple is overlapping head. I need to add check so it doesn't spawn in the body.
+        // if the apple is overlapping head.
         int appleOverlapSnakeX = (float) snake.head->snake_node.x == apple.x;
         int appleOverlapSnakeY = (float) snake.head->snake_node.y == apple.y;
 
@@ -158,13 +158,13 @@ int main(void)
         {
             score += 1;
             growSnake(&snake);
-            pos = moveApple(apple, &snake, screenWidth, screenHeight, (int) moveInterval);
+            applePos = moveApple(&snake, screenWidth, screenHeight, (int) moveInterval);
 
         }
 
 
-        apple.x = (float) pos.x;
-        apple.y = (float) pos.y;
+        apple.x = (float) applePos.x;
+        apple.y = (float) applePos.y;
 
         snakeHead.x = (float) snake.head->snake_node.x;
         snakeHead.y = (float) snake.head->snake_node.y;

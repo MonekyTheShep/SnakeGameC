@@ -14,7 +14,7 @@ RandomPos randomApplePos(int screenWidth, int screenHeight, int moveInterval)
     return (RandomPos){xIndex * moveInterval, yIndex * moveInterval};
 };
 
-RandomPos moveApple(Rectangle apple, LinkedList *snake, int screenWidth, int screenHeight, int moveInterval) {
+RandomPos moveApple(LinkedList *snake, int screenWidth, int screenHeight, int moveInterval) {
     int validPosition = 0;
     RandomPos pos = {};
     while (!validPosition) {
