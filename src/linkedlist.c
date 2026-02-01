@@ -22,13 +22,13 @@ LinkedList createList(SnakeNode snake_node)
 Node *createNode(SnakeNode snake_node)
 {
     Node *newNode = (Node *)malloc(sizeof(Node));
-    newNode->snake_node = snake_node;
-
+    
     if (!newNode) 
     {
         fprintf(stderr, "Memory allocation failed\n");
         return NULL;
     }
+    newNode->snake_node = snake_node;
 
     return newNode;
 }
