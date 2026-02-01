@@ -12,7 +12,7 @@ RandomPos randomApplePos(int screenWidth, int screenHeight, int moveInterval)
     int yIndex = rand() % yCount;
 
     return (RandomPos){xIndex * moveInterval, yIndex * moveInterval};
-};
+}
 
 RandomPos moveApple(LinkedList *snake, int screenWidth, int screenHeight, int moveInterval) {
     int validPosition = 0;
@@ -33,7 +33,7 @@ RandomPos moveApple(LinkedList *snake, int screenWidth, int screenHeight, int mo
 
         Node *temp = snake->head->next;
 
-        // if apple is touching any part of the tail
+        // if new apple is touching any part of the tail
         while (temp != NULL) {
             int tailOverlapAppleX = temp->snake_node.x == pos.x;
             int tailOverlapAppleY = temp->snake_node.y == pos.y;

@@ -100,7 +100,7 @@ int main(void)
     Rectangle snakeHead = { 0, 0, moveInterval, moveInterval }; // x, y, width, height
 
 
-    RandomPos applePos = randomApplePos(screenWidth, screenHeight, (int) moveInterval);
+    RandomPos applePos = moveApple(&snake, screenWidth, screenHeight, (int) moveInterval);
     Rectangle apple = { (float) applePos.x, (float) applePos.y, moveInterval, moveInterval }; // x, y, width, height
 
     while (!WindowShouldClose())
@@ -146,10 +146,10 @@ int main(void)
         }
 
         // input checking
-        if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D) && direction != LEFT) direction = RIGHT;
-        else if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A) && direction != RIGHT) direction = LEFT;
-        else if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S) && direction != UP) direction = DOWN;
-        else if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W) && direction != DOWN) direction = UP;
+        if (IsKeyDown(KEY_RIGHT) || (IsKeyDown(KEY_D) && direction != LEFT)) direction = RIGHT;
+        else if (IsKeyDown(KEY_LEFT) || (IsKeyDown(KEY_A) && direction != RIGHT)) direction = LEFT;
+        else if (IsKeyDown(KEY_DOWN) || (IsKeyDown(KEY_S) && direction != UP)) direction = DOWN;
+        else if (IsKeyDown(KEY_UP) || (IsKeyDown(KEY_W) && direction != DOWN)) direction = UP;
 
         // if the apple is overlapping head.
         int appleOverlapSnakeX = (float) snake.head->snake_node.x == apple.x;

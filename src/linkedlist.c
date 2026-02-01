@@ -13,6 +13,7 @@ LinkedList createList(SnakeNode snake_node)
         return (LinkedList){NULL, NULL};
     }
 
+    list.head->next = NULL;
     list.head->snake_node = snake_node;
     list.tail = list.head;
     return list;
@@ -55,6 +56,7 @@ Node *insertAtTail(LinkedList *list, SnakeNode snake_node)
     list->tail->next = newNode;
     // replace old tail with new tail
     list->tail = newNode;
+    list->tail->next = NULL;
 
     return newNode;
 }
@@ -85,6 +87,7 @@ Node *insertAtNode(LinkedList *list, Node *node, SnakeNode snake_node)
         list->tail->next = newNode;
         // replace old tail with new tail
         list->tail = newNode;
+        list->tail->next = NULL;
 
         return newNode;
     }
