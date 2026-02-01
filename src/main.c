@@ -13,17 +13,22 @@
 
 const int screenWidth = 800;
 const int screenHeight = 600;
+const float moveInterval = 50;
 
 int gameOver = 0;
 int score = 0;
 
 int verboseMode = 0;
 
-void resetGame(LinkedList *snake, SnakeData *data) {
+void resetGame(LinkedList *snake, Rectangle *apple, SnakeData *data) {
     // reset snake by freeing and creating new snake
 
     *snake = clearList(snake);
     *snake = createSnake();
+    RandomPos pos = moveApple(snake, screenWidth, screenHeight, (int) moveInterval);
+    apple->x = (float) pos.x;
+    apple->y = (float) pos.y;
+
     *data->direction = RIGHT;
     score = 0;
     gameOver = 0;
@@ -34,7 +39,6 @@ int main(void)
     // Initialise SNAKE shit
     LinkedList snake = createSnake();
     enum Direction direction = RIGHT;
-    const float moveInterval = 50;
 
     SnakeData data;
     data.moveInterval = &moveInterval;
@@ -64,13 +68,13 @@ int main(void)
 
         if (gameOver) {
             if (GuiButton((Rectangle){350, 250, 100, 50}, "Reset")) {
-                resetGame(&snake, &data);
+                resetGame(&snake, &apple, &data);
             }
         }
 
         // store prev position then move the snake position x and y
-        int beenOneSecond = accumulatedTime > 0.1f;
-        if (!gameOver && beenOneSecond)
+        int beenTimeInterval = accumulatedTime > 0.1f;
+        if (!gameOver && beenTimeInterval)
         {
             accumulatedTime = 0.0f;
             moveSnake(&data, screenWidth, screenHeight);
