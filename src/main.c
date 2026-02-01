@@ -12,7 +12,10 @@
 const int screenWidth = 800;
 const int screenHeight = 600;
 
+// only one thread can run at once
 int threadRunning = 0;
+int gameOver = 0;
+
 
 void *moveSnake(void *arg)
 {
@@ -31,9 +34,10 @@ void *moveSnake(void *arg)
         temp->snake_node.x = prevX;
         temp->snake_node.y = prevY;
 
-
+        // set prev for next iteration
         prevX = tempPrevX;
         prevY = tempPrevY;
+
 
         temp = temp->next;
 
@@ -55,6 +59,7 @@ void *moveSnake(void *arg)
             tdata->list->head->snake_node.x += (int) *tdata->moveInterval;
             break;
     }
+    
 
     // screen wrapping
     if (tdata->list->head->snake_node.y < 0) tdata->list->head->snake_node.y = screenHeight;
@@ -85,6 +90,7 @@ int main(void)
 
     pthread_t moveSnakeThread;
 
+
     // Initialise Raylib shit
     InitWindow(screenWidth, screenHeight, "Snake Game");
 
@@ -102,21 +108,32 @@ int main(void)
 
         Node *temp = snake.head->next;
 
-        // move tail to previous positions
+        // move tail to previous positions and check if those tails are touching head
         while (temp != NULL) {
 
-            Rectangle tail = { temp->snake_node.x, temp->snake_node.y,  moveInterval,  moveInterval };
+            Rectangle tail = { (float) temp->snake_node.x, (float) temp->snake_node.y,  moveInterval,  moveInterval };
             DrawRectangleRec(tail, BLUE);
 
+            int tailOverlapHeadX = temp->snake_node.x == snake.head->snake_node.x;
+            int tailOverlapHeadY = temp->snake_node.y == snake.head->snake_node.y;
+            int hasTails = sizeOfLinkedList(&snake) != 1;
+
+            if (tailOverlapHeadX && tailOverlapHeadY && hasTails) {
+                gameOver = 1;
+
+            }
 
             temp = temp->next;
         }
 
-        if (!threadRunning)
+        if (!threadRunning && !gameOver)
         {
             threadRunning = true;
             printLinkedList(&snake);
-            pthread_create(&moveSnakeThread, NULL, moveSnake, (void *)&data);
+            printf("%d\n", sizeOfLinkedList(&snake));
+            printf("%d\n", gameOver);
+
+            pthread_create(&moveSnakeThread, NULL, moveSnake, &data);
         }
 
         if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D) && direction != LEFT) direction = RIGHT;
