@@ -24,9 +24,10 @@ pthread_mutex_t snakeMutex;
 
 void resetGame(LinkedList *snake, SnakeData *data) {
     // reset snake by freeing and creating new snake
-    freeLinkedList(snake);
-    *data->direction = RIGHT;
+
+    *snake = clearList(snake);
     *snake = createSnake();
+    *data->direction = RIGHT;
     gameOver = 0;
 }
 void *moveSnake(void *arg)
