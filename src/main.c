@@ -15,7 +15,8 @@ const int screenHeight = 600;
 // only one thread can run at once
 int threadRunning = 0;
 int gameOver = 0;
-int verboseMode = 1;
+
+int verboseMode = 0;
 
 pthread_mutex_t snakeMutex;
 
@@ -63,12 +64,21 @@ void *moveSnake(void *arg)
     }
 
 
-    // screen wrapping
-    if (tdata->list->head->snake_node.y < 0) tdata->list->head->snake_node.y = screenHeight;
-    if (tdata->list->head->snake_node.x < 0) tdata->list->head->snake_node.x = screenWidth;
-    if (tdata->list->head->snake_node.y > screenHeight) tdata->list->head->snake_node.y = 0;
-    if (tdata->list->head->snake_node.x > screenWidth) tdata->list->head->snake_node.x = 0;
-
+    // screen wrapping'
+    if (tdata->list->head->snake_node.y < 0)
+    {
+        tdata->list->head->snake_node.y = screenHeight;
+    }
+    else if (tdata->list->head->snake_node.y >= screenHeight) {
+        tdata->list->head->snake_node.y = 0;
+    }
+    else if (tdata->list->head->snake_node.x < 0)
+    {
+        tdata->list->head->snake_node.x = screenWidth;
+    }
+    else if (tdata->list->head->snake_node.x >= screenWidth) {
+        tdata->list->head->snake_node.x = 0;
+    }
 
 
     usleep(100000);
