@@ -15,6 +15,7 @@ const int screenWidth = 800;
 const int screenHeight = 600;
 
 int gameOver = 0;
+int score = 0;
 
 int verboseMode = 0;
 
@@ -25,6 +26,7 @@ void resetGame(LinkedList *snake, SnakeData *data) {
     *snake = clearList(snake);
     *snake = createSnake();
     *data->direction = RIGHT;
+    score = 0;
     gameOver = 0;
 }
 
@@ -98,7 +100,6 @@ int main(void)
 
     enum Direction direction = RIGHT;
     const float moveInterval = 50;
-    int score = 0;
 
     SnakeData data;
     data.moveInterval = &moveInterval;
@@ -168,7 +169,6 @@ int main(void)
 
             if (tailOverlapHeadX && tailOverlapHeadY && hasTails) {
                 gameOver = 1;
-
             }
 
             temp = temp->next;
