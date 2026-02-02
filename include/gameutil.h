@@ -2,8 +2,8 @@
 
 
 typedef struct GameInfo{
-    int screenWidth;
-    int screenHeight;
-    float moveInterval;
+    const int screenWidth;
+    const int screenHeight;
+    const float moveInterval;
     int musicPlaying;
 } GameInfo;

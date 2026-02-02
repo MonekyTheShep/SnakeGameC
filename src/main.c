@@ -27,12 +27,7 @@ void changeMenu(GameInfo *info, enum MenuStates *menuState, enum MenuStates chan
 // default menu
 enum MenuStates menuState = MAIN_MENU;
 
-const int screenWidth = 800;
-const int screenHeight = 600;
 
-const float moveInterval = 50;
-
-const int maxSize = (screenHeight / (int)moveInterval) * (screenWidth / (int)moveInterval);
 
 int gameOver = 0;
 int score = 0;
@@ -57,22 +52,21 @@ void resetGame(LinkedList *snake, SnakeData *data, GameInfo *info)
 int main(void)
 {
 
+    const int screenWidth = 800;
+    const int screenHeight = 600;
+    const float moveInterval = 50;
+    GameInfo gameInfo = {screenWidth, screenHeight, moveInterval, 0};
+
     // Initialise SNAKE shit
     LinkedList snake = createSnake();
     enum Direction direction = RIGHT;
-
-    GameInfo gameInfo;
-    gameInfo.screenWidth = 800;
-    gameInfo.screenHeight = 600;
-    gameInfo.moveInterval = 50;
-    gameInfo.musicPlaying = 0;
 
     SnakeData data;
     data.moveInterval = gameInfo.moveInterval;
     data.direction = &direction;
     data.list = &snake;
 
-    // Add 1 since snake starts with head
+    const int maxSize = (gameInfo.screenHeight / (int)gameInfo.moveInterval) * (gameInfo.screenWidth / (int)gameInfo.moveInterval);
     const int maxSnakeSize = (score > maxSize);
 
     // Initialise Raylib shit
@@ -101,9 +95,9 @@ int main(void)
 
     SetTargetFPS(60);
 
-    Rectangle snakeHead = {0, 0, moveInterval, moveInterval}; // x, y, width, height
-    RandomPos applePos = moveApple(&snake, screenWidth, screenHeight, (int)moveInterval);
-    Rectangle apple = {(float)applePos.x, (float)applePos.y, moveInterval, moveInterval}; // x, y, width, height
+    Rectangle snakeHead = {0, 0, gameInfo.moveInterval, gameInfo.moveInterval}; // x, y, width, height
+    RandomPos applePos = moveApple(&snake, gameInfo.screenWidth, gameInfo.screenHeight, (int)gameInfo.moveInterval);
+    Rectangle apple = {(float)applePos.x, (float)applePos.y, gameInfo.moveInterval, gameInfo.moveInterval}; // x, y, width, height
 
     float accumulatedTime = 0.0f; // Total elapsed time
     float accumulatedDebounceTime = 0.0f;
@@ -150,8 +144,8 @@ int main(void)
 
             DrawTextEx(font, TextFormat(titleText, score), (Vector2){textXCenter, textYCenter + offsetY}, fontSize, 1, BLACK);
 
-            float buttonCenterX = ((float)screenWidth - buttonWidth) / 2;
-            float buttonCenterY = ((float)screenHeight - buttonHeight) / 2;
+            float buttonCenterX = ((float)gameInfo.screenWidth - buttonWidth) / 2;
+            float buttonCenterY = ((float)gameInfo.screenHeight - buttonHeight) / 2;
             if (GuiButton((Rectangle){buttonCenterX, buttonCenterY, buttonWidth, buttonHeight}, "Start"))
             {
                 printf("clicked button");
@@ -194,7 +188,7 @@ int main(void)
             {
                 length++;
 
-                Rectangle tail = {(float)temp->snake_node.x, (float)temp->snake_node.y, moveInterval, moveInterval};
+                Rectangle tail = {(float)temp->snake_node.x, (float)temp->snake_node.y, gameInfo.moveInterval, gameInfo.moveInterval};
                 DrawRectangleRec(tail, GREEN);
 
                 int tailOverlapHeadX = temp->snake_node.x == snake.head->snake_node.x;
@@ -236,7 +230,7 @@ int main(void)
                 PlaySound(collectSound);
                 score += 1;
                 growSnake(&snake);
-                applePos = moveApple(&snake, gameInfo.screenWidth, gameInfo.screenHeight, (int)moveInterval);
+                applePos = moveApple(&snake, gameInfo.screenWidth, gameInfo.screenHeight, (int)gameInfo.moveInterval);
             }
 
             apple.x = (float)applePos.x;
@@ -254,7 +248,7 @@ int main(void)
                 if (GuiButton((Rectangle){350, 250, 100, 50}, "Reset"))
                 {
                     resetGame(&snake, &data, &gameInfo);
-                    applePos = moveApple(&snake, gameInfo.screenWidth, gameInfo.screenHeight, (int)moveInterval);
+                    applePos = moveApple(&snake, gameInfo.screenWidth, gameInfo.screenHeight, (int)gameInfo.moveInterval);
                     apple.x = (float)applePos.x;
                     apple.y = (float)applePos.y;
                 }
