@@ -19,7 +19,8 @@ int score = 0;
 
 int verboseMode = 0;
 
-void resetGame(LinkedList *snake, SnakeData *data) {
+void resetGame(LinkedList *snake, SnakeData *data)
+{
     // reset snake by freeing and creating new snake
 
     *snake = clearList(snake);
@@ -50,6 +51,7 @@ int main(void)
 
 
     float accumulatedTime = 0.0f; // Total elapsed time
+    float accumulatedDebounceTime = 0.0f;
 
     RandomPos applePos = moveApple(&snake, screenWidth, screenHeight, (int) moveInterval);
     Rectangle apple = { (float) applePos.x, (float) applePos.y, moveInterval, moveInterval }; // x, y, width, height
@@ -58,6 +60,7 @@ int main(void)
     {
         float deltaTime = GetFrameTime(); // Time since last frame
         accumulatedTime += deltaTime;      // Add to total
+        accumulatedDebounceTime += deltaTime;
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -71,7 +74,8 @@ int main(void)
             accumulatedTime = 0.0f;
             moveSnake(&data, screenWidth, screenHeight);
 
-            if (verboseMode) {
+            if (verboseMode)
+            {
                 printLinkedList(&snake);
                 printf("%d\n", sizeOfLinkedList(&snake));
                 printf("%d\n", gameOver);
@@ -83,7 +87,8 @@ int main(void)
         int length = 0;
 
         // move tail to previous positions and check if those tails are touching head
-        while (temp != NULL) {
+        while (temp != NULL)
+        {
             length++;
 
             Rectangle tail = { (float) temp->snake_node.x, (float) temp->snake_node.y,  moveInterval,  moveInterval };
@@ -94,18 +99,23 @@ int main(void)
             int hasTails = length > 1;
             // it has to be longer than 1
 
-            if (tailOverlapHeadX && tailOverlapHeadY && hasTails) {
+            if (tailOverlapHeadX && tailOverlapHeadY && hasTails)
+            {
                 gameOver = 1;
             }
 
             temp = temp->next;
         }
 
-        // input checking
-        if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && direction != LEFT) direction = RIGHT;
-        else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && direction != RIGHT) direction = LEFT;
-        else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && direction != UP) direction = DOWN;
-        else if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && direction != DOWN) direction = UP;
+        if (accumulatedDebounceTime > 0.1f) {
+            accumulatedDebounceTime = 0.0f;
+            // input checking
+            if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && direction != LEFT) direction = RIGHT;
+            else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && direction != RIGHT) direction = LEFT;
+            else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && direction != UP) direction = DOWN;
+            else if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && direction != DOWN) direction = UP;
+        }
+
 
         // if the apple is overlapping head.
         int appleOverlapSnakeX = (float) snake.head->snake_node.x == apple.x;
@@ -130,8 +140,10 @@ int main(void)
         // Draw the snake head as dark green square.
         DrawRectangleRec(snakeHead, DARKGREEN);
 
-        if (gameOver) {
-            if (GuiButton((Rectangle){350, 250, 100, 50}, "Reset")) {
+        if (gameOver)
+        {
+            if (GuiButton((Rectangle){350, 250, 100, 50}, "Reset"))
+            {
                 resetGame(&snake, &data);
                 applePos = moveApple(&snake, screenWidth, screenHeight, (int) moveInterval);
                 apple.x = (float) applePos.x;
