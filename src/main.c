@@ -53,7 +53,7 @@ int main(void)
 
 
     Sound collectSound = LoadSound(ASSETS_PATH"collectsound.ogg");
-    Sound explosionSound  = LoadSound(ASSETS_PATH"explosionsound.ogg");
+    Sound explosionSound = LoadSound(ASSETS_PATH"explosionsound.ogg");
 
     Music mainMenuSound = LoadMusicStream(ASSETS_PATH"mainmenu.ogg");
     Music gameMusicSound = LoadMusicStream(ASSETS_PATH"gamemusic.ogg");
@@ -134,16 +134,17 @@ int main(void)
             int hasTails = length > 1;
             // it has to be longer than 1
 
-            if (tailOverlapHeadX && tailOverlapHeadY && hasTails)
+            if (tailOverlapHeadX && tailOverlapHeadY && hasTails && !gameOver)
             {
-                PlaySound(explosionSound);
                 gameOver = 1;
+                PlaySound(explosionSound);
+                break;
             }
 
             temp = temp->next;
         }
 
-        if (accumulatedDebounceTime > 0.1f) {
+        if (accumulatedDebounceTime > 0.1f  && !gameOver) {
             accumulatedDebounceTime = 0.0f;
             // input checking
             if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && direction != LEFT) direction = RIGHT;
@@ -157,14 +158,14 @@ int main(void)
         int appleOverlapSnakeX = (float) snake.head->snake_node.x == apple.x;
         int appleOverlapSnakeY = (float) snake.head->snake_node.y == apple.y;
 
-        if (appleOverlapSnakeX && appleOverlapSnakeY)
+        if (appleOverlapSnakeX && appleOverlapSnakeY && !gameOver)
         {
             PlaySound(collectSound);
             score += 1;
             growSnake(&snake);
             applePos = moveApple(&snake, screenWidth, screenHeight, (int) moveInterval);
-
         }
+
 
         apple.x = (float) applePos.x;
         apple.y = (float) applePos.y;
