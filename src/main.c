@@ -72,16 +72,16 @@ int main(void)
     InitAudioDevice();
 
     // load sounds
-    Sound collectSound = LoadSound(ASSETS_PATH "/sounds/collectsound.ogg");
-    Sound explosionSound = LoadSound(ASSETS_PATH "/sounds/explosionsound.ogg");
+    Sound collectSound = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
+    Sound explosionSound = LoadSound(ASSETS_PATH "/sounds/explosion_sound.ogg");
 
     Sound sounds[2];
     sounds[0] = collectSound;
     sounds[1] = explosionSound;
 
     // load musics
-    Music mainMenuSound = LoadMusicStream(ASSETS_PATH "/music/mainmenu.ogg");
-    Music gameMusicSound = LoadMusicStream(ASSETS_PATH "/music/gamemusic.ogg");
+    Music mainMenuSound = LoadMusicStream(ASSETS_PATH "/music/main_menu.ogg");
+    Music gameMusicSound = LoadMusicStream(ASSETS_PATH "/music/game_music.ogg");
 
     Music musics[2];
     musics[0] = mainMenuSound;
@@ -146,7 +146,6 @@ int main(void)
             float buttonCenterY = ((float)gameInfo.screenHeight - buttonHeight) / 2;
             if (GuiButton((Rectangle){buttonCenterX, buttonCenterY, buttonWidth, buttonHeight}, "Start"))
             {
-                printf("clicked button");
                 changeMenu(&gameInfo, &menuState, GAME_MENU);
             }
         }
