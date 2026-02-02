@@ -28,6 +28,13 @@ int score = 0;
 
 int verboseMode = 0;
 
+
+
+void changeMenu (enum MenuStates changeState) {
+    menuState = changeState;
+    musicPlaying = 0;
+}
+
 void resetGame(LinkedList *snake, SnakeData *data)
 {
     // reset snake by freeing and creating new snake
@@ -38,13 +45,9 @@ void resetGame(LinkedList *snake, SnakeData *data)
     *data->direction = RIGHT;
     score = 0;
     gameOver = 0;
+    changeMenu(MAIN_MENU);
 }
 
-
-void changeMenu (enum MenuStates changeState) {
-    menuState = changeState;
-    musicPlaying = 0;
-}
 
 int main(void)
 {
