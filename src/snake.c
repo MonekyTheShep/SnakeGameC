@@ -19,14 +19,13 @@ int growSnake(LinkedList *snake)
 }
 
 
-void moveSnake(void *arg, int screenWidth, int screenHeight)
+void moveSnake(LinkedList *snake, SnakeData *data, int screenWidth, int screenHeight)
 {
-    const SnakeData *tdata=(SnakeData *)arg;
 
     // store previous values before moving
-    Node *temp = tdata->list->head->next;
-    int prevX = tdata->list->head->snake_node.x;
-    int prevY = tdata->list->head->snake_node.y;
+    Node *temp = snake->head->next;
+    int prevX = snake->head->snake_node.x;
+    int prevY = snake->head->snake_node.y;
 
     while (temp != NULL)
     {
@@ -46,37 +45,37 @@ void moveSnake(void *arg, int screenWidth, int screenHeight)
     }
 
     // move the head
-    switch (*tdata->direction)
+    switch (*data->direction)
     {
         case UP:
-            tdata->list->head->snake_node.y -= (int) tdata->moveInterval;
+            snake->head->snake_node.y -= (int) data->moveInterval;
             break;
         case DOWN:
-            tdata->list->head->snake_node.y += (int) tdata->moveInterval;
+            snake->head->snake_node.y += (int) data->moveInterval;
             break;
         case LEFT:
-            tdata->list->head->snake_node.x -= (int) tdata->moveInterval;
+            snake->head->snake_node.x -= (int) data->moveInterval;
             break;
         case RIGHT:
-            tdata->list->head->snake_node.x += (int) tdata->moveInterval;
+            snake->head->snake_node.x += (int) data->moveInterval;
             break;
     }
 
 
     // screen wrapping'
-    if (tdata->list->head->snake_node.y < 0)
+    if (snake->head->snake_node.y < 0)
     {
-        tdata->list->head->snake_node.y = screenHeight;
+        snake->head->snake_node.y = screenHeight;
     }
-    else if (tdata->list->head->snake_node.y >= screenHeight) {
-        tdata->list->head->snake_node.y = 0;
+    else if (data->list->head->snake_node.y >= screenHeight) {
+        snake->head->snake_node.y = 0;
     }
-    else if (tdata->list->head->snake_node.x < 0)
+    else if (snake->head->snake_node.x < 0)
     {
-        tdata->list->head->snake_node.x = screenWidth;
+        snake->head->snake_node.x = screenWidth;
     }
-    else if (tdata->list->head->snake_node.x >= screenWidth) {
-        tdata->list->head->snake_node.x = 0;
+    else if (data->list->head->snake_node.x >= screenWidth) {
+        snake->head->snake_node.x = 0;
     }
 
 }

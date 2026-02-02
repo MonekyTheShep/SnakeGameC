@@ -108,10 +108,6 @@ int main(void)
 
     while (!WindowShouldClose())
     {
-        float deltaTime = GetFrameTime(); // Time since last frame
-        accumulatedTime += deltaTime;     // Add to total
-        accumulatedDebounceTime += deltaTime;
-
         UpdateMusicStream(*currentMusic);
 
         BeginDrawing();
@@ -162,6 +158,10 @@ int main(void)
 
         if (menuState == GAME_MENU)
         {
+            float deltaTime = GetFrameTime(); // Time since last frame
+            accumulatedTime += deltaTime;     // Add to total
+            accumulatedDebounceTime += deltaTime;
+
             if (maxSnakeSize)
             {
                 gameOver = 1;
@@ -172,7 +172,7 @@ int main(void)
             if (!gameOver && beenTimeInterval)
             {
                 accumulatedTime = 0.0f;
-                moveSnake(&data, info.screenWidth, info.screenHeight);
+                moveSnake(&snake, &data, info.screenWidth, info.screenHeight);
 
                 if (verboseMode)
                 {
@@ -250,7 +250,7 @@ int main(void)
             {
                 if (GuiButton((Rectangle){350, 250, 100, 50}, "Reset"))
                 {
-                    // resetGame(&snake, &data, &info);
+                    resetGame(&snake, &data);
                     applePos = moveApple(&snake, info.screenWidth, info.screenHeight, (int)moveInterval);
                     apple.x = (float)applePos.x;
                     apple.y = (float)applePos.y;
