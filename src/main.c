@@ -10,16 +10,18 @@
 #include "apple.h"
 
 enum MenuStates {
-    MAIN_MENU, GAME
+    MAIN_MENU, GAME_MENU
 };
+
+enum MenuStates menuState = MAIN_MENU;
+
+int musicPlaying = 0;
 
 const int screenWidth = 800;
 const int screenHeight = 600;
 
 const float moveInterval = 50;
 const int maxSize =  (screenHeight / (int) moveInterval) * ( screenWidth / (int) moveInterval);
-
-enum MenuStates menuState = MAIN_MENU;
 
 int gameOver = 0;
 int score = 0;
@@ -38,6 +40,11 @@ void resetGame(LinkedList *snake, SnakeData *data)
     gameOver = 0;
 }
 
+
+void changeMenu (enum MenuStates changeState) {
+    menuState = changeState;
+    musicPlaying = 0;
+}
 
 int main(void)
 {
@@ -97,13 +104,29 @@ int main(void)
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
+        // music management
+        if (!musicPlaying)
+        switch (menuState) {
+            case MAIN_MENU:
+                musicPlaying = 1;
+                StopMusicStream(*currentMusic);
+                currentMusic = &mainMenuSound;
+                PlayMusicStream(*currentMusic);
+                break;
+            case GAME_MENU:
+                musicPlaying = 1;
+                StopMusicStream(*currentMusic);
+                currentMusic = &gameMusicSound;
+                PlayMusicStream(*currentMusic);
+                break;
+        }
 
         if (menuState == MAIN_MENU)
         {
             const float buttonWidth = 100;
             const float buttonHeight = 50;
 
-            const char titleText[50] = "Snake Game";
+            const char titleText[11] = "Snake Game";
             const float fontSize = 50;
 
             Font font = GetFontDefault();
@@ -119,11 +142,7 @@ int main(void)
             float buttonCenterY = ((float) screenHeight - buttonHeight) / 2;
             if (GuiButton((Rectangle){ buttonCenterX,buttonCenterY, buttonWidth, buttonHeight}, "Start"))
             {
-                menuState = GAME;
-                StopMusicStream(*currentMusic);
-                currentMusic = &gameMusicSound;
-                PlayMusicStream(*currentMusic);
-
+                changeMenu(GAME_MENU);
             }
             EndDrawing();
             continue;
