@@ -55,16 +55,16 @@ int main(void)
     InitAudioDevice();
 
     // load sounds
-    Sound collectSound = LoadSound(ASSETS_PATH"collectsound.ogg");
-    Sound explosionSound = LoadSound(ASSETS_PATH"explosionsound.ogg");
+    Sound collectSound = LoadSound(ASSETS_PATH"/sounds/collectsound.ogg");
+    Sound explosionSound = LoadSound(ASSETS_PATH"/sounds/explosionsound.ogg");
 
     Sound sounds[2];
     sounds[0] = collectSound;
     sounds[1] = explosionSound;
 
     // load musics
-    Music mainMenuSound = LoadMusicStream(ASSETS_PATH"mainmenu.ogg");
-    Music gameMusicSound = LoadMusicStream(ASSETS_PATH"gamemusic.ogg");
+    Music mainMenuSound = LoadMusicStream(ASSETS_PATH"/music/mainmenu.ogg");
+    Music gameMusicSound = LoadMusicStream(ASSETS_PATH"/music/gamemusic.ogg");
 
     Music musics[2];
     musics[0] = mainMenuSound;
