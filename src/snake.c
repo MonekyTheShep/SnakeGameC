@@ -49,16 +49,16 @@ void moveSnake(void *arg, int screenWidth, int screenHeight)
     switch (*tdata->direction)
     {
         case UP:
-            tdata->list->head->snake_node.y -= (int) *tdata->moveInterval;
+            tdata->list->head->snake_node.y -= (int) tdata->moveInterval;
             break;
         case DOWN:
-            tdata->list->head->snake_node.y += (int) *tdata->moveInterval;
+            tdata->list->head->snake_node.y += (int) tdata->moveInterval;
             break;
         case LEFT:
-            tdata->list->head->snake_node.x -= (int) *tdata->moveInterval;
+            tdata->list->head->snake_node.x -= (int) tdata->moveInterval;
             break;
         case RIGHT:
-            tdata->list->head->snake_node.x += (int) *tdata->moveInterval;
+            tdata->list->head->snake_node.x += (int) tdata->moveInterval;
             break;
     }
 
