@@ -1,5 +1,4 @@
 #pragma once
-#include "raylib.h"
 #include "linkedlist.h"
 
 typedef struct RandomPos {
