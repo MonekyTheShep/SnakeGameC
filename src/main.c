@@ -128,9 +128,6 @@ int main(void)
 
         if (menuState == MAIN_MENU)
         {
-            const float buttonWidth = 100;
-            const float buttonHeight = 50;
-
             const char titleText[11] = "Snake Game";
             const float fontSize = 50;
 
@@ -142,6 +139,8 @@ int main(void)
 
             DrawTextEx(font, TextFormat(titleText, score), (Vector2){textXCenter, textYCenter + offsetY}, fontSize, 1, BLACK);
 
+            const float buttonWidth = 100;
+            const float buttonHeight = 50;
             float buttonCenterX = ((float)gameInfo.screenWidth - buttonWidth) / 2;
             float buttonCenterY = ((float)gameInfo.screenHeight - buttonHeight) / 2;
             if (GuiButton((Rectangle){buttonCenterX, buttonCenterY, buttonWidth, buttonHeight}, "Start"))

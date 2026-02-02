@@ -19,7 +19,7 @@ int growSnake(LinkedList *snake)
 }
 
 
-void moveSnake(LinkedList *snake, SnakeData *data, int screenWidth, int screenHeight)
+void moveSnake(const LinkedList *snake, const SnakeData *data, const int screenWidth, const int screenHeight)
 {
 
     // store previous values before moving

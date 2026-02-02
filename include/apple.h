@@ -10,4 +10,4 @@ typedef struct RandomPos {
 
 RandomPos randomApplePos(int screenWidth, int screenHeight, int moveInterval);
 
-RandomPos moveApple(LinkedList *snake, int screenWidth, int screenHeight, int moveInterval);
+RandomPos moveApple(const LinkedList *snake, int screenWidth, int screenHeight, int moveInterval);

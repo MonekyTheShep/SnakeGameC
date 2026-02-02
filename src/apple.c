@@ -3,18 +3,18 @@
 #include "apple.h"
 
 
-RandomPos randomApplePos(int screenWidth, int screenHeight, int moveInterval)
+RandomPos randomApplePos(const int screenWidth, const int screenHeight, const int moveInterval)
 {
-    int xCount = screenWidth / moveInterval;
-    int xIndex = rand() % xCount;
+    const int xCount = screenWidth / moveInterval;
+    const int xIndex = rand() % xCount;
 
-    int yCount = screenHeight / moveInterval;
-    int yIndex = rand() % yCount;
+    const int yCount = screenHeight / moveInterval;
+    const int yIndex = rand() % yCount;
 
     return (RandomPos){xIndex * moveInterval, yIndex * moveInterval};
 }
 
-RandomPos moveApple(LinkedList *snake, int screenWidth, int screenHeight, int moveInterval) {
+RandomPos moveApple(const LinkedList *snake, const int screenWidth, const int screenHeight, const int moveInterval) {
     int validPosition = 0;
     RandomPos pos = randomApplePos(screenWidth, screenHeight, moveInterval);
     while (!validPosition) {
