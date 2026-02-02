@@ -114,10 +114,8 @@ int main(void)
             continue;
         }
 
-
-        printf("Max size: %d\n", maxSize);
-
-        if (maxSnakeSize) {
+        if (maxSnakeSize)
+        {
             gameOver = 1;
         }
 
@@ -219,13 +217,15 @@ int main(void)
     // unload all sounds in array of Sound
     int lengthOfSound = sizeof(sounds)/sizeof(sounds[0]);
 
-    for (int i=0; i<lengthOfSound; i++) {
+    for (int i=0; i<lengthOfSound; i++)
+    {
         UnloadSound(sounds[i]);
     }
 
     // unload all music in array of Music
     int lengthOfMusic = sizeof(musics)/sizeof(musics[0]);
-    for (int i=0; i<lengthOfMusic; i++) {
+    for (int i=0; i<lengthOfMusic; i++)
+    {
         UnloadMusicStream(musics[i]);
     }
 
