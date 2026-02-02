@@ -248,8 +248,7 @@ int sizeOfLinkedList(LinkedList *list)
 
     while (temp != NULL)
     {
-        if (temp->next != NULL)
-            size++;
+        size++;
 
         temp = temp->next;
     }
