@@ -11,6 +11,10 @@
 #include "snake.h"
 #include "apple.h"
 
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
+#define MOVE_INTERVAL 50
+
 
 enum MenuStates
 {
@@ -26,8 +30,6 @@ void changeMenu(GameInfo *info, enum MenuStates *menuState, enum MenuStates chan
 
 // default menu
 enum MenuStates menuState = MAIN_MENU;
-
-
 
 int gameOver = 0;
 int score = 0;
@@ -51,11 +53,7 @@ void resetGame(LinkedList *snake, SnakeData *data, GameInfo *info)
 
 int main(void)
 {
-
-    const int screenWidth = 800;
-    const int screenHeight = 600;
-    const float moveInterval = 50;
-    GameInfo gameInfo = {screenWidth, screenHeight, moveInterval, 0};
+    GameInfo gameInfo = {SCREEN_WIDTH, SCREEN_HEIGHT, MOVE_INTERVAL, 0};
 
     // Initialise SNAKE shit
     LinkedList snake = createSnake();
