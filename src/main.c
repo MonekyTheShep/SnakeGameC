@@ -10,6 +10,7 @@
 #include "apple.h"
 
 
+
 enum MenuStates {
     MAIN_MENU, GAME
 };
@@ -17,6 +18,8 @@ enum MenuStates {
 const int screenWidth = 800;
 const int screenHeight = 600;
 const float moveInterval = 50;
+
+enum MenuStates menuState = MAIN_MENU;
 
 int gameOver = 0;
 int score = 0;
@@ -35,12 +38,12 @@ void resetGame(LinkedList *snake, SnakeData *data)
     gameOver = 0;
 }
 
+
 int main(void)
 {
     // Initialise SNAKE shit
     LinkedList snake = createSnake();
     enum Direction direction = RIGHT;
-    enum MenuStates menuState = MAIN_MENU;
 
     SnakeData data;
     data.moveInterval = &moveInterval;
@@ -51,27 +54,33 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "Snake Game");
     InitAudioDevice();
 
-
+    // load sounds
     Sound collectSound = LoadSound(ASSETS_PATH"collectsound.ogg");
     Sound explosionSound = LoadSound(ASSETS_PATH"explosionsound.ogg");
 
+    Sound sounds[2];
+    sounds[0] = collectSound;
+    sounds[1] = explosionSound;
+
+    // load musics
     Music mainMenuSound = LoadMusicStream(ASSETS_PATH"mainmenu.ogg");
     Music gameMusicSound = LoadMusicStream(ASSETS_PATH"gamemusic.ogg");
 
-    Music *currentMusic = &mainMenuSound;
+    Music musics[2];
+    musics[0] = mainMenuSound;
+    musics[1] = gameMusicSound;
 
+    Music *currentMusic = &mainMenuSound;
     PlayMusicStream(*currentMusic);
 
     SetTargetFPS(60);
 
     Rectangle snakeHead = { 0, 0, moveInterval, moveInterval }; // x, y, width, height
-
+    RandomPos applePos = moveApple(&snake, screenWidth, screenHeight, (int) moveInterval);
+    Rectangle apple = { (float) applePos.x, (float) applePos.y, moveInterval, moveInterval }; // x, y, width, height
 
     float accumulatedTime = 0.0f; // Total elapsed time
     float accumulatedDebounceTime = 0.0f;
-
-    RandomPos applePos = moveApple(&snake, screenWidth, screenHeight, (int) moveInterval);
-    Rectangle apple = { (float) applePos.x, (float) applePos.y, moveInterval, moveInterval }; // x, y, width, height
 
     while (!WindowShouldClose())
     {
@@ -88,7 +97,7 @@ int main(void)
         {
             const float buttonWidth = 100;
             const float buttonHeight = 50;
-            if (GuiButton((Rectangle){ ((float) screenWidth - buttonWidth) / 2, ((float) screenHeight - buttonHeight) / 2, buttonWidth, buttonHeight}, "Start"))
+            if (GuiButton((Rectangle){ ((float) screenWidth - buttonWidth) / 2,((float) screenHeight - buttonHeight) / 2, buttonWidth, buttonHeight}, "Start"))
             {
                 menuState = GAME;
                 StopMusicStream(*currentMusic);
@@ -99,7 +108,6 @@ int main(void)
             EndDrawing();
             continue;
         }
-
 
 
         // store prev position then move the snake position x and y
@@ -134,6 +142,7 @@ int main(void)
             int hasTails = length > 1;
             // it has to be longer than 1
 
+            // if tail overlaps head then it should game over and play death sound
             if (tailOverlapHeadX && tailOverlapHeadY && hasTails && !gameOver)
             {
                 gameOver = 1;
@@ -195,10 +204,19 @@ int main(void)
         EndDrawing();
     }
 
-    UnloadSound(explosionSound);
-    UnloadSound(collectSound);
-    UnloadMusicStream(gameMusicSound);
-    UnloadMusicStream(mainMenuSound);
+
+    // unload all sounds in array of Sound
+    int lengthOfSound = sizeof(sounds)/sizeof(sounds[0]);
+
+    for (int i=0; i<lengthOfSound; i++) {
+        UnloadSound(sounds[i]);
+    }
+
+    // unload all music in array of Music
+    int lengthOfMusic = sizeof(musics)/sizeof(musics[0]);
+    for (int i=0; i<lengthOfMusic; i++) {
+        UnloadMusicStream(musics[i]);
+    }
 
     CloseAudioDevice();
     CloseWindow();
