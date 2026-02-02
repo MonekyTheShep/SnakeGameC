@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <pthread.h>
-#include <unistd.h>
 
 #include <raylib.h>
 #define RAYGUI_IMPLEMENTATION
@@ -25,8 +24,6 @@ void resetGame(LinkedList *snake, SnakeData *data) {
 
     *snake = clearList(snake);
     *snake = createSnake();
-
-
 
     *data->direction = RIGHT;
     score = 0;
@@ -65,14 +62,7 @@ int main(void)
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
-        if (gameOver) {
-            if (GuiButton((Rectangle){350, 250, 100, 50}, "Reset")) {
-                resetGame(&snake, &data);
-                applePos = moveApple(&snake, screenWidth, screenHeight, (int) moveInterval);
-                apple.x = (float) applePos.x;
-                apple.y = (float) applePos.y;
-            }
-        }
+
 
         // store prev position then move the snake position x and y
         int beenTimeInterval = accumulatedTime > 0.1f;
@@ -139,6 +129,16 @@ int main(void)
         DrawRectangleRec(apple, RED);
         // Draw the snake head as dark green square.
         DrawRectangleRec(snakeHead, DARKGREEN);
+
+        if (gameOver) {
+            if (GuiButton((Rectangle){350, 250, 100, 50}, "Reset")) {
+                resetGame(&snake, &data);
+                applePos = moveApple(&snake, screenWidth, screenHeight, (int) moveInterval);
+                apple.x = (float) applePos.x;
+                apple.y = (float) applePos.y;
+            }
+        }
+
 
         DrawText(TextFormat("Score: %0i", score), 0, 0, 50, BLACK);
 
