@@ -9,15 +9,15 @@
 #include "snake.h"
 #include "apple.h"
 
-
-
 enum MenuStates {
     MAIN_MENU, GAME
 };
 
 const int screenWidth = 800;
 const int screenHeight = 600;
-const float moveInterval = 50;
+
+const float moveInterval = 100;
+const int maxSize =  (screenHeight / (int) moveInterval) * ( screenWidth / (int) moveInterval);
 
 enum MenuStates menuState = MAIN_MENU;
 
@@ -50,6 +50,9 @@ int main(void)
     data.direction = &direction;
     data.list = &snake;
 
+    // Add 1 since snake starts with head
+    const int maxSnakeSize = (score > maxSize);
+
     // Initialise Raylib shit
     InitWindow(screenWidth, screenHeight, "Snake Game");
     InitAudioDevice();
@@ -81,6 +84,7 @@ int main(void)
 
     float accumulatedTime = 0.0f; // Total elapsed time
     float accumulatedDebounceTime = 0.0f;
+    const float moveTimeInterval = 0.1f;
 
     while (!WindowShouldClose())
     {
@@ -92,6 +96,7 @@ int main(void)
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
+
 
         if (menuState == MAIN_MENU)
         {
@@ -110,8 +115,14 @@ int main(void)
         }
 
 
+        printf("Max size: %d\n", maxSize);
+
+        if (maxSnakeSize) {
+            gameOver = 1;
+        }
+
         // store prev position then move the snake position x and y
-        int beenTimeInterval = accumulatedTime > 0.1f;
+        int beenTimeInterval = accumulatedTime > moveTimeInterval;
         if (!gameOver && beenTimeInterval)
         {
             accumulatedTime = 0.0f;
@@ -153,9 +164,9 @@ int main(void)
             temp = temp->next;
         }
 
-        if (accumulatedDebounceTime > 0.1f  && !gameOver) {
+        // input checking
+        if (accumulatedDebounceTime > moveTimeInterval  && !gameOver) {
             accumulatedDebounceTime = 0.0f;
-            // input checking
             if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && direction != LEFT) direction = RIGHT;
             else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && direction != RIGHT) direction = LEFT;
             else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && direction != UP) direction = DOWN;
