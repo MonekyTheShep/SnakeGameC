@@ -39,7 +39,7 @@ int score = 0;
 
 int verboseMode = 0;
 
-void resetGame(LinkedList *snake, SnakeData *data)
+void resetGame(LinkedList *snake, SnakeData *data, GameInfo *info)
 {
     // reset snake by freeing and creating new snake
 
@@ -49,6 +49,9 @@ void resetGame(LinkedList *snake, SnakeData *data)
     *data->direction = RIGHT;
     score = 0;
     gameOver = 0;
+    info->musicPlaying = 0;
+
+    menuState = MAIN_MENU;
 }
 
 int main(void)
@@ -58,14 +61,14 @@ int main(void)
     LinkedList snake = createSnake();
     enum Direction direction = RIGHT;
 
-    GameInfo info;
-    info.screenWidth = 800;
-    info.screenHeight = 600;
-    info.moveInterval = 50;
-    info.musicPlaying = 0;
+    GameInfo gameInfo;
+    gameInfo.screenWidth = 800;
+    gameInfo.screenHeight = 600;
+    gameInfo.moveInterval = 50;
+    gameInfo.musicPlaying = 0;
 
     SnakeData data;
-    data.moveInterval = info.moveInterval;
+    data.moveInterval = gameInfo.moveInterval;
     data.direction = &direction;
     data.list = &snake;
 
@@ -73,7 +76,7 @@ int main(void)
     const int maxSnakeSize = (score > maxSize);
 
     // Initialise Raylib shit
-    InitWindow(info.screenWidth, info.screenHeight, "Snake Game");
+    InitWindow(gameInfo.screenWidth, gameInfo.screenHeight, "Snake Game");
     InitAudioDevice();
 
     // load sounds
@@ -94,7 +97,7 @@ int main(void)
 
     Music *currentMusic = &mainMenuSound;
     PlayMusicStream(*currentMusic);
-    info.musicPlaying = 1;
+    gameInfo.musicPlaying = 1;
 
     SetTargetFPS(60);
 
@@ -114,17 +117,17 @@ int main(void)
         ClearBackground(RAYWHITE);
 
         // music management
-        if (!info.musicPlaying)
+        if (!gameInfo.musicPlaying)
             switch (menuState)
             {
             case MAIN_MENU:
-                info.musicPlaying = 1;
+                gameInfo.musicPlaying = 1;
                 StopMusicStream(*currentMusic);
                 currentMusic = &mainMenuSound;
                 PlayMusicStream(*currentMusic);
                 break;
             case GAME_MENU:
-                info.musicPlaying = 1;
+                gameInfo.musicPlaying = 1;
                 StopMusicStream(*currentMusic);
                 currentMusic = &gameMusicSound;
                 PlayMusicStream(*currentMusic);
@@ -152,7 +155,7 @@ int main(void)
             if (GuiButton((Rectangle){buttonCenterX, buttonCenterY, buttonWidth, buttonHeight}, "Start"))
             {
                 printf("clicked button");
-                changeMenu(&info, &menuState, GAME_MENU);
+                changeMenu(&gameInfo, &menuState, GAME_MENU);
             }
         }
 
@@ -172,7 +175,7 @@ int main(void)
             if (!gameOver && beenTimeInterval)
             {
                 accumulatedTime = 0.0f;
-                moveSnake(&snake, &data, info.screenWidth, info.screenHeight);
+                moveSnake(&snake, &data, gameInfo.screenWidth, gameInfo.screenHeight);
 
                 if (verboseMode)
                 {
@@ -233,7 +236,7 @@ int main(void)
                 PlaySound(collectSound);
                 score += 1;
                 growSnake(&snake);
-                applePos = moveApple(&snake, info.screenWidth, info.screenHeight, (int)moveInterval);
+                applePos = moveApple(&snake, gameInfo.screenWidth, gameInfo.screenHeight, (int)moveInterval);
             }
 
             apple.x = (float)applePos.x;
@@ -250,8 +253,8 @@ int main(void)
             {
                 if (GuiButton((Rectangle){350, 250, 100, 50}, "Reset"))
                 {
-                    resetGame(&snake, &data);
-                    applePos = moveApple(&snake, info.screenWidth, info.screenHeight, (int)moveInterval);
+                    resetGame(&snake, &data, &gameInfo);
+                    applePos = moveApple(&snake, gameInfo.screenWidth, gameInfo.screenHeight, (int)moveInterval);
                     apple.x = (float)applePos.x;
                     apple.y = (float)applePos.y;
                 }
