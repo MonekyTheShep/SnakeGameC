@@ -16,7 +16,7 @@ enum MenuStates {
 const int screenWidth = 800;
 const int screenHeight = 600;
 
-const float moveInterval = 100;
+const float moveInterval = 50;
 const int maxSize =  (screenHeight / (int) moveInterval) * ( screenWidth / (int) moveInterval);
 
 enum MenuStates menuState = MAIN_MENU;
