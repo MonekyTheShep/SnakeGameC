@@ -10,6 +10,10 @@
 #include "apple.h"
 
 
+enum MenuStates {
+    MAIN_MENU, GAME
+};
+
 const int screenWidth = 800;
 const int screenHeight = 600;
 const float moveInterval = 50;
@@ -36,6 +40,7 @@ int main(void)
     // Initialise SNAKE shit
     LinkedList snake = createSnake();
     enum Direction direction = RIGHT;
+    enum MenuStates menuState = MAIN_MENU;
 
     SnakeData data;
     data.moveInterval = &moveInterval;
@@ -44,6 +49,18 @@ int main(void)
 
     // Initialise Raylib shit
     InitWindow(screenWidth, screenHeight, "Snake Game");
+    InitAudioDevice();
+
+
+    Sound collectSound = LoadSound(ASSETS_PATH"collectsound.ogg");
+    Sound explosionSound  = LoadSound(ASSETS_PATH"explosionsound.ogg");
+
+    Music mainMenuSound = LoadMusicStream(ASSETS_PATH"mainmenu.ogg");
+    Music gameMusicSound = LoadMusicStream(ASSETS_PATH"gamemusic.ogg");
+
+    Music *currentMusic = &mainMenuSound;
+
+    PlayMusicStream(*currentMusic);
 
     SetTargetFPS(60);
 
@@ -62,8 +79,26 @@ int main(void)
         accumulatedTime += deltaTime;      // Add to total
         accumulatedDebounceTime += deltaTime;
 
+        UpdateMusicStream(*currentMusic);
+
         BeginDrawing();
         ClearBackground(RAYWHITE);
+
+        if (menuState == MAIN_MENU)
+        {
+            const float buttonWidth = 100;
+            const float buttonHeight = 50;
+            if (GuiButton((Rectangle){ ((float) screenWidth - buttonWidth) / 2, ((float) screenHeight - buttonHeight) / 2, buttonWidth, buttonHeight}, "Start"))
+            {
+                menuState = GAME;
+                StopMusicStream(*currentMusic);
+                currentMusic = &gameMusicSound;
+                PlayMusicStream(*currentMusic);
+
+            }
+            EndDrawing();
+            continue;
+        }
 
 
 
@@ -101,6 +136,7 @@ int main(void)
 
             if (tailOverlapHeadX && tailOverlapHeadY && hasTails)
             {
+                PlaySound(explosionSound);
                 gameOver = 1;
             }
 
@@ -123,6 +159,7 @@ int main(void)
 
         if (appleOverlapSnakeX && appleOverlapSnakeY)
         {
+            PlaySound(collectSound);
             score += 1;
             growSnake(&snake);
             applePos = moveApple(&snake, screenWidth, screenHeight, (int) moveInterval);
@@ -157,6 +194,12 @@ int main(void)
         EndDrawing();
     }
 
+    UnloadSound(explosionSound);
+    UnloadSound(collectSound);
+    UnloadMusicStream(gameMusicSound);
+    UnloadMusicStream(mainMenuSound);
+
+    CloseAudioDevice();
     CloseWindow();
 
     freeLinkedList(&snake);
