@@ -102,7 +102,21 @@ int main(void)
         {
             const float buttonWidth = 100;
             const float buttonHeight = 50;
-            if (GuiButton((Rectangle){ ((float) screenWidth - buttonWidth) / 2,((float) screenHeight - buttonHeight) / 2, buttonWidth, buttonHeight}, "Start"))
+            const char titleText[50] = "Snake Game";
+            const float fontSize = 50;
+
+            Font font = GetFontDefault();
+            Vector2 size = MeasureTextEx(font, titleText, fontSize, 0);
+            float textXCenter = ((float) GetScreenWidth()  - size.x) / 2;
+            float textYCenter  = ((float) GetScreenHeight() - size.y) / 2;
+            float offsetY = -50;
+
+            DrawTextEx(font, TextFormat(titleText, score), (Vector2){ textXCenter, textYCenter + offsetY }, fontSize, 1, BLACK);
+
+
+            float buttonCenterX = (float) screenWidth - buttonWidth / 2;
+            float buttonCenterY = (float) screenHeight - buttonHeight / 2;
+            if (GuiButton((Rectangle){buttonCenterX, buttonCenterY, buttonWidth, buttonHeight}, "Start"))
             {
                 menuState = GAME;
                 StopMusicStream(*currentMusic);
