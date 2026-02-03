@@ -211,20 +211,6 @@ int main(void)
                 temp = temp->next;
             }
 
-            // input checking
-            if (accumulatedDebounceTime > moveTimeInterval && !gameOver)
-            {
-                accumulatedDebounceTime = 0.0f;
-                if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && direction != LEFT)
-                    direction = RIGHT;
-                else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && direction != RIGHT)
-                    direction = LEFT;
-                else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && direction != UP)
-                    direction = DOWN;
-                else if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && direction != DOWN)
-                    direction = UP;
-            }
-
             // if the apple is overlapping head.
             int appleOverlapSnakeX = (float)snake.head->snake_node.x == apple.x;
             int appleOverlapSnakeY = (float)snake.head->snake_node.y == apple.y;
@@ -246,6 +232,21 @@ int main(void)
             DrawRectangleRec(apple, RED);
             // Draw the snake head as dark green square.
             DrawRectangleRec(snakeHead, DARKGREEN);
+
+
+            // input checking
+            if (accumulatedDebounceTime > moveTimeInterval && !gameOver)
+            {
+                accumulatedDebounceTime = 0.0f;
+                if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && direction != LEFT)
+                    direction = RIGHT;
+                else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && direction != RIGHT)
+                    direction = LEFT;
+                else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && direction != UP)
+                    direction = DOWN;
+                else if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && direction != DOWN)
+                    direction = UP;
+            }
 
             if (gameOver)
             {
