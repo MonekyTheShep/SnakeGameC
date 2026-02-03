@@ -170,6 +170,7 @@ int main(void)
             if (!gameOver && beenTimeInterval)
             {
                 accumulatedTime = 0.0f;
+                storePrevSnakePosition(&snake);
                 moveSnake(&snake, &data, gameInfo.screenWidth, gameInfo.screenHeight);
 
                 if (verboseMode)

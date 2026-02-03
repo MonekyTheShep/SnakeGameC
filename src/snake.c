@@ -47,8 +47,6 @@ void storePrevSnakePosition(const LinkedList *snake) {
 void moveSnake(const LinkedList *snake, const SnakeData *data, const int screenWidth, const int screenHeight)
 {
 
-    storePrevSnakePosition(snake);
-
     // move the head
     switch (*data->direction)
     {
