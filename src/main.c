@@ -57,6 +57,8 @@ int main(void)
     LinkedList snake = createSnake();
     enum Direction direction = RIGHT;
 
+    // seed random
+    srand(time(NULL));
     SnakeData data = {&direction, &snake, gameInfo.moveInterval};
 
     const int maxSize = (gameInfo.screenHeight / (int)gameInfo.moveInterval) * (gameInfo.screenWidth / (int)gameInfo.moveInterval);
