@@ -89,7 +89,7 @@ int main(void)
     SetTargetFPS(60);
 
     Rectangle snakeHead = {0, 0, gameInfo.moveInterval, gameInfo.moveInterval}; // x, y, width, height
-    RandomPos applePos = moveApple(&snake, gameInfo.screenWidth, gameInfo.screenHeight, (int)gameInfo.moveInterval);
+    RandomPos applePos = moveApple(&snake, GetScreenWidth(), GetScreenHeight(), (int)gameInfo.moveInterval);
     Rectangle apple = {(float)applePos.x, (float)applePos.y, gameInfo.moveInterval, gameInfo.moveInterval}; // x, y, width, height
 
     float accumulatedTime = 0.0f; // Total elapsed time
@@ -136,8 +136,8 @@ int main(void)
 
             const float startButtonWidth = 100;
             const float startButtonHeight = 50;
-            float startButtonCenterX = ((float)gameInfo.screenWidth - startButtonWidth) / 2;
-            float startButtonCenterY = ((float)gameInfo.screenHeight - startButtonHeight) / 2;
+            float startButtonCenterX = ((float)GetScreenWidth()- startButtonWidth) / 2;
+            float startButtonCenterY = ((float)GetScreenHeight()- startButtonHeight) / 2;
             if (GuiButton((Rectangle){startButtonCenterX, startButtonCenterY, startButtonWidth, startButtonHeight}, "Start"))
             {
                 changeMenu(&gameInfo, &menuState, GAME_MENU);
@@ -145,8 +145,8 @@ int main(void)
 
             const float exitButtonWidth = 100;
             const float exitButtonHeight = 50;
-            float exitButtonCenterX = ((float)gameInfo.screenWidth - exitButtonWidth) / 2;
-            float exitButtonCenterY = ((float)gameInfo.screenHeight - exitButtonHeight) / 2;
+            float exitButtonCenterX = ((float)GetScreenWidth() - exitButtonWidth) / 2;
+            float exitButtonCenterY = ((float)GetScreenHeight() - exitButtonHeight) / 2;
             float exitButtonOffsetY = exitButtonHeight + 25;
             if (GuiButton((Rectangle){exitButtonCenterX, exitButtonCenterY + exitButtonOffsetY, exitButtonWidth, exitButtonHeight}, "Exit"))
             {
@@ -171,7 +171,7 @@ int main(void)
             {
                 accumulatedTime = 0.0f;
                 storePrevSnakePosition(&snake);
-                moveSnake(&snake, &data, gameInfo.screenWidth, gameInfo.screenHeight);
+                moveSnake(&snake, &data, GetScreenWidth(), GetScreenHeight());
 
                 if (verboseMode)
                 {
@@ -232,7 +232,7 @@ int main(void)
                 PlaySound(collectSound);
                 score += 1;
                 growSnake(&snake);
-                applePos = moveApple(&snake, gameInfo.screenWidth, gameInfo.screenHeight, (int)gameInfo.moveInterval);
+                applePos = moveApple(&snake, GetScreenWidth(), GetScreenHeight(), (int)gameInfo.moveInterval);
             }
 
             apple.x = (float)applePos.x;
@@ -250,7 +250,7 @@ int main(void)
                 if (GuiButton((Rectangle){350, 250, 100, 50}, "Reset"))
                 {
                     resetGame(&snake, &data, &gameInfo);
-                    applePos = moveApple(&snake, gameInfo.screenWidth, gameInfo.screenHeight, (int)gameInfo.moveInterval);
+                    applePos = moveApple(&snake, GetScreenWidth(), GetScreenHeight(), (int)gameInfo.moveInterval);
                     apple.x = (float)applePos.x;
                     apple.y = (float)applePos.y;
                 }
