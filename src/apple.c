@@ -7,9 +7,9 @@
 
 RandomPos randomApplePos(const int screenWidth, const int screenHeight, const int moveInterval)
 {
-    srand(time(NULL));
     const int xCount = screenWidth / moveInterval;
     const int xIndex = rand() % xCount;
+
 
     const int yCount = screenHeight / moveInterval;
     const int yIndex = rand() % yCount;
