@@ -1,10 +1,13 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include "apple.h"
+
 
 
 RandomPos randomApplePos(const int screenWidth, const int screenHeight, const int moveInterval)
 {
+    srand(time(NULL));
     const int xCount = screenWidth / moveInterval;
     const int xIndex = rand() % xCount;
 
