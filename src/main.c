@@ -22,7 +22,7 @@ enum MenuStates
     GAME_MENU
 };
 
-void changeMenu(GameInfo *info, enum MenuStates *menuState, enum MenuStates changeState)
+void changeMenu(GameInfo *info, enum MenuStates *menuState, const enum MenuStates changeState)
 {
     *menuState = changeState;
     info->musicPlaying = 0;
@@ -139,13 +139,23 @@ int main(void)
 
             DrawTextEx(font, TextFormat(titleText, score), (Vector2){textXCenter, textYCenter + offsetY}, fontSize, 1, BLACK);
 
-            const float buttonWidth = 100;
-            const float buttonHeight = 50;
-            float buttonCenterX = ((float)gameInfo.screenWidth - buttonWidth) / 2;
-            float buttonCenterY = ((float)gameInfo.screenHeight - buttonHeight) / 2;
-            if (GuiButton((Rectangle){buttonCenterX, buttonCenterY, buttonWidth, buttonHeight}, "Start"))
+            const float startButtonWidth = 100;
+            const float startButtonHeight = 50;
+            float startButtonCenterX = ((float)gameInfo.screenWidth - startButtonWidth) / 2;
+            float startButtonCenterY = ((float)gameInfo.screenHeight - startButtonHeight) / 2;
+            if (GuiButton((Rectangle){startButtonCenterX, startButtonCenterY, startButtonWidth, startButtonHeight}, "Start"))
             {
                 changeMenu(&gameInfo, &menuState, GAME_MENU);
+            }
+
+            const float exitButtonWidth = 100;
+            const float exitButtonHeight = 50;
+            float exitButtonCenterX = ((float)gameInfo.screenWidth - exitButtonWidth) / 2;
+            float exitButtonCenterY = ((float)gameInfo.screenHeight - exitButtonHeight) / 2;
+            float exitButtonOffsetY = exitButtonHeight + 25;
+            if (GuiButton((Rectangle){exitButtonCenterX, exitButtonCenterY + exitButtonOffsetY, exitButtonWidth, exitButtonHeight}, "Exit"))
+            {
+                break;
             }
         }
 
