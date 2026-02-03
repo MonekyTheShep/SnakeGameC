@@ -13,7 +13,7 @@
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
-#define MOVE_INTERVAL 200
+#define MOVE_INTERVAL 50
 
 
 enum MenuStates
