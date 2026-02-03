@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "snake.h"s
+#include "snake.h"
 
 LinkedList createSnake(void)
 {
