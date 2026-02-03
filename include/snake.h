@@ -9,7 +9,7 @@ enum Direction {
 typedef struct SnakeData {
     enum Direction *direction;
     LinkedList *list;
-    float moveInterval;
+    const float moveInterval;
 } SnakeData;
 
 LinkedList createSnake(void);

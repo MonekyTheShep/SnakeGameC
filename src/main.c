@@ -46,9 +46,7 @@ void resetGame(LinkedList *snake, SnakeData *data, GameInfo *info)
     *data->direction = RIGHT;
     score = 0;
     gameOver = 0;
-    info->musicPlaying = 0;
-
-    menuState = MAIN_MENU;
+    changeMenu(info, &menuState, MAIN_MENU);
 }
 
 int main(void)
@@ -59,10 +57,7 @@ int main(void)
     LinkedList snake = createSnake();
     enum Direction direction = RIGHT;
 
-    SnakeData data;
-    data.moveInterval = gameInfo.moveInterval;
-    data.direction = &direction;
-    data.list = &snake;
+    SnakeData data = {&direction, &snake, gameInfo.moveInterval};
 
     const int maxSize = (gameInfo.screenHeight / (int)gameInfo.moveInterval) * (gameInfo.screenWidth / (int)gameInfo.moveInterval);
     const int maxSnakeSize = (score > maxSize);
