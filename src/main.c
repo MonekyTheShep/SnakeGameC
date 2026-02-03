@@ -13,7 +13,7 @@
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
-#define MOVE_INTERVAL 50
+#define MOVE_INTERVAL 200
 
 
 enum MenuStates
@@ -60,7 +60,7 @@ int main(void)
     SnakeData data = {&direction, &snake, gameInfo.moveInterval};
 
     const int maxSize = (gameInfo.screenHeight / (int)gameInfo.moveInterval) * (gameInfo.screenWidth / (int)gameInfo.moveInterval);
-    const int maxSnakeSize = (score > maxSize);
+    const int maxSnakeSize = (score + 1 == maxSize);
 
     // Initialise Raylib shit
     InitWindow(gameInfo.screenWidth, gameInfo.screenHeight, "Snake Game");
