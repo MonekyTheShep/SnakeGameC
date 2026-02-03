@@ -59,7 +59,7 @@ int main(void)
 
     // seed random
     srand(time(NULL));
-    SnakeData data = {&direction, &snake, gameInfo.moveInterval};
+    SnakeData data = {&direction, &snake};
 
     const int maxSize = (gameInfo.screenHeight / (int)gameInfo.moveInterval) * (gameInfo.screenWidth / (int)gameInfo.moveInterval);
     const int maxSnakeSize = (score + 1 == maxSize);
@@ -149,7 +149,7 @@ int main(void)
             const float exitButtonHeight = 50;
             float exitButtonCenterX = ((float)GetScreenWidth() - exitButtonWidth) / 2;
             float exitButtonCenterY = ((float)GetScreenHeight() - exitButtonHeight) / 2;
-            float exitButtonOffsetY = exitButtonHeight + 25;
+            float exitButtonOffsetY = exitButtonHeight + 10;
             if (GuiButton((Rectangle){exitButtonCenterX, exitButtonCenterY + exitButtonOffsetY, exitButtonWidth, exitButtonHeight}, "Exit"))
             {
                 break;
@@ -173,7 +173,7 @@ int main(void)
             {
                 accumulatedTime = 0.0f;
                 storePrevSnakePosition(&snake);
-                moveSnake(&snake, &data, GetScreenWidth(), GetScreenHeight());
+                moveSnake(&snake, &data, GetScreenWidth(), GetScreenHeight(), gameInfo);
 
                 if (verboseMode)
                 {

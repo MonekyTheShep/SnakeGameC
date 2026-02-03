@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "snake.h"
+#include "snake.h"s
 
 LinkedList createSnake(void)
 {
@@ -44,23 +44,23 @@ void storePrevSnakePosition(const LinkedList *snake) {
 }
 
 
-void moveSnake(const LinkedList *snake, const SnakeData *data, const int screenWidth, const int screenHeight)
+void moveSnake(const LinkedList *snake, const SnakeData *data, const int screenWidth, const int screenHeight, GameInfo gameInfo)
 {
 
     // move the head
     switch (*data->direction)
     {
         case UP:
-            snake->head->snake_node.y -= (int) data->moveInterval;
+            snake->head->snake_node.y -= (int) gameInfo.moveInterval;
             break;
         case DOWN:
-            snake->head->snake_node.y += (int) data->moveInterval;
+            snake->head->snake_node.y += (int) gameInfo.moveInterval;
             break;
         case LEFT:
-            snake->head->snake_node.x -= (int) data->moveInterval;
+            snake->head->snake_node.x -= (int) gameInfo.moveInterval;
             break;
         case RIGHT:
-            snake->head->snake_node.x += (int) data->moveInterval;
+            snake->head->snake_node.x += (int) gameInfo.moveInterval;
             break;
     }
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "linkedlist.h"
-
+#include "gameutil.h"
 
 enum Direction {
     UP, DOWN, LEFT, RIGHT
@@ -9,10 +9,9 @@ enum Direction {
 typedef struct SnakeData {
     enum Direction *direction;
     LinkedList *list;
-    const float moveInterval;
 } SnakeData;
 
 LinkedList createSnake(void);
 int growSnake(LinkedList *snake);
 void storePrevSnakePosition(const LinkedList *snake);
-void moveSnake(const LinkedList *snake, const SnakeData *data, int screenWidth, int screenHeight);
+void moveSnake(const LinkedList *snake, const SnakeData *data, int screenWidth, int screenHeight, GameInfo info);
