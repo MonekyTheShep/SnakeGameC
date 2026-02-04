@@ -303,6 +303,7 @@ LinkedList clearList(LinkedList *list) {
     {
         Node *next = temp->next;
         free(temp);
+        temp = NULL;
         temp = next;
     }
     return clearedList;
@@ -316,6 +317,7 @@ void freeLinkedList(LinkedList *list)
     {
         Node *next = temp->next;
         free(temp);
+        temp = NULL;
         temp = next;
     }
 }
