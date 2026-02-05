@@ -59,7 +59,7 @@ int main(void)
 
     // seed random
     srand(time(NULL));
-    SnakeData data = {&direction, &snake};
+    SnakeData data = {&direction};
 
     const int maxSize = (gameInfo.screenHeight / (int)gameInfo.moveInterval) * (gameInfo.screenWidth / (int)gameInfo.moveInterval);
     const int maxSnakeSize = (score + 1 == maxSize);
