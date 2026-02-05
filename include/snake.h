@@ -8,10 +8,9 @@ enum Direction {
 
 typedef struct SnakeData {
     enum Direction *direction;
-    LinkedList *list;
 } SnakeData;
 
 LinkedList createSnake(void);
 int growSnake(LinkedList *snake);
 void storePrevSnakePosition(const LinkedList *snake);
-void moveSnake(const LinkedList *snake, const SnakeData *data, int screenWidth, int screenHeight, GameInfo info);
+void moveSnake(const LinkedList *snake, SnakeData *data, int screenWidth, int screenHeight, GameInfo info);

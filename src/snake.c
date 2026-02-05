@@ -44,23 +44,23 @@ void storePrevSnakePosition(const LinkedList *snake) {
 }
 
 
-void moveSnake(const LinkedList *snake, const SnakeData *data, const int screenWidth, const int screenHeight, GameInfo gameInfo)
+void moveSnake(const LinkedList *snake, SnakeData *data, const int screenWidth, const int screenHeight, GameInfo gameInfo)
 {
 
     // move the head
     switch (*data->direction)
     {
         case UP:
-            snake->head->snake_node.y -= (int) gameInfo.moveInterval;
+            snake->head->snake_node.y -= gameInfo.moveInterval;
             break;
         case DOWN:
-            snake->head->snake_node.y += (int) gameInfo.moveInterval;
+            snake->head->snake_node.y += gameInfo.moveInterval;
             break;
         case LEFT:
-            snake->head->snake_node.x -= (int) gameInfo.moveInterval;
+            snake->head->snake_node.x -= gameInfo.moveInterval;
             break;
         case RIGHT:
-            snake->head->snake_node.x += (int) gameInfo.moveInterval;
+            snake->head->snake_node.x += gameInfo.moveInterval;
             break;
     }
 
@@ -68,16 +68,16 @@ void moveSnake(const LinkedList *snake, const SnakeData *data, const int screenW
     // screen wrapping'
     if (snake->head->snake_node.y < 0)
     {
-        snake->head->snake_node.y = screenHeight;
+        snake->head->snake_node.y = (float) screenHeight;
     }
-    else if (data->list->head->snake_node.y >= screenHeight) {
+    else if (snake->head->snake_node.y >= (float) screenHeight) {
         snake->head->snake_node.y = 0;
     }
     else if (snake->head->snake_node.x < 0)
     {
-        snake->head->snake_node.x = screenWidth;
+        snake->head->snake_node.x = (float) screenWidth;
     }
-    else if (data->list->head->snake_node.x >= screenWidth) {
+    else if (snake->head->snake_node.x >= (float) screenWidth) {
         snake->head->snake_node.x = 0;
     }
 
