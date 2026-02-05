@@ -27,9 +27,6 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(raygui)
 
-# Explicitly set the include directory
-set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
-
 # Adding our source files
 file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/src/*.c") # Define PROJECT_SOURCES as a list of all source files
 set(PROJECT_INCLUDE "${CMAKE_CURRENT_LIST_DIR}/include/") # Define PROJECT_INCLUDE to be the path to the include directory of the project
