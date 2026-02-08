@@ -34,13 +34,13 @@ int score = 0;
 
 int verboseMode = 0;
 
-void changeMenu(GameInfo *info, enum MenuStates *menuState, const enum MenuStates changeState)
+void changeMenu(GameInfo *info, enum MenuStates *currentState, const enum MenuStates changeState)
 {
-    *menuState = changeState;
+    *currentState = changeState;
     info->musicPlaying = 0;
 }
 
-void resetGame(LinkedList *snake, SnakeData *data, GameInfo *info)
+void resetGame(LinkedList *snake, const SnakeData *data, GameInfo *info)
 {
     // reset snake by freeing and creating new snake
 
