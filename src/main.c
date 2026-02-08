@@ -5,9 +5,9 @@
 #define RAYGUI_IMPLEMENTATION
 #include <raygui.h>
 
-#include "gameutil.h"
-#include "menuutil.h"
-#include "soundutil.h"
+#include "utility/menuutil.h"
+#include "utility/gameutil.h"
+#include "utility/soundutil.h"
 
 #include "linkedlist.h"
 #include "snake.h"

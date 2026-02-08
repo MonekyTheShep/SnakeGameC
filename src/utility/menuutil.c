@@ -1,6 +1,6 @@
-#include "stdio.h"
+#include <stdio.h>
 
-#include "menuutil.h"
+#include <utility/menuutil.h>
 
 #include "raygui.h"
 #include "raylib.h"

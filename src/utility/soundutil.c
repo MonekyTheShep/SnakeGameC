@@ -1,4 +1,4 @@
-#include "soundutil.h"
+#include <utility/soundutil.h>
 
 void cleanUpSound(const Sound *sounds, const int numOfSounds) {
     // unload all sounds in array of Sound

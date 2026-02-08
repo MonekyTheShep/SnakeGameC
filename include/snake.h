@@ -1,6 +1,6 @@
 #pragma once
 #include "linkedlist.h"
-#include "gameutil.h"
+#include "utility/gameutil.h"
 
 enum Direction {
     UP, DOWN, LEFT, RIGHT
