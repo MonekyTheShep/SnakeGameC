@@ -19,10 +19,10 @@ void drawMenu(const char *buttonLabels[], const int numButtons, void (*buttonCal
     // Create buttons
     for (int i = 0; i < numButtons; i++) {
         // calculate where button is placed
-        float buttonYOffset = (float) i * (buttonHeight + buttonGap);
+        const float buttonYOffset = (float) i * (buttonHeight + buttonGap);
 
-        float currentButtonX = buttonCenterX;
-        float currentButtonY = buttonCenterY + buttonYOffset;
+        const float currentButtonX = buttonCenterX;
+        const float currentButtonY = buttonCenterY + buttonYOffset;
 
         Rectangle button = { currentButtonX, currentButtonY , buttonWidth , buttonHeight };
         if (GuiButton(button, buttonLabels[i])) {
