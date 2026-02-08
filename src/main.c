@@ -22,8 +22,7 @@
 
 // default menu
 MenuStates menuState = MAIN_MENU;
-
-GameInfo gameInfo = {MOVE_INTERVAL, 0};
+GameInfo gameInfo = {0};
 
 int gameOver = 0;
 int score = 0;
@@ -56,7 +55,7 @@ int main(void)
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Snake Game");
     InitAudioDevice();
 
-    const int maxSize = (GetScreenWidth()/ (int)gameInfo.moveInterval) * (GetScreenHeight() / (int)gameInfo.moveInterval);
+    const int maxSize = (GetScreenWidth()/ MOVE_INTERVAL) * (GetScreenHeight() / (int)MOVE_INTERVAL);
     const int maxSnakeSize = (score + 1 == maxSize);
 
     // load sounds
@@ -81,9 +80,9 @@ int main(void)
 
     SetTargetFPS(60);
 
-    Rectangle snakeHead = {0, 0, gameInfo.moveInterval, gameInfo.moveInterval}; // x, y, width, height
-    RandomPos applePos = moveApple(&snake, (int)gameInfo.moveInterval);
-    Rectangle apple = {(float)applePos.x, (float)applePos.y, gameInfo.moveInterval, gameInfo.moveInterval}; // x, y, width, height
+    Rectangle snakeHead = {0, 0, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
+    RandomPos applePos = moveApple(&snake, MOVE_INTERVAL);
+    Rectangle apple = {(float)applePos.x, (float)applePos.y, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
 
     float accumulatedTime = 0.0f; // Total elapsed time
     float accumulatedDebounceTime = 0.0f;
@@ -163,7 +162,7 @@ int main(void)
             {
                 accumulatedTime = 0.0f;
                 storePrevSnakePosition(&snake);
-                moveSnake(&snake, &data, gameInfo);
+                moveSnake(&snake, &data, MOVE_INTERVAL);
 
                 if (verboseMode)
                 {
@@ -188,7 +187,7 @@ int main(void)
                 growSnake(&snake);
 
                 // new apple pos
-                applePos = moveApple(&snake, (int)gameInfo.moveInterval);
+                applePos = moveApple(&snake, MOVE_INTERVAL);
 
                 // move the apple
                 apple.x = (float)applePos.x;
@@ -208,7 +207,7 @@ int main(void)
             {
                 length++;
 
-                Rectangle tail = {(float)temp->snake_node.x, (float)temp->snake_node.y, gameInfo.moveInterval, gameInfo.moveInterval};
+                Rectangle tail = {(float)temp->snake_node.x, (float)temp->snake_node.y, MOVE_INTERVAL, MOVE_INTERVAL};
                 DrawRectangleRec(tail, GREEN);
 
                 const int tailOverlapHeadX = temp->snake_node.x == snake.head->snake_node.x;
@@ -243,7 +242,7 @@ int main(void)
                 if (GuiButton(gameOverButton, "Reset"))
                 {
                     resetGame(&snake, &data, &gameInfo);
-                    applePos = moveApple(&snake, (int)gameInfo.moveInterval);
+                    applePos = moveApple(&snake, MOVE_INTERVAL);
                     apple.x = (float)applePos.x;
                     apple.y = (float)applePos.y;
                 }

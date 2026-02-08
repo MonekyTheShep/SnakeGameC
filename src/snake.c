@@ -45,23 +45,23 @@ void storePrevSnakePosition(const LinkedList *snake) {
 }
 
 
-void moveSnake(const LinkedList *snake, const SnakeData *data, GameInfo gameInfo)
+void moveSnake(const LinkedList *snake, const SnakeData *data, const float moveInterval)
 {
 
     // move the head
     switch (*data->direction)
     {
         case UP:
-            snake->head->snake_node.y -= gameInfo.moveInterval;
+            snake->head->snake_node.y -= moveInterval;
             break;
         case DOWN:
-            snake->head->snake_node.y += gameInfo.moveInterval;
+            snake->head->snake_node.y += moveInterval;
             break;
         case LEFT:
-            snake->head->snake_node.x -= gameInfo.moveInterval;
+            snake->head->snake_node.x -= moveInterval;
             break;
         case RIGHT:
-            snake->head->snake_node.x += gameInfo.moveInterval;
+            snake->head->snake_node.x += moveInterval;
             break;
     }
 
