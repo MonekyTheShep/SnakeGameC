@@ -1,25 +1,25 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
+#include "raylib.h"
 #include "apple.h"
 
 
 
-RandomPos randomApplePos(const int screenWidth, const int screenHeight, const int moveInterval)
+RandomPos randomApplePos(const int moveInterval)
 {
-    const int xCount = screenWidth / moveInterval;
+    const int xCount = GetScreenWidth() / moveInterval;
     const int xIndex = rand() % xCount;
 
 
-    const int yCount = screenHeight / moveInterval;
+    const int yCount = GetScreenHeight() / moveInterval;
     const int yIndex = rand() % yCount;
 
     return (RandomPos){xIndex * moveInterval, yIndex * moveInterval};
 }
 
-RandomPos moveApple(const LinkedList *snake, const int screenWidth, const int screenHeight, const int moveInterval) {
+RandomPos moveApple(const LinkedList *snake, const int moveInterval) {
     int validPosition = 0;
-    RandomPos pos = randomApplePos(screenWidth, screenHeight, moveInterval);
+    RandomPos pos = randomApplePos(moveInterval);
     while (!validPosition) {
         // assume valid position until proven not
         validPosition = 1;
@@ -52,7 +52,7 @@ RandomPos moveApple(const LinkedList *snake, const int screenWidth, const int sc
         }
 
         if (!validPosition) {
-            pos = randomApplePos(screenWidth, screenHeight, moveInterval);
+            pos = randomApplePos(moveInterval);
         }
     }
     return pos;

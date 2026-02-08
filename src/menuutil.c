@@ -2,7 +2,7 @@
 #include "raygui.h"
 #include "stdio.h"
 
-void drawMenu(const float screenWidth, const float screenHeight, char *buttonLabels[], const int numButtons, void (*buttonCallback[])(void)) {
+void drawMenu(const float screenWidth, const float screenHeight, const char *buttonLabels[], const int numButtons, void (*buttonCallback[])(void)) {
     // Button information
     const float buttonWidth = 100;
     const float buttonHeight = 50;

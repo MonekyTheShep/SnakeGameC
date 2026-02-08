@@ -27,7 +27,7 @@ enum MenuStates
 // default menu
 enum MenuStates menuState = MAIN_MENU;
 
-GameInfo gameInfo = {SCREEN_WIDTH, SCREEN_HEIGHT, MOVE_INTERVAL, 0};
+GameInfo gameInfo = {MOVE_INTERVAL, 0};
 
 int gameOver = 0;
 int score = 0;
@@ -63,7 +63,6 @@ void buttonExit(void) {
 
 int main(void)
 {
-
     // Initialise SNAKE shit
     LinkedList snake = createSnake();
     enum Direction direction = RIGHT;
@@ -72,11 +71,11 @@ int main(void)
     srand(time(NULL));
     SnakeData data = {&direction};
 
-    const int maxSize = (gameInfo.screenHeight / (int)gameInfo.moveInterval) * (gameInfo.screenWidth / (int)gameInfo.moveInterval);
+    const int maxSize = (SCREEN_WIDTH / (int)gameInfo.moveInterval) * (SCREEN_HEIGHT / (int)gameInfo.moveInterval);
     const int maxSnakeSize = (score + 1 == maxSize);
 
     // Initialise Raylib shit
-    InitWindow(gameInfo.screenWidth, gameInfo.screenHeight, "Snake Game");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Snake Game");
     InitAudioDevice();
 
     // load sounds
@@ -102,7 +101,7 @@ int main(void)
     SetTargetFPS(60);
 
     Rectangle snakeHead = {0, 0, gameInfo.moveInterval, gameInfo.moveInterval}; // x, y, width, height
-    RandomPos applePos = moveApple(&snake, GetScreenWidth(), GetScreenHeight(), (int)gameInfo.moveInterval);
+    RandomPos applePos = moveApple(&snake, (int)gameInfo.moveInterval);
     Rectangle apple = {(float)applePos.x, (float)applePos.y, gameInfo.moveInterval, gameInfo.moveInterval}; // x, y, width, height
 
     float accumulatedTime = 0.0f; // Total elapsed time
@@ -160,7 +159,7 @@ int main(void)
             // Draw the buttons
             const char *buttonLabels[] = {"Start", "End"};
             void (*buttonCallbacks[2])(void) = {buttonStart, buttonExit};
-            drawMenu(SCREEN_WIDTH, SCREEN_HEIGHT, buttonLabels, 2, buttonCallbacks);
+            drawMenu((float) GetScreenWidth(), (float) GetScreenHeight(), buttonLabels, 2, buttonCallbacks);
         }
 
         if (menuState == GAME_MENU)
@@ -195,7 +194,7 @@ int main(void)
             {
                 accumulatedTime = 0.0f;
                 storePrevSnakePosition(&snake);
-                moveSnake(&snake, &data, GetScreenWidth(), GetScreenHeight(), gameInfo);
+                moveSnake(&snake, &data, gameInfo);
 
                 if (verboseMode)
                 {
@@ -214,7 +213,7 @@ int main(void)
                 PlaySound(collectSound);
                 score += 1;
                 growSnake(&snake);
-                applePos = moveApple(&snake, GetScreenWidth(), GetScreenHeight(), (int)gameInfo.moveInterval);
+                applePos = moveApple(&snake, (int)gameInfo.moveInterval);
             }
 
             // prev pos stored after the head position
@@ -264,7 +263,7 @@ int main(void)
                 if (GuiButton((Rectangle){350, 250, 100, 50}, "Reset"))
                 {
                     resetGame(&snake, &data, &gameInfo);
-                    applePos = moveApple(&snake, GetScreenWidth(), GetScreenHeight(), (int)gameInfo.moveInterval);
+                    applePos = moveApple(&snake, (int)gameInfo.moveInterval);
                     apple.x = (float)applePos.x;
                     apple.y = (float)applePos.y;
                 }

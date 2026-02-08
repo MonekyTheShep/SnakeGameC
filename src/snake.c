@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "snake.h"
+#include "raylib.h"
 
 LinkedList createSnake(void)
 {
@@ -44,7 +45,7 @@ void storePrevSnakePosition(const LinkedList *snake) {
 }
 
 
-void moveSnake(const LinkedList *snake, const SnakeData *data, const int screenWidth, const int screenHeight, GameInfo gameInfo)
+void moveSnake(const LinkedList *snake, const SnakeData *data, GameInfo gameInfo)
 {
 
     // move the head
@@ -68,16 +69,16 @@ void moveSnake(const LinkedList *snake, const SnakeData *data, const int screenW
     // screen wrapping'
     if (snake->head->snake_node.y < 0)
     {
-        snake->head->snake_node.y = (float) screenHeight;
+        snake->head->snake_node.y = (float) GetScreenHeight();
     }
-    else if (snake->head->snake_node.y >= (float) screenHeight) {
+    else if (snake->head->snake_node.y >= (float) GetScreenHeight()) {
         snake->head->snake_node.y = 0;
     }
     else if (snake->head->snake_node.x < 0)
     {
-        snake->head->snake_node.x = (float) screenWidth;
+        snake->head->snake_node.x = (float) GetScreenWidth();
     }
-    else if (snake->head->snake_node.x >= (float) screenWidth) {
+    else if (snake->head->snake_node.x >= (float) GetScreenWidth()) {
         snake->head->snake_node.x = 0;
     }
 
