@@ -24,12 +24,6 @@ enum MenuStates
     EXIT_STATE
 };
 
-void changeMenu(GameInfo *info, enum MenuStates *menuState, const enum MenuStates changeState)
-{
-    *menuState = changeState;
-    info->musicPlaying = 0;
-}
-
 // default menu
 enum MenuStates menuState = MAIN_MENU;
 
@@ -39,6 +33,12 @@ int gameOver = 0;
 int score = 0;
 
 int verboseMode = 0;
+
+void changeMenu(GameInfo *info, enum MenuStates *menuState, const enum MenuStates changeState)
+{
+    *menuState = changeState;
+    info->musicPlaying = 0;
+}
 
 void resetGame(LinkedList *snake, SnakeData *data, GameInfo *info)
 {
@@ -111,7 +111,12 @@ int main(void)
 
     while (!WindowShouldClose())
     {
+        if (menuState == EXIT_STATE) {
+            break;
+        }
+
         UpdateMusicStream(*currentMusic);
+
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -169,9 +174,24 @@ int main(void)
                 gameOver = 1;
             }
 
+            // input checking
+            if (accumulatedDebounceTime > moveTimeInterval && !gameOver)
+            {
+                accumulatedDebounceTime = 0.0f;
+                if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && direction != LEFT)
+                    direction = RIGHT;
+                else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && direction != RIGHT)
+                    direction = LEFT;
+                else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && direction != UP)
+                    direction = DOWN;
+                else if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && direction != DOWN)
+                    direction = UP;
+            }
+
+
             // store prev position then move the snake position x and y
             int beenTimeInterval = accumulatedTime > moveTimeInterval;
-            if (!gameOver && beenTimeInterval)
+            if (beenTimeInterval && !gameOver)
             {
                 accumulatedTime = 0.0f;
                 storePrevSnakePosition(&snake);
@@ -183,6 +203,18 @@ int main(void)
                     printf("%d\n", sizeOfLinkedList(&snake));
                     printf("%d\n", gameOver);
                 }
+            }
+
+            // if the apple is overlapping head.
+            const int appleOverlapSnakeX = (float)snake.head->snake_node.x == apple.x;
+            const int appleOverlapSnakeY = (float)snake.head->snake_node.y == apple.y;
+
+            if (appleOverlapSnakeX && appleOverlapSnakeY && !gameOver)
+            {
+                PlaySound(collectSound);
+                score += 1;
+                growSnake(&snake);
+                applePos = moveApple(&snake, GetScreenWidth(), GetScreenHeight(), (int)gameInfo.moveInterval);
             }
 
             // prev pos stored after the head position
@@ -213,42 +245,19 @@ int main(void)
                 temp = temp->next;
             }
 
-            // if the apple is overlapping head.
-            const int appleOverlapSnakeX = (float)snake.head->snake_node.x == apple.x;
-            const int appleOverlapSnakeY = (float)snake.head->snake_node.y == apple.y;
-
-            if (appleOverlapSnakeX && appleOverlapSnakeY && !gameOver)
-            {
-                PlaySound(collectSound);
-                score += 1;
-                growSnake(&snake);
-                applePos = moveApple(&snake, GetScreenWidth(), GetScreenHeight(), (int)gameInfo.moveInterval);
-            }
-
-            apple.x = (float)applePos.x;
-            apple.y = (float)applePos.y;
-
+            // move the head
             snakeHead.x = (float)snake.head->snake_node.x;
             snakeHead.y = (float)snake.head->snake_node.y;
+
+            // draw the apple
+            apple.x = (float)applePos.x;
+            apple.y = (float)applePos.y;
 
             DrawRectangleRec(apple, RED);
             // Draw the snake head as dark green square.
             DrawRectangleRec(snakeHead, DARKGREEN);
 
-
-            // input checking
-            if (accumulatedDebounceTime > moveTimeInterval && !gameOver)
-            {
-                accumulatedDebounceTime = 0.0f;
-                if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && direction != LEFT)
-                    direction = RIGHT;
-                else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && direction != RIGHT)
-                    direction = LEFT;
-                else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && direction != UP)
-                    direction = DOWN;
-                else if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && direction != DOWN)
-                    direction = UP;
-            }
+            DrawText(TextFormat("Score: %0i", score), 0, 0, 50, BLACK);
 
             if (gameOver)
             {
@@ -261,11 +270,6 @@ int main(void)
                 }
             }
 
-            DrawText(TextFormat("Score: %0i", score), 0, 0, 50, BLACK);
-        }
-
-        if (menuState == EXIT_STATE) {
-            break;
         }
 
         EndDrawing();
