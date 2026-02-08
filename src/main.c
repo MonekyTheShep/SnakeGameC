@@ -154,10 +154,12 @@ int main(void)
             const float buttonStartX = (SCREEN_WIDTH - buttonWidth) / 2;
             const float buttonStartY = (SCREEN_HEIGHT - buttonHeight) / 2;
 
+            float currentButtonX = buttonStartX;
+            float currentButtonY = buttonStartY;
             // Create buttons
             for (int i = 0; i < numButtons; i++) {
-                const float newY = buttonStartY + ((float) i * (buttonHeight + buttonGap));
-                Rectangle button = { buttonStartX, newY , buttonWidth , buttonHeight };
+                currentButtonY += (float) i * (buttonHeight + buttonGap);
+                Rectangle button = { currentButtonX, currentButtonY , buttonWidth , buttonHeight };
                 if (GuiButton(button, buttonLabels[i])) {
                     switch (i) {
                         case 0:
