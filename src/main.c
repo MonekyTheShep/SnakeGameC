@@ -142,7 +142,7 @@ int main(void)
 
 
             // Draw the buttons
-            const char *buttonLabels[] = {"Start", "End"};
+            const char *buttonLabels[] = {"Start", "End", "Test"};
             const int numButtons = sizeof(buttonLabels) / sizeof(buttonLabels[0]);
 
             // Button information
@@ -151,14 +151,17 @@ int main(void)
             const float buttonGap = 10;
 
             // Calculate button position
-            const float buttonStartX = (SCREEN_WIDTH - buttonWidth) / 2;
-            const float buttonStartY = (SCREEN_HEIGHT - buttonHeight) / 2;
+            const float buttonCenterX = (SCREEN_WIDTH - buttonWidth) / 2;
+            const float buttonCenterY = (SCREEN_HEIGHT - buttonHeight) / 2;
 
-            float currentButtonX = buttonStartX;
-            float currentButtonY = buttonStartY;
             // Create buttons
             for (int i = 0; i < numButtons; i++) {
-                currentButtonY += (float) i * (buttonHeight + buttonGap);
+                // calculate where button is placed
+                float buttonOffset = (float) i * (buttonHeight + buttonGap);
+
+                float currentButtonX = buttonCenterX;
+                float currentButtonY = buttonCenterY + buttonOffset;
+
                 Rectangle button = { currentButtonX, currentButtonY , buttonWidth , buttonHeight };
                 if (GuiButton(button, buttonLabels[i])) {
                     switch (i) {
