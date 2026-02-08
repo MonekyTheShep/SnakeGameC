@@ -21,7 +21,7 @@
 #define MOVE_INTERVAL 50
 
 // default menu
-enum MenuStates menuState = MAIN_MENU;
+MenuStates menuState = MAIN_MENU;
 
 GameInfo gameInfo = {MOVE_INTERVAL, 0};
 

@@ -4,14 +4,13 @@
 #include "utility/menuutil.h"
 #include  "utility/gameutil.h"
 
-void buttonStart(GameInfo *gameInfo, enum MenuStates *menuState) {
+void buttonStart(GameInfo *gameInfo, MenuStates *menuState) {
     changeMenu(gameInfo, menuState, GAME_MENU);
 }
 
-void buttonExit(GameInfo *gameInfo, enum MenuStates *menuState) {
+void buttonExit(GameInfo *gameInfo, MenuStates *menuState) {
     changeMenu(gameInfo, menuState, EXIT_MENU);
 }
-
 
 void drawTitle(void) {
     // Draw the title
@@ -39,7 +38,7 @@ void updateMainMenu(GameInfo *gameInfo, MenuStates *menuState) {
     const char *buttonLabels[] = {"Start", "End"};
     const char numOfButtons = sizeof(buttonLabels) / sizeof(buttonLabels[0]);
 
-    void (*buttonCallbacks[2])(GameInfo*, enum MenuStates*) = {buttonStart, buttonExit};
+    void (*buttonCallbacks[2])(GameInfo*, MenuStates*) = {buttonStart, buttonExit};
     drawMenu(buttonLabels, numOfButtons, gameInfo, menuState, buttonCallbacks);
     EndDrawing();
 }
