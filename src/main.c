@@ -6,6 +6,7 @@
 #include <raygui.h>
 
 #include "gameutil.h"
+#include "menuutil.h"
 
 #include "linkedlist.h"
 #include "snake.h"
@@ -32,6 +33,8 @@ void changeMenu(GameInfo *info, enum MenuStates *menuState, const enum MenuState
 // default menu
 enum MenuStates menuState = MAIN_MENU;
 
+GameInfo gameInfo = {SCREEN_WIDTH, SCREEN_HEIGHT, MOVE_INTERVAL, 0};
+
 int gameOver = 0;
 int score = 0;
 
@@ -50,9 +53,16 @@ void resetGame(LinkedList *snake, SnakeData *data, GameInfo *info)
     changeMenu(info, &menuState, MAIN_MENU);
 }
 
+void buttonStart(void) {
+    changeMenu(&gameInfo, &menuState, GAME_MENU);
+}
+
+void buttonExit(void) {
+    changeMenu(&gameInfo, &menuState, EXIT_STATE);
+}
+
 int main(void)
 {
-    GameInfo gameInfo = {SCREEN_WIDTH, SCREEN_HEIGHT, MOVE_INTERVAL, 0};
 
     // Initialise SNAKE shit
     LinkedList snake = createSnake();
@@ -122,6 +132,8 @@ int main(void)
                 currentMusic = &gameMusicSound;
                 PlayMusicStream(*currentMusic);
                 break;
+
+            default: break;
             }
 
         if (menuState == MAIN_MENU)
@@ -140,41 +152,10 @@ int main(void)
 
             DrawTextEx(font, TextFormat(titleText, score), (Vector2){textXCenter, textYCenter + offsetY}, fontSize, 1, BLACK);
 
-
             // Draw the buttons
             const char *buttonLabels[] = {"Start", "End"};
-            const int numButtons = sizeof(buttonLabels) / sizeof(buttonLabels[0]);
-
-            // Button information
-            const float buttonWidth = 100;
-            const float buttonHeight = 50;
-            const float buttonGap = 10;
-
-            // Calculate button position
-            const float buttonCenterX = (SCREEN_WIDTH - buttonWidth) / 2;
-            const float buttonCenterY = (SCREEN_HEIGHT - buttonHeight) / 2;
-
-            // Create buttons
-            for (int i = 0; i < numButtons; i++) {
-                // calculate where button is placed
-                float buttonYOffset = (float) i * (buttonHeight + buttonGap);
-
-                float currentButtonX = buttonCenterX;
-                float currentButtonY = buttonCenterY + buttonYOffset;
-
-                Rectangle button = { currentButtonX, currentButtonY , buttonWidth , buttonHeight };
-                if (GuiButton(button, buttonLabels[i])) {
-                    switch (i) {
-                        case 0:
-                            changeMenu(&gameInfo, &menuState, GAME_MENU);
-                            break;
-                        case 1:
-                            changeMenu(&gameInfo, &menuState, EXIT_STATE);
-                            break;
-                        default: break;
-                    }
-                }
-            }
+            void (*buttonCallbacks[2])(void) = {buttonStart, buttonExit};
+            drawMenu(SCREEN_WIDTH, SCREEN_HEIGHT, buttonLabels, 2, buttonCallbacks);
         }
 
         if (menuState == GAME_MENU)
