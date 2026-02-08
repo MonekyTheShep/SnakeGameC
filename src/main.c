@@ -19,7 +19,8 @@
 enum MenuStates
 {
     MAIN_MENU,
-    GAME_MENU
+    GAME_MENU,
+    EXIT_STATE
 };
 
 void changeMenu(GameInfo *info, enum MenuStates *menuState, const enum MenuStates changeState)
@@ -125,34 +126,49 @@ int main(void)
 
         if (menuState == MAIN_MENU)
         {
+            // Draw the title
             const char titleText[11] = "Snake Game";
-            const float fontSize = 50;
 
             const Font font = GetFontDefault();
+            const float fontSize = 50;
+
             const Vector2 size = MeasureTextEx(font, titleText, fontSize, 0);
+
             const float textXCenter = ((float)GetScreenWidth() - size.x) / 2;
             const float textYCenter = ((float)GetScreenHeight() - size.y) / 2;
             const float offsetY = -50;
 
             DrawTextEx(font, TextFormat(titleText, score), (Vector2){textXCenter, textYCenter + offsetY}, fontSize, 1, BLACK);
 
-            const float startButtonWidth = 100;
-            const float startButtonHeight = 50;
-            const float startButtonCenterX = ((float)GetScreenWidth()- startButtonWidth) / 2;
-            const float startButtonCenterY = ((float)GetScreenHeight()- startButtonHeight) / 2;
-            if (GuiButton((Rectangle){startButtonCenterX, startButtonCenterY, startButtonWidth, startButtonHeight}, "Start"))
-            {
-                changeMenu(&gameInfo, &menuState, GAME_MENU);
-            }
 
-            const float exitButtonWidth = 100;
-            const float exitButtonHeight = 50;
-            const float exitButtonCenterX = ((float)GetScreenWidth() - exitButtonWidth) / 2;
-            const float exitButtonCenterY = ((float)GetScreenHeight() - exitButtonHeight) / 2;
-            const float exitButtonOffsetY = exitButtonHeight + 10;
-            if (GuiButton((Rectangle){exitButtonCenterX, exitButtonCenterY + exitButtonOffsetY, exitButtonWidth, exitButtonHeight}, "Exit"))
-            {
-                break;
+            // Draw the buttons
+            const char *buttonLabels[] = {"Start", "End"};
+            const int numButtons = sizeof(buttonLabels) / sizeof(buttonLabels[0]);
+
+            // Button information
+            const float buttonWidth = 100;
+            const float buttonHeight = 50;
+            const float buttonGap = 10;
+
+            // Calculate button position
+            const float buttonStartX = (SCREEN_WIDTH - buttonWidth) / 2;
+            const float buttonStartY = (SCREEN_HEIGHT - buttonHeight) / 2;
+
+            // Create buttons
+            for (int i = 0; i < numButtons; i++) {
+                const float newY = buttonStartY + ((float) i * (buttonHeight + buttonGap));
+                Rectangle button = { buttonStartX, newY , buttonWidth , buttonHeight };
+                if (GuiButton(button, buttonLabels[i])) {
+                    switch (i) {
+                        case 0:
+                            changeMenu(&gameInfo, &menuState, GAME_MENU);
+                            break;
+                        case 1:
+                            changeMenu(&gameInfo, &menuState, EXIT_STATE);
+                            break;
+                        default: break;
+                    }
+                }
             }
         }
 
@@ -260,6 +276,10 @@ int main(void)
             }
 
             DrawText(TextFormat("Score: %0i", score), 0, 0, 50, BLACK);
+        }
+
+        if (menuState == EXIT_STATE) {
+            break;
         }
 
         EndDrawing();
