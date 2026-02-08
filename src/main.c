@@ -7,6 +7,7 @@
 
 #include "gameutil.h"
 #include "menuutil.h"
+#include "soundutil.h"
 
 #include "linkedlist.h"
 #include "snake.h"
@@ -279,20 +280,12 @@ int main(void)
         EndDrawing();
     }
 
-    // unload all sounds in array of Sound
-    int lengthOfSound = sizeof(sounds) / sizeof(sounds[0]);
 
-    for (int i = 0; i < lengthOfSound; i++)
-    {
-        UnloadSound(sounds[i]);
-    }
+    int numOfSound = sizeof(sounds) / sizeof(sounds[0]);
+    cleanUpSound(sounds, numOfSound);
 
-    // unload all music in array of Music
-    int lengthOfMusic = sizeof(musics) / sizeof(musics[0]);
-    for (int i = 0; i < lengthOfMusic; i++)
-    {
-        UnloadMusicStream(musics[i]);
-    }
+    int numOfMusic = sizeof(musics) / sizeof(musics[0]);
+    cleanUpMusic(musics, numOfMusic);
 
     CloseAudioDevice();
     CloseWindow();
