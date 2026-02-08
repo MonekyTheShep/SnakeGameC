@@ -25,8 +25,8 @@ RandomPos moveApple(const LinkedList *snake, const int screenWidth, const int sc
         validPosition = 1;
 
         // if new apple overlaps snake head
-        int appleOverlapSnakeX = snake->head->snake_node.x == pos.x;
-        int appleOverlapSnakeY = snake->head->snake_node.y == pos.y;
+        const int appleOverlapSnakeX = (int) snake->head->snake_node.x == pos.x;
+        const int appleOverlapSnakeY = (int) snake->head->snake_node.y == pos.y;
 
         // then set valid position to false
         if (appleOverlapSnakeX && appleOverlapSnakeY) {
@@ -38,9 +38,9 @@ RandomPos moveApple(const LinkedList *snake, const int screenWidth, const int sc
 
         // if new apple is touching any part of the tail
         while (temp != NULL) {
-            int tailOverlapAppleX = temp->snake_node.x == pos.x;
-            int tailOverlapAppleY = temp->snake_node.y == pos.y;
-            int hasTails = temp->next != NULL;
+            const int tailOverlapAppleX = (int) temp->snake_node.x == pos.x;
+            const int tailOverlapAppleY = (int) temp->snake_node.y == pos.y;
+            const int hasTails = temp->next != NULL;
 
             if (tailOverlapAppleX  && tailOverlapAppleY && hasTails) {
                 validPosition = 0;

@@ -3,8 +3,8 @@
 
 LinkedList createSnake(void)
 {
-    SnakeNode snake_node = {0, 0};
-    LinkedList snake = createList(snake_node);
+    const SnakeNode snake_node = {0, 0};
+    const LinkedList snake = createList(snake_node);
 
     return snake;
 }
@@ -22,13 +22,13 @@ int growSnake(LinkedList *snake)
 void storePrevSnakePosition(const LinkedList *snake) {
     // store previous values before moving
     Node *temp = snake->head->next;
-    int prevX = snake->head->snake_node.x;
-    int prevY = snake->head->snake_node.y;
+    float prevX = snake->head->snake_node.x;
+    float prevY = snake->head->snake_node.y;
 
     while (temp != NULL)
     {
-        int tempPrevX = temp->snake_node.x;
-        int tempPrevY = temp->snake_node.y;
+        float tempPrevX = temp->snake_node.x;
+        float tempPrevY = temp->snake_node.y;
 
         temp->snake_node.x = prevX;
         temp->snake_node.y = prevY;
@@ -44,7 +44,7 @@ void storePrevSnakePosition(const LinkedList *snake) {
 }
 
 
-void moveSnake(const LinkedList *snake, SnakeData *data, const int screenWidth, const int screenHeight, GameInfo gameInfo)
+void moveSnake(const LinkedList *snake, const SnakeData *data, const int screenWidth, const int screenHeight, GameInfo gameInfo)
 {
 
     // move the head

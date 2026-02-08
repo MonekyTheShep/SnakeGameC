@@ -13,7 +13,7 @@
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
-#define MOVE_INTERVAL 50
+#define MOVE_INTERVAL 100
 
 
 enum MenuStates
@@ -128,18 +128,18 @@ int main(void)
             const char titleText[11] = "Snake Game";
             const float fontSize = 50;
 
-            Font font = GetFontDefault();
-            Vector2 size = MeasureTextEx(font, titleText, fontSize, 0);
-            float textXCenter = ((float)GetScreenWidth() - size.x) / 2;
-            float textYCenter = ((float)GetScreenHeight() - size.y) / 2;
-            float offsetY = -50;
+            const Font font = GetFontDefault();
+            const Vector2 size = MeasureTextEx(font, titleText, fontSize, 0);
+            const float textXCenter = ((float)GetScreenWidth() - size.x) / 2;
+            const float textYCenter = ((float)GetScreenHeight() - size.y) / 2;
+            const float offsetY = -50;
 
             DrawTextEx(font, TextFormat(titleText, score), (Vector2){textXCenter, textYCenter + offsetY}, fontSize, 1, BLACK);
 
             const float startButtonWidth = 100;
             const float startButtonHeight = 50;
-            float startButtonCenterX = ((float)GetScreenWidth()- startButtonWidth) / 2;
-            float startButtonCenterY = ((float)GetScreenHeight()- startButtonHeight) / 2;
+            const float startButtonCenterX = ((float)GetScreenWidth()- startButtonWidth) / 2;
+            const float startButtonCenterY = ((float)GetScreenHeight()- startButtonHeight) / 2;
             if (GuiButton((Rectangle){startButtonCenterX, startButtonCenterY, startButtonWidth, startButtonHeight}, "Start"))
             {
                 changeMenu(&gameInfo, &menuState, GAME_MENU);
@@ -147,9 +147,9 @@ int main(void)
 
             const float exitButtonWidth = 100;
             const float exitButtonHeight = 50;
-            float exitButtonCenterX = ((float)GetScreenWidth() - exitButtonWidth) / 2;
-            float exitButtonCenterY = ((float)GetScreenHeight() - exitButtonHeight) / 2;
-            float exitButtonOffsetY = exitButtonHeight + 10;
+            const float exitButtonCenterX = ((float)GetScreenWidth() - exitButtonWidth) / 2;
+            const float exitButtonCenterY = ((float)GetScreenHeight() - exitButtonHeight) / 2;
+            const float exitButtonOffsetY = exitButtonHeight + 10;
             if (GuiButton((Rectangle){exitButtonCenterX, exitButtonCenterY + exitButtonOffsetY, exitButtonWidth, exitButtonHeight}, "Exit"))
             {
                 break;
@@ -195,9 +195,9 @@ int main(void)
                 Rectangle tail = {(float)temp->snake_node.x, (float)temp->snake_node.y, gameInfo.moveInterval, gameInfo.moveInterval};
                 DrawRectangleRec(tail, GREEN);
 
-                int tailOverlapHeadX = temp->snake_node.x == snake.head->snake_node.x;
-                int tailOverlapHeadY = temp->snake_node.y == snake.head->snake_node.y;
-                int hasTails = length > 1;
+                const int tailOverlapHeadX = temp->snake_node.x == snake.head->snake_node.x;
+                const int tailOverlapHeadY = temp->snake_node.y == snake.head->snake_node.y;
+                const int hasTails = length > 1;
                 // it has to be longer than 1
 
                 // if tail overlaps head then it should game over and play death sound
@@ -212,8 +212,8 @@ int main(void)
             }
 
             // if the apple is overlapping head.
-            int appleOverlapSnakeX = (float)snake.head->snake_node.x == apple.x;
-            int appleOverlapSnakeY = (float)snake.head->snake_node.y == apple.y;
+            const int appleOverlapSnakeX = (float)snake.head->snake_node.x == apple.x;
+            const int appleOverlapSnakeY = (float)snake.head->snake_node.y == apple.y;
 
             if (appleOverlapSnakeX && appleOverlapSnakeY && !gameOver)
             {
