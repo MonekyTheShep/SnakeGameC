@@ -9,6 +9,9 @@
 #include "utility/gameutil.h"
 #include "utility/soundutil.h"
 
+#include "states/game.h"
+#include "states/menu.h"
+
 #include "linkedlist.h"
 #include "snake.h"
 #include "apple.h"
