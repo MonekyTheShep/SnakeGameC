@@ -142,7 +142,7 @@ int main(void)
 
 
             // Draw the buttons
-            const char *buttonLabels[] = {"Start", "End", "Test"};
+            const char *buttonLabels[] = {"Start", "End"};
             const int numButtons = sizeof(buttonLabels) / sizeof(buttonLabels[0]);
 
             // Button information
