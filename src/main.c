@@ -201,9 +201,13 @@ int main(void)
                 }
             }
 
+            // move the head
+            snakeHead.x = snake.head->snake_node.x;
+            snakeHead.y = snake.head->snake_node.y;
+
             // if the apple is overlapping head.
-            const int appleOverlapSnakeX = (float)snake.head->snake_node.x == apple.x;
-            const int appleOverlapSnakeY = (float)snake.head->snake_node.y == apple.y;
+            const int appleOverlapSnakeX = snake.head->snake_node.x == apple.x;
+            const int appleOverlapSnakeY = snake.head->snake_node.y == apple.y;
 
             if (appleOverlapSnakeX && appleOverlapSnakeY && !gameOver)
             {
@@ -220,13 +224,9 @@ int main(void)
 
             }
 
-            // move the head
-            snakeHead.x = (float)snake.head->snake_node.x;
-            snakeHead.y = (float)snake.head->snake_node.y;
-
-            
             BeginDrawing();
             ClearBackground(RAYWHITE);
+
             // prev pos stored after the head position
             Node *temp = snake.head->next;
             int length = 0;
@@ -256,14 +256,19 @@ int main(void)
             }
 
             DrawRectangleRec(apple, RED);
-            // Draw the snake head as dark green square.
             DrawRectangleRec(snakeHead, DARKGREEN);
 
             DrawText(TextFormat("Score: %0i", score), 0, 0, 50, BLACK);
 
             if (gameOver)
             {
-                if (GuiButton((Rectangle){350, 250, 100, 50}, "Reset"))
+                float buttonWidth = 100;
+                float buttonHeight = 50;
+                float gameOverButtonX = ((float) GetScreenWidth() - buttonWidth) / 2;
+                float gameOverButtonY = ((float) GetScreenHeight() - buttonHeight) / 2;
+                Rectangle gameOverButton = {gameOverButtonX,gameOverButtonY,buttonWidth,buttonHeight};
+
+                if (GuiButton(gameOverButton, "Reset"))
                 {
                     resetGame(&snake, &data, &gameInfo);
                     applePos = moveApple(&snake, (int)gameInfo.moveInterval);
