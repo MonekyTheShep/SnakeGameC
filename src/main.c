@@ -71,12 +71,14 @@ int main(void)
     srand(time(NULL));
     SnakeData data = {&direction};
 
-    const int maxSize = (SCREEN_WIDTH / (int)gameInfo.moveInterval) * (SCREEN_HEIGHT / (int)gameInfo.moveInterval);
-    const int maxSnakeSize = (score + 1 == maxSize);
+
 
     // Initialise Raylib shit
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Snake Game");
     InitAudioDevice();
+
+    const int maxSize = (GetScreenWidth()/ (int)gameInfo.moveInterval) * (GetScreenHeight() / (int)gameInfo.moveInterval);
+    const int maxSnakeSize = (score + 1 == maxSize);
 
     // load sounds
     Sound collectSound = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
@@ -116,6 +118,7 @@ int main(void)
 
         UpdateMusicStream(*currentMusic);
 
+        // move all logic outside of draw code
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -158,8 +161,10 @@ int main(void)
 
             // Draw the buttons
             const char *buttonLabels[] = {"Start", "End"};
+            const char numOfButtons = sizeof(buttonLabels) / sizeof(buttonLabels[0]);
+
             void (*buttonCallbacks[2])(void) = {buttonStart, buttonExit};
-            drawMenu((float) GetScreenWidth(), (float) GetScreenHeight(), buttonLabels, 2, buttonCallbacks);
+            drawMenu(buttonLabels, numOfButtons, buttonCallbacks);
         }
 
         if (menuState == GAME_MENU)

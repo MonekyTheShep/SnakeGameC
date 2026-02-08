@@ -3,8 +3,6 @@
 #include "raylib.h"
 #include "apple.h"
 
-
-
 RandomPos randomApplePos(const int moveInterval)
 {
     const int xCount = GetScreenWidth() / moveInterval;
