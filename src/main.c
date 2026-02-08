@@ -157,10 +157,10 @@ int main(void)
             // Create buttons
             for (int i = 0; i < numButtons; i++) {
                 // calculate where button is placed
-                float buttonOffset = (float) i * (buttonHeight + buttonGap);
+                float buttonYOffset = (float) i * (buttonHeight + buttonGap);
 
                 float currentButtonX = buttonCenterX;
-                float currentButtonY = buttonCenterY + buttonOffset;
+                float currentButtonY = buttonCenterY + buttonYOffset;
 
                 Rectangle button = { currentButtonX, currentButtonY , buttonWidth , buttonHeight };
                 if (GuiButton(button, buttonLabels[i])) {
