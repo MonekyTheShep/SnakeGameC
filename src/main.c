@@ -22,7 +22,7 @@
 
 // default menu
 MenuStates menuState = MAIN_MENU;
-GameInfo gameInfo = {0};
+GameInfo gameInfo = {.musicPlaying = 0};
 
 int gameOver = 0;
 int score = 0;
@@ -43,16 +43,18 @@ void resetGame(LinkedList *snake, const SnakeData *data, GameInfo *info)
 
 int main(void)
 {
-    // Initialise SNAKE shit
-    LinkedList snake = createSnake();
-    enum Direction direction = RIGHT;
-
     // seed random
     srand(time(NULL));
-    SnakeData data = {&direction};
 
-    // Initialise Raylib shit
+    // Initialise SNAKE
+    LinkedList snake = createSnake();
+    enum Direction direction = RIGHT;
+    SnakeData data = {.direction = &direction};
+
+    // Initialise Raylib
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Snake Game");
+    SetTargetFPS(60);
+
     InitAudioDevice();
 
     const int maxSize = (GetScreenWidth()/ MOVE_INTERVAL) * (GetScreenHeight() / (int)MOVE_INTERVAL);
@@ -77,8 +79,6 @@ int main(void)
     Music *currentMusic = &mainMenuSound;
     PlayMusicStream(*currentMusic);
     gameInfo.musicPlaying = 1;
-
-    SetTargetFPS(60);
 
     Rectangle snakeHead = {0, 0, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
     RandomPos applePos = moveApple(&snake, MOVE_INTERVAL);
@@ -125,7 +125,7 @@ int main(void)
                 updateMainMenu(&gameInfo, &menuState);
                 break;
             case GAME_MENU:
-
+                // make a updateGameMenu here.
             default:
                 break;
         }
