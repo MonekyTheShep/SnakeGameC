@@ -30,12 +30,6 @@ int score = 0;
 
 int verboseMode = 0;
 
-void changeMenu(GameInfo *info, enum MenuStates *currentState, const enum MenuStates changeState)
-{
-    *currentState = changeState;
-    info->musicPlaying = 0;
-}
-
 void resetGame(LinkedList *snake, const SnakeData *data, GameInfo *info)
 {
     // reset snake by freeing and creating new snake
@@ -46,14 +40,6 @@ void resetGame(LinkedList *snake, const SnakeData *data, GameInfo *info)
     score = 0;
     gameOver = 0;
     changeMenu(info, &menuState, MAIN_MENU);
-}
-
-void buttonStart(void) {
-    changeMenu(&gameInfo, &menuState, GAME_MENU);
-}
-
-void buttonExit(void) {
-    changeMenu(&gameInfo, &menuState, EXIT_MENU);
 }
 
 int main(void)
@@ -135,29 +121,7 @@ int main(void)
 
         if (menuState == MAIN_MENU)
         {
-            BeginDrawing();
-            ClearBackground(RAYWHITE);
-            // Draw the title
-            const char titleText[11] = "Snake Game";
-
-            const Font font = GetFontDefault();
-            const float fontSize = 50;
-
-            const Vector2 size = MeasureTextEx(font, titleText, fontSize, 0);
-
-            const float textXCenter = ((float)GetScreenWidth() - size.x) / 2;
-            const float textYCenter = ((float)GetScreenHeight() - size.y) / 2;
-            const float offsetY = -50;
-
-            DrawTextEx(font, TextFormat(titleText, score), (Vector2){textXCenter, textYCenter + offsetY}, fontSize, 1, BLACK);
-
-            // Draw the buttons
-            const char *buttonLabels[] = {"Start", "End"};
-            const char numOfButtons = sizeof(buttonLabels) / sizeof(buttonLabels[0]);
-
-            void (*buttonCallbacks[2])(void) = {buttonStart, buttonExit};
-            drawMenu(buttonLabels, numOfButtons, buttonCallbacks);
-            EndDrawing();
+            updateMainMenu(&gameInfo, &menuState);
         }
 
         if (menuState == GAME_MENU)
