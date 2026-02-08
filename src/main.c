@@ -91,6 +91,7 @@ int main(void)
 
     while (!WindowShouldClose())
     {
+
         if (menuState == EXIT_MENU) {
             break;
         }
@@ -119,9 +120,15 @@ int main(void)
             default: break;
             }
 
-        if (menuState == MAIN_MENU)
-        {
-            updateMainMenu(&gameInfo, &menuState);
+
+        switch (menuState) {
+            case MAIN_MENU:
+                updateMainMenu(&gameInfo, &menuState);
+                break;
+            case GAME_MENU:
+
+            default:
+                break;
         }
 
         if (menuState == GAME_MENU)
