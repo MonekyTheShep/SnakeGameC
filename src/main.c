@@ -17,14 +17,6 @@
 #define SCREEN_HEIGHT 600
 #define MOVE_INTERVAL 50
 
-
-enum MenuStates
-{
-    MAIN_MENU,
-    GAME_MENU,
-    EXIT_STATE
-};
-
 // default menu
 enum MenuStates menuState = MAIN_MENU;
 
@@ -44,7 +36,6 @@ void changeMenu(GameInfo *info, enum MenuStates *currentState, const enum MenuSt
 void resetGame(LinkedList *snake, const SnakeData *data, GameInfo *info)
 {
     // reset snake by freeing and creating new snake
-
     *snake = clearList(snake);
     *snake = createSnake();
 
@@ -59,7 +50,7 @@ void buttonStart(void) {
 }
 
 void buttonExit(void) {
-    changeMenu(&gameInfo, &menuState, EXIT_STATE);
+    changeMenu(&gameInfo, &menuState, EXIT_MENU);
 }
 
 int main(void)
@@ -113,16 +104,13 @@ int main(void)
 
     while (!WindowShouldClose())
     {
-        if (menuState == EXIT_STATE) {
+        if (menuState == EXIT_MENU) {
             break;
         }
 
         UpdateMusicStream(*currentMusic);
 
         // move all logic outside of draw code
-
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
 
         // music management
         if (!gameInfo.musicPlaying)
@@ -146,6 +134,8 @@ int main(void)
 
         if (menuState == MAIN_MENU)
         {
+            BeginDrawing();
+            ClearBackground(RAYWHITE);
             // Draw the title
             const char titleText[11] = "Snake Game";
 
@@ -166,6 +156,7 @@ int main(void)
 
             void (*buttonCallbacks[2])(void) = {buttonStart, buttonExit};
             drawMenu(buttonLabels, numOfButtons, buttonCallbacks);
+            EndDrawing();
         }
 
         if (menuState == GAME_MENU)
@@ -219,9 +210,23 @@ int main(void)
                 PlaySound(collectSound);
                 score += 1;
                 growSnake(&snake);
+
+                // new apple pos
                 applePos = moveApple(&snake, (int)gameInfo.moveInterval);
+
+                // move the apple
+                apple.x = (float)applePos.x;
+                apple.y = (float)applePos.y;
+
             }
 
+            // move the head
+            snakeHead.x = (float)snake.head->snake_node.x;
+            snakeHead.y = (float)snake.head->snake_node.y;
+
+            
+            BeginDrawing();
+            ClearBackground(RAYWHITE);
             // prev pos stored after the head position
             Node *temp = snake.head->next;
             int length = 0;
@@ -250,14 +255,6 @@ int main(void)
                 temp = temp->next;
             }
 
-            // move the head
-            snakeHead.x = (float)snake.head->snake_node.x;
-            snakeHead.y = (float)snake.head->snake_node.y;
-
-            // draw the apple
-            apple.x = (float)applePos.x;
-            apple.y = (float)applePos.y;
-
             DrawRectangleRec(apple, RED);
             // Draw the snake head as dark green square.
             DrawRectangleRec(snakeHead, DARKGREEN);
@@ -275,9 +272,9 @@ int main(void)
                 }
             }
 
-        }
+            EndDrawing();
 
-        EndDrawing();
+        }
     }
 
 
