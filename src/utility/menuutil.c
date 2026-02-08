@@ -24,9 +24,8 @@ void drawMenu(const char *buttonLabels[], const int numButtons, void (*buttonCal
         const float currentButtonX = buttonCenterX;
         const float currentButtonY = buttonCenterY + buttonYOffset;
 
-        Rectangle button = { currentButtonX, currentButtonY , buttonWidth , buttonHeight };
+        const Rectangle button = { currentButtonX, currentButtonY , buttonWidth , buttonHeight };
         if (GuiButton(button, buttonLabels[i])) {
-            printf("%d", i);
             buttonCallback[i]();
         }
     }

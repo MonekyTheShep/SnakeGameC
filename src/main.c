@@ -63,8 +63,6 @@ int main(void)
     srand(time(NULL));
     SnakeData data = {&direction};
 
-
-
     // Initialise Raylib shit
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Snake Game");
     InitAudioDevice();
@@ -262,11 +260,11 @@ int main(void)
 
             if (gameOver)
             {
-                float buttonWidth = 100;
-                float buttonHeight = 50;
-                float gameOverButtonX = ((float) GetScreenWidth() - buttonWidth) / 2;
-                float gameOverButtonY = ((float) GetScreenHeight() - buttonHeight) / 2;
-                Rectangle gameOverButton = {gameOverButtonX,gameOverButtonY,buttonWidth,buttonHeight};
+                const float buttonWidth = 100;
+                const float buttonHeight = 50;
+                const float gameOverButtonX = ((float) GetScreenWidth() - buttonWidth) / 2;
+                const float gameOverButtonY = ((float) GetScreenHeight() - buttonHeight) / 2;
+                const Rectangle gameOverButton = {gameOverButtonX,gameOverButtonY,buttonWidth,buttonHeight};
 
                 if (GuiButton(gameOverButton, "Reset"))
                 {
@@ -283,10 +281,10 @@ int main(void)
     }
 
 
-    int numOfSound = sizeof(sounds) / sizeof(sounds[0]);
+    const int numOfSound = sizeof(sounds) / sizeof(sounds[0]);
     cleanUpSound(sounds, numOfSound);
 
-    int numOfMusic = sizeof(musics) / sizeof(musics[0]);
+    const int numOfMusic = sizeof(musics) / sizeof(musics[0]);
     cleanUpMusic(musics, numOfMusic);
 
     CloseAudioDevice();
