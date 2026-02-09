@@ -14,51 +14,24 @@
 
 #include "linkedlist.h"
 #include "snake.h"
-#include "apple.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 #define MOVE_INTERVAL 50
 
-// default menu
-MenuStates menuState = MAIN_MENU;
-GameInfo gameInfo = {.musicPlaying = 0};
-
-int gameOver = 0;
-int score = 0;
-
-int verboseMode = 0;
-
-void resetGame(LinkedList *snake, const SnakeData *data, GameInfo *info)
-{
-    // reset snake by freeing and creating new snake
-    *snake = clearList(snake);
-    *snake = createSnake();
-
-    *data->direction = RIGHT;
-    score = 0;
-    gameOver = 0;
-    changeMenu(info, &menuState, MAIN_MENU);
-}
-
 int main(void)
 {
+    // default menu
+    MenuStates menuState = MAIN_MENU;
+    GameInfo gameInfo = {.musicPlaying = 0};
+
     // seed random
     srand(time(NULL));
-
-    // Initialise SNAKE
-    LinkedList snake = createSnake();
-    enum Direction direction = RIGHT;
-    SnakeData data = {.direction = &direction};
-
     // Initialise Raylib
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Snake Game");
     SetTargetFPS(60);
 
     InitAudioDevice();
-
-    const int maxSize = (GetScreenWidth()/ MOVE_INTERVAL) * (GetScreenHeight() / (int)MOVE_INTERVAL);
-    const int maxSnakeSize = (score + 1 == maxSize);
 
     // load sounds
     Sound collectSound = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
@@ -67,6 +40,8 @@ int main(void)
     Sound sounds[2];
     sounds[0] = collectSound;
     sounds[1] = explosionSound;
+
+    initializeGame(sounds);
 
     // load musics
     Music mainMenuSound = LoadMusicStream(ASSETS_PATH "/music/main_menu.ogg");
@@ -80,13 +55,7 @@ int main(void)
     PlayMusicStream(*currentMusic);
     gameInfo.musicPlaying = 1;
 
-    Rectangle snakeHead = {0, 0, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
-    RandomPos applePos = moveApple(&snake, MOVE_INTERVAL);
-    Rectangle apple = {(float)applePos.x, (float)applePos.y, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
 
-    float accumulatedTime = 0.0f; // Total elapsed time
-    float accumulatedDebounceTime = 0.0f;
-    const float moveTimeInterval = 0.1f;
 
     while (!WindowShouldClose())
     {
@@ -119,140 +88,16 @@ int main(void)
             default: break;
             }
 
-
         switch (menuState) {
             case MAIN_MENU:
                 updateMainMenu(&gameInfo, &menuState);
                 break;
             case GAME_MENU:
-                // make a updateGameMenu here.
+                updateGameMenu(&gameInfo, &menuState);
             default:
                 break;
         }
-
-        if (menuState == GAME_MENU)
-        {
-            float deltaTime = GetFrameTime(); // Time since last frame
-            accumulatedTime += deltaTime;     // Add to total
-            accumulatedDebounceTime += deltaTime;
-
-            if (maxSnakeSize)
-            {
-                gameOver = 1;
-            }
-
-            // input checking
-            if (accumulatedDebounceTime > moveTimeInterval && !gameOver)
-            {
-                accumulatedDebounceTime = 0.0f;
-                if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && direction != LEFT)
-                    direction = RIGHT;
-                else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && direction != RIGHT)
-                    direction = LEFT;
-                else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && direction != UP)
-                    direction = DOWN;
-                else if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && direction != DOWN)
-                    direction = UP;
-            }
-
-
-            // store prev position then move the snake position x and y
-            int beenTimeInterval = accumulatedTime > moveTimeInterval;
-            if (beenTimeInterval && !gameOver)
-            {
-                accumulatedTime = 0.0f;
-                storePrevSnakePosition(&snake);
-                moveSnake(&snake, &data, MOVE_INTERVAL);
-
-                if (verboseMode)
-                {
-                    printLinkedList(&snake);
-                    printf("%d\n", sizeOfLinkedList(&snake));
-                    printf("%d\n", gameOver);
-                }
-            }
-
-            // move the head
-            snakeHead.x = snake.head->snake_node.x;
-            snakeHead.y = snake.head->snake_node.y;
-
-            // if the apple is overlapping head.
-            const int appleOverlapSnakeX = snake.head->snake_node.x == apple.x;
-            const int appleOverlapSnakeY = snake.head->snake_node.y == apple.y;
-
-            if (appleOverlapSnakeX && appleOverlapSnakeY && !gameOver)
-            {
-                PlaySound(collectSound);
-                score += 1;
-                growSnake(&snake);
-
-                // new apple pos
-                applePos = moveApple(&snake, MOVE_INTERVAL);
-
-                // move the apple
-                apple.x = (float)applePos.x;
-                apple.y = (float)applePos.y;
-
-            }
-
-            BeginDrawing();
-            ClearBackground(RAYWHITE);
-
-            // prev pos stored after the head position
-            Node *temp = snake.head->next;
-            int length = 0;
-
-            // move tail to previous positions and check if those tails are touching head
-            while (temp != NULL)
-            {
-                length++;
-
-                Rectangle tail = {(float)temp->snake_node.x, (float)temp->snake_node.y, MOVE_INTERVAL, MOVE_INTERVAL};
-                DrawRectangleRec(tail, GREEN);
-
-                const int tailOverlapHeadX = temp->snake_node.x == snake.head->snake_node.x;
-                const int tailOverlapHeadY = temp->snake_node.y == snake.head->snake_node.y;
-                const int hasTails = length > 1;
-                // it has to be longer than 1
-
-                // if tail overlaps head then it should game over and play death sound
-                if (tailOverlapHeadX && tailOverlapHeadY && hasTails && !gameOver)
-                {
-                    gameOver = 1;
-                    PlaySound(explosionSound);
-                    break;
-                }
-
-                temp = temp->next;
-            }
-
-            DrawRectangleRec(apple, RED);
-            DrawRectangleRec(snakeHead, DARKGREEN);
-
-            DrawText(TextFormat("Score: %0i", score), 0, 0, 50, BLACK);
-
-            if (gameOver)
-            {
-                const float buttonWidth = 100;
-                const float buttonHeight = 50;
-                const float gameOverButtonX = ((float) GetScreenWidth() - buttonWidth) / 2;
-                const float gameOverButtonY = ((float) GetScreenHeight() - buttonHeight) / 2;
-                const Rectangle gameOverButton = {gameOverButtonX,gameOverButtonY,buttonWidth,buttonHeight};
-
-                if (GuiButton(gameOverButton, "Reset"))
-                {
-                    resetGame(&snake, &data, &gameInfo);
-                    applePos = moveApple(&snake, MOVE_INTERVAL);
-                    apple.x = (float)applePos.x;
-                    apple.y = (float)applePos.y;
-                }
-            }
-
-            EndDrawing();
-
-        }
     }
-
 
     const int numOfSound = sizeof(sounds) / sizeof(sounds[0]);
     cleanUpSound(sounds, numOfSound);
@@ -262,7 +107,6 @@ int main(void)
 
     CloseAudioDevice();
     CloseWindow();
-
-    freeLinkedList(&snake);
+    freeSnake();
     return 0;
 }
