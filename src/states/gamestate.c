@@ -12,9 +12,9 @@
 #define COLLECT_SOUND 0
 #define EXPLOSION_SOUND 1
 
-enum Direction direction = RIGHT;
 
 LinkedList snake;
+enum Direction direction = RIGHT;
 SnakeData data = {.direction = &direction};
 
 int gameOver = 0;
@@ -29,7 +29,7 @@ int maxSnakeSize;
 
 Sound (*sounds);
 
-void resetGame(LinkedList *snake, const SnakeData *data, GameInfo *info, MenuStates *menuState)
+static void resetGame(LinkedList *snake, const SnakeData *data, GameInfo *info, MenuStates *menuState)
 {
     // reset snake by freeing and creating new snake
     *snake = clearList(snake);
@@ -187,7 +187,7 @@ static void handleSnake(void)
 
 void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState)
 {
-    float deltaTime = GetFrameTime(); // Time since last frame
+    const float deltaTime = GetFrameTime(); // Time since last frame
     accumulatedTime += deltaTime;     // Add to total
     accumulatedDebounceTime += deltaTime;
 
