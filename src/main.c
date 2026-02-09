@@ -10,7 +10,7 @@
 #include "utility/soundutil.h"
 
 #include "states/gamestate.h"
-#include "states/menustate.h"
+#include "states/mainmenustate.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
