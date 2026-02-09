@@ -91,7 +91,7 @@ static void collisionHandling(void)
     const int appleOverlapSnakeX = snake.head->snake_node.x == apple.x;
     const int appleOverlapSnakeY = snake.head->snake_node.y == apple.y;
 
-    if (appleOverlapSnakeX && appleOverlapSnakeY && !gameOver)
+    if (appleOverlapSnakeX && appleOverlapSnakeY)
     {
         PlaySound(sounds[COLLECT_SOUND]);
         score += 1;
@@ -170,7 +170,7 @@ static void handleSnake(void)
 
     // store prev position
     int beenTimeInterval = accumulatedTime > moveTimeInterval;
-    if (beenTimeInterval && !gameOver)
+    if (beenTimeInterval)
     {
         accumulatedTime = 0.0f;
         storePrevSnakePosition(&snake);
@@ -196,7 +196,9 @@ void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState)
         gameOver = 1;
     }
 
-    handleSnake();
+    if (!gameOver) {
+        handleSnake();
+    }
 
     BeginDrawing();
             ClearBackground(RAYWHITE);
