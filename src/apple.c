@@ -1,7 +1,10 @@
+#include "apple.h"
+
 #include <stdlib.h>
 #include <stdio.h>
-#include "raylib.h"
-#include "apple.h"
+
+#include <raylib.h>
+
 
 RandomPos randomApplePos(const int moveInterval)
 {

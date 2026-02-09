@@ -1,6 +1,8 @@
-#include <stdio.h>
 #include "snake.h"
-#include "raylib.h"
+
+#include <stdio.h>
+
+#include <raylib.h>
 
 LinkedList createSnake(void)
 {

@@ -1,3 +1,4 @@
+#include "states/gamestate.h"
 
 #include <stddef.h>
 
@@ -6,8 +7,6 @@
 #include "linkedlist.h"
 #include "snake.h"
 #include "apple.h"
-
-#include "states/gamestate.h"
 
 #define MOVE_INTERVAL 50
 #define COLLECT_SOUND 0
@@ -84,22 +83,6 @@ static void inputHandling(void)
         else if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && direction != DOWN)
             direction = UP;
     }
-}
-
-static void storePrevAndMoveSnake(void)
-{
-    // store prev position then move the snake position x and y
-    int beenTimeInterval = accumulatedTime > moveTimeInterval;
-    if (beenTimeInterval && !gameOver)
-    {
-        accumulatedTime = 0.0f;
-        storePrevSnakePosition(&snake);
-        moveSnake(&snake, &data, MOVE_INTERVAL);
-    }
-
-    // move the head
-    snakeHead.x = snake.head->snake_node.x;
-    snakeHead.y = snake.head->snake_node.y;
 }
 
 static void collisionHandling(void)
@@ -181,6 +164,26 @@ static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
 }
 
 
+static void handleSnake(void)
+{
+    inputHandling();
+
+    // store prev position
+    int beenTimeInterval = accumulatedTime > moveTimeInterval;
+    if (beenTimeInterval && !gameOver)
+    {
+        accumulatedTime = 0.0f;
+        storePrevSnakePosition(&snake);
+        moveSnake(&snake, &data, MOVE_INTERVAL);
+    }
+
+    // move the snake head rectangle
+    snakeHead.x = snake.head->snake_node.x;
+    snakeHead.y = snake.head->snake_node.y;
+
+    collisionHandling();
+}
+
 
 void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState)
 {
@@ -193,9 +196,7 @@ void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState)
         gameOver = 1;
     }
 
-    inputHandling();
-    storePrevAndMoveSnake();
-    collisionHandling();
+    handleSnake();
 
     BeginDrawing();
             ClearBackground(RAYWHITE);

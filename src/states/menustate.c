@@ -1,6 +1,7 @@
-#include "raylib.h"
-
 #include "states/menustate.h"
+
+#include <raylib.h>
+
 #include "utility/menuutil.h"
 #include  "utility/gameutil.h"
 
@@ -38,7 +39,7 @@ void updateMainMenu(GameInfo *gameInfo, MenuStates *menuState)
     drawTitle();
 
     // Draw the buttons
-    const char *buttonLabels[] = {"Start", "End"};
+    const char *buttonLabels[] = {"Start", "Exit"};
     const char numOfButtons = sizeof(buttonLabels) / sizeof(buttonLabels[0]);
 
     void (*buttonCallbacks[2])(GameInfo*, MenuStates*) = {buttonStartCallback, buttonExitCallback};
