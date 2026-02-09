@@ -6,7 +6,7 @@
 #include "utility/menuutil.h"
 #include  "utility/gameutil.h"
 
-void buttonMenuCallback(int buttonIndex, GameInfo *gameInfo, MenuStates *menuState) {
+static void buttonMenuCallback(int buttonIndex, GameInfo *gameInfo, MenuStates *menuState) {
     switch (buttonIndex) {
         case 0:
             changeMenu(gameInfo, menuState, GAME_MENU);
