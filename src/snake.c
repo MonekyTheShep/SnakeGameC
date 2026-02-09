@@ -20,7 +20,8 @@ int growSnake(LinkedList *snake)
 }
 
 
-void storePrevSnakePosition(const LinkedList *snake) {
+void storePrevSnakePosition(const LinkedList *snake)
+{
     // store previous values before moving
     Node *temp = snake->head->next;
     float prevX = snake->head->snake_node.x;

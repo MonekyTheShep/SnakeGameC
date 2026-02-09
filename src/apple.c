@@ -18,7 +18,8 @@ RandomPos randomApplePos(const int moveInterval)
 RandomPos moveApple(const LinkedList *snake, const int moveInterval) {
     int validPosition = 0;
     RandomPos pos = randomApplePos(moveInterval);
-    while (!validPosition) {
+    while (!validPosition)
+    {
         // assume valid position until proven not
         validPosition = 1;
 
@@ -27,7 +28,8 @@ RandomPos moveApple(const LinkedList *snake, const int moveInterval) {
         const int appleOverlapSnakeY = (int) snake->head->snake_node.y == pos.y;
 
         // then set valid position to false
-        if (appleOverlapSnakeX && appleOverlapSnakeY) {
+        if (appleOverlapSnakeX && appleOverlapSnakeY)
+        {
             validPosition = 0;
             printf("Moved of the head.\n");
         }
@@ -40,7 +42,8 @@ RandomPos moveApple(const LinkedList *snake, const int moveInterval) {
             const int tailOverlapAppleY = (int) temp->snake_node.y == pos.y;
             const int hasTails = temp->next != NULL;
 
-            if (tailOverlapAppleX  && tailOverlapAppleY && hasTails) {
+            if (tailOverlapAppleX  && tailOverlapAppleY && hasTails)
+            {
                 validPosition = 0;
 
                 printf("Moved of the tail.\n");
@@ -49,7 +52,8 @@ RandomPos moveApple(const LinkedList *snake, const int moveInterval) {
             temp = temp->next;
         }
 
-        if (!validPosition) {
+        if (!validPosition)
+        {
             pos = randomApplePos(moveInterval);
         }
     }

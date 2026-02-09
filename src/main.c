@@ -12,10 +12,8 @@
 #include "states/gamestate.h"
 #include "states/menustate.h"
 
-
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
-#define MOVE_INTERVAL 50
 
 int main(void)
 {
@@ -57,7 +55,8 @@ int main(void)
 
     while (!WindowShouldClose())
     {
-        if (menuState == EXIT) {
+        if (menuState == EXIT)
+        {
             break;
         }
 
@@ -83,7 +82,8 @@ int main(void)
             default: break;
             }
 
-        switch (menuState) {
+        switch (menuState)
+        {
             case MAIN_MENU:
                 updateMainMenu(&gameInfo, &menuState);
                 break;

@@ -43,7 +43,8 @@ void resetGame(LinkedList *snake, const SnakeData *data, GameInfo *info, MenuSta
 }
 
 
-void initializeGame(Sound (*currentSounds)) {
+void initializeGame(Sound (*currentSounds))
+{
     sounds = currentSounds;
 
     // Initialise SNAKE
@@ -63,7 +64,8 @@ float accumulatedTime = 0.0f; // Total elapsed time
 float accumulatedDebounceTime = 0.0f;
 const float moveTimeInterval = 0.1f;
 
-static void inputHandling(void) {
+static void inputHandling(void)
+{
     // input checking
     if (accumulatedDebounceTime > moveTimeInterval && !gameOver)
     {
@@ -79,7 +81,8 @@ static void inputHandling(void) {
     }
 }
 
-static void storePrevAndMoveSnake(void) {
+static void storePrevAndMoveSnake(void)
+{
     // store prev position then move the snake position x and y
     int beenTimeInterval = accumulatedTime > moveTimeInterval;
     if (beenTimeInterval && !gameOver)
@@ -94,7 +97,8 @@ static void storePrevAndMoveSnake(void) {
     snakeHead.y = snake.head->snake_node.y;
 }
 
-static void collisionHandling(void) {
+static void collisionHandling(void)
+{
     // if the apple is overlapping head.
     const int appleOverlapSnakeX = snake.head->snake_node.x == apple.x;
     const int appleOverlapSnakeY = snake.head->snake_node.y == apple.y;
@@ -115,7 +119,8 @@ static void collisionHandling(void) {
     }
 }
 
-static void drawTails(void) {
+static void drawTails(void)
+{
     // prev pos stored after the head position
     Node *temp = snake.head->next;
     int length = 0;
@@ -145,14 +150,16 @@ static void drawTails(void) {
     }
 }
 
-static void drawSnake(void) {
+static void drawSnake(void)
+{
     drawTails();
 
     DrawRectangleRec(apple, RED);
     DrawRectangleRec(snakeHead, DARKGREEN);
 }
 
-static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState) {
+static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
+{
     const float buttonWidth = 100;
     const float buttonHeight = 50;
     const float gameOverButtonX = ((float) GetScreenWidth() - buttonWidth) / 2;
@@ -170,7 +177,8 @@ static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState) {
 
 
 
-void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState) {
+void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState)
+{
     float deltaTime = GetFrameTime(); // Time since last frame
     accumulatedTime += deltaTime;     // Add to total
     accumulatedDebounceTime += deltaTime;
@@ -198,7 +206,8 @@ void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState) {
     EndDrawing();
 }
 
-void CleanUpGame(void) {
+void CleanUpGame(void)
+{
     freeLinkedList(&snake);
 }
 

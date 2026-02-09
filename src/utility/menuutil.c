@@ -9,7 +9,8 @@ void changeMenu(GameInfo *info, MenuStates *currentState, const MenuStates chang
     info->musicPlaying = 0;
 }
 
-void drawMenu(const char *buttonLabels[], const int numButtons, GameInfo *info, MenuStates *menuState, void (*buttonCallback[])(GameInfo*, MenuStates*)) {
+void drawMenu(const char *buttonLabels[], const int numButtons, GameInfo *info, MenuStates *menuState, void (*buttonCallback[])(GameInfo*, MenuStates*))
+{
     // Button information
     const float buttonWidth = 100;
     const float buttonHeight = 50;
@@ -20,7 +21,8 @@ void drawMenu(const char *buttonLabels[], const int numButtons, GameInfo *info, 
     const float buttonCenterY = ((float) GetScreenHeight() - buttonHeight) / 2;
 
     // Create buttons
-    for (int i = 0; i < numButtons; i++) {
+    for (int i = 0; i < numButtons; i++)
+    {
         // calculate where button is placed
         const float buttonYOffset = (float) i * (buttonHeight + buttonGap);
 
@@ -28,7 +30,8 @@ void drawMenu(const char *buttonLabels[], const int numButtons, GameInfo *info, 
         const float currentButtonY = buttonCenterY + buttonYOffset;
 
         const Rectangle button = { currentButtonX, currentButtonY , buttonWidth , buttonHeight };
-        if (GuiButton(button, buttonLabels[i])) {
+        if (GuiButton(button, buttonLabels[i]))
+        {
             buttonCallback[i](info, menuState);
         }
     }
