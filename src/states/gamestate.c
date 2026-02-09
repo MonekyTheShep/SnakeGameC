@@ -39,6 +39,11 @@ void resetGame(LinkedList *snake, const SnakeData *data, GameInfo *info, MenuSta
     *data->direction = RIGHT;
     score = 0;
     gameOver = 0;
+    // move apple for next game
+    applePos = moveApple(snake, MOVE_INTERVAL);
+    apple.x = (float)applePos.x;
+    apple.y = (float)applePos.y;
+
     changeMenu(info, menuState, MAIN_MENU);
 }
 
