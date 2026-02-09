@@ -71,7 +71,7 @@ const float moveTimeInterval = 0.1f;
 static void inputHandling(void)
 {
     // input checking
-    if (accumulatedDebounceTime > moveTimeInterval && !gameOver)
+    if (accumulatedDebounceTime > moveTimeInterval)
     {
         accumulatedDebounceTime = 0.0f;
         if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && direction != LEFT)
