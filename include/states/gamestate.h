@@ -7,4 +7,4 @@
 void initializeGame(Sound (*currentSounds));
 void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState);
 
-void freeSnake(void);
+void CleanUpGame(void);

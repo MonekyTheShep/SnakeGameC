@@ -1,6 +1,6 @@
 #include "raylib.h"
 
-#include "states/menu.h"
+#include "states/menustate.h"
 #include "utility/menuutil.h"
 #include  "utility/gameutil.h"
 
@@ -9,7 +9,7 @@ void buttonStartCallback(GameInfo *gameInfo, MenuStates *menuState) {
 }
 
 void buttonExitCallback(GameInfo *gameInfo, MenuStates *menuState) {
-    changeMenu(gameInfo, menuState, EXIT_MENU);
+    changeMenu(gameInfo, menuState, EXIT);
 }
 
 void drawTitle(void) {

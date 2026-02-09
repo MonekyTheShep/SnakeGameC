@@ -7,7 +7,7 @@
 #include "snake.h"
 #include "apple.h"
 
-#include "states/game.h"
+#include "states/gamestate.h"
 
 #define MOVE_INTERVAL 50
 
@@ -196,7 +196,7 @@ void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState) {
     EndDrawing();
 }
 
-void freeSnake(void) {
+void CleanUpGame(void) {
     freeLinkedList(&snake);
 }
 

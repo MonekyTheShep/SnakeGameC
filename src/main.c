@@ -9,11 +9,9 @@
 #include "utility/gameutil.h"
 #include "utility/soundutil.h"
 
-#include "states/game.h"
-#include "states/menu.h"
+#include "states/gamestate.h"
+#include "states/menustate.h"
 
-#include "linkedlist.h"
-#include "snake.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -59,7 +57,7 @@ int main(void)
 
     while (!WindowShouldClose())
     {
-        if (menuState == EXIT_MENU) {
+        if (menuState == EXIT) {
             break;
         }
 
@@ -102,8 +100,10 @@ int main(void)
     const int numOfMusic = sizeof(musics) / sizeof(musics[0]);
     cleanUpMusic(musics, numOfMusic);
 
+    CleanUpGame();
+
     CloseAudioDevice();
     CloseWindow();
-    freeSnake();
+
     return 0;
 }
