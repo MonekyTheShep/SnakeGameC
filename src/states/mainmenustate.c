@@ -1,6 +1,7 @@
 #include "states/mainmenustate.h"
 
 #include <raylib.h>
+#include <raygui.h>
 
 #include "utility/menuutil.h"
 #include  "utility/gameutil.h"
@@ -13,7 +14,7 @@ void buttonExitCallback(GameInfo *gameInfo, MenuStates *menuState) {
     changeMenu(gameInfo, menuState, EXIT);
 }
 
-void drawTitle(void)
+static void drawTitle(void)
 {
     // Draw the title
     const char titleText[11] = "Snake Game";
@@ -28,6 +29,35 @@ void drawTitle(void)
     const float offsetY = -50;
 
     DrawTextEx(font, titleText, (Vector2){textXCenter, textYCenter + offsetY}, fontSize, 1, BLACK);
+}
+
+
+static void drawMenu(const char *buttonLabels[], const int numButtons, GameInfo *info, MenuStates *menuState, void (*buttonCallback[])(GameInfo*, MenuStates*))
+{
+    // Button information
+    const float buttonWidth = 100;
+    const float buttonHeight = 50;
+    const float buttonGap = 10;
+
+    // Calculate button position
+    const float buttonCenterX = ((float) GetScreenWidth() - buttonWidth) / 2;
+    const float buttonCenterY = ((float) GetScreenHeight() - buttonHeight) / 2;
+
+    // Create buttons
+    for (int i = 0; i < numButtons; i++)
+    {
+        // calculate where button is placed
+        const float buttonYOffset = (float) i * (buttonHeight + buttonGap);
+
+        const float currentButtonX = buttonCenterX;
+        const float currentButtonY = buttonCenterY + buttonYOffset;
+
+        const Rectangle button = { currentButtonX, currentButtonY , buttonWidth , buttonHeight };
+        if (GuiButton(button, buttonLabels[i]))
+        {
+            buttonCallback[i](info, menuState);
+        }
+    }
 }
 
 void updateMainMenu(GameInfo *gameInfo, MenuStates *menuState)

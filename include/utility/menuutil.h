@@ -10,5 +10,3 @@ typedef enum MenuStates
 
 void changeMenu(GameInfo *info, MenuStates *currentState, MenuStates changeState);
 
-void drawMenu(const char *buttonLabels[], int numButtons, GameInfo *info, MenuStates *menuState, void (*buttonCallback[])(GameInfo*, MenuStates*));
-
