@@ -6,12 +6,16 @@
 #include "utility/menuutil.h"
 #include  "utility/gameutil.h"
 
-void buttonStartCallback(GameInfo *gameInfo, MenuStates *menuState) {
-    changeMenu(gameInfo, menuState, GAME_MENU);
-}
-
-void buttonExitCallback(GameInfo *gameInfo, MenuStates *menuState) {
-    changeMenu(gameInfo, menuState, EXIT);
+void buttonMenuCallback(int buttonIndex, GameInfo *gameInfo, MenuStates *menuState) {
+    switch (buttonIndex) {
+        case 0:
+            changeMenu(gameInfo, menuState, GAME_MENU);
+            break;
+        case 1:
+            changeMenu(gameInfo, menuState, EXIT);
+            break;
+        default: break;
+    }
 }
 
 static void drawTitle(void)
@@ -32,7 +36,7 @@ static void drawTitle(void)
 }
 
 
-static void drawMenu(const char *buttonLabels[], const int numButtons, GameInfo *info, MenuStates *menuState, void (*buttonCallback[])(GameInfo*, MenuStates*))
+static void drawMenu(const char *buttonLabels[], const int numButtons, GameInfo *info, MenuStates *menuState, void (*buttonCallback)(int, GameInfo*, MenuStates*))
 {
     // Button information
     const float buttonWidth = 100;
@@ -55,7 +59,7 @@ static void drawMenu(const char *buttonLabels[], const int numButtons, GameInfo 
         const Rectangle button = { currentButtonX, currentButtonY , buttonWidth , buttonHeight };
         if (GuiButton(button, buttonLabels[i]))
         {
-            buttonCallback[i](info, menuState);
+            buttonCallback(i, info, menuState);
         }
     }
 }
@@ -72,8 +76,7 @@ void updateMainMenu(GameInfo *gameInfo, MenuStates *menuState)
     const char *buttonLabels[] = {"Start", "Exit"};
     const char numOfButtons = sizeof(buttonLabels) / sizeof(buttonLabels[0]);
 
-    void (*buttonCallbacks[2])(GameInfo*, MenuStates*) = {buttonStartCallback, buttonExitCallback};
-    drawMenu(buttonLabels, numOfButtons, gameInfo, menuState, buttonCallbacks);
+    drawMenu(buttonLabels, numOfButtons, gameInfo, menuState, buttonMenuCallback);
 
     EndDrawing();
 }
