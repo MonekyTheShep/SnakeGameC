@@ -12,7 +12,8 @@ void buttonExitCallback(GameInfo *gameInfo, MenuStates *menuState) {
     changeMenu(gameInfo, menuState, EXIT);
 }
 
-void drawTitle(void) {
+void drawTitle(void)
+{
     // Draw the title
     const char titleText[11] = "Snake Game";
 
@@ -28,7 +29,8 @@ void drawTitle(void) {
     DrawTextEx(font, titleText, (Vector2){textXCenter, textYCenter + offsetY}, fontSize, 1, BLACK);
 }
 
-void updateMainMenu(GameInfo *gameInfo, MenuStates *menuState) {
+void updateMainMenu(GameInfo *gameInfo, MenuStates *menuState)
+{
     BeginDrawing();
     ClearBackground(RAYWHITE);
 

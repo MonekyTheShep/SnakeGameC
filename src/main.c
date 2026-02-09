@@ -14,6 +14,7 @@
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
+#define GAME_TITLE "Snake Game"
 
 int main(void)
 {
@@ -24,7 +25,7 @@ int main(void)
     // seed random
     srand(time(NULL));
     // Initialise Raylib
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Snake Game");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, GAME_TITLE);
     SetTargetFPS(60);
 
     InitAudioDevice();
