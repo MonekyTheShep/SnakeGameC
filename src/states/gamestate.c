@@ -10,6 +10,8 @@
 #include "states/gamestate.h"
 
 #define MOVE_INTERVAL 50
+#define COLLECT_SOUND 0
+#define EXPLOSION_SOUND 1
 
 enum Direction direction = RIGHT;
 
@@ -99,7 +101,7 @@ static void collisionHandling(void) {
 
     if (appleOverlapSnakeX && appleOverlapSnakeY && !gameOver)
     {
-        PlaySound(sounds[0]);
+        PlaySound(sounds[COLLECT_SOUND]);
         score += 1;
         growSnake(&snake);
 
@@ -135,7 +137,7 @@ static void drawTails(void) {
         if (tailOverlapHeadX && tailOverlapHeadY && hasTails && !gameOver)
         {
             gameOver = 1;
-            PlaySound(sounds[1]);
+            PlaySound(sounds[EXPLOSION_SOUND]);
             break;
         }
 
