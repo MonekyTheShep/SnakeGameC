@@ -11,9 +11,9 @@
 
 #define MOVE_INTERVAL 50
 
+enum Direction direction = RIGHT;
 
 LinkedList snake;
-enum Direction direction = RIGHT;
 SnakeData data = {.direction = &direction};
 
 int gameOver = 0;
@@ -90,7 +90,6 @@ static void storePrevAndMoveSnake(void) {
     // move the head
     snakeHead.x = snake.head->snake_node.x;
     snakeHead.y = snake.head->snake_node.y;
-
 }
 
 static void collisionHandling(void) {
@@ -144,6 +143,13 @@ static void drawTails(void) {
     }
 }
 
+static void drawSnake(void) {
+    drawTails();
+
+    DrawRectangleRec(apple, RED);
+    DrawRectangleRec(snakeHead, DARKGREEN);
+}
+
 static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState) {
     const float buttonWidth = 100;
     const float buttonHeight = 50;
@@ -161,12 +167,6 @@ static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState) {
 }
 
 
-static void drawSnake(void) {
-    drawTails();
-
-    DrawRectangleRec(apple, RED);
-    DrawRectangleRec(snakeHead, DARKGREEN);
-}
 
 void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState) {
     float deltaTime = GetFrameTime(); // Time since last frame
@@ -193,7 +193,7 @@ void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState) {
                 drawGameOverMenu(gameInfo, menuState);
             }
 
-            EndDrawing();
+    EndDrawing();
 }
 
 void freeSnake(void) {

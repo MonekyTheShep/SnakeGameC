@@ -34,8 +34,8 @@ int main(void)
     InitAudioDevice();
 
     // load sounds
-    Sound collectSound = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
-    Sound explosionSound = LoadSound(ASSETS_PATH "/sounds/explosion_sound.ogg");
+    const Sound collectSound = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
+    const Sound explosionSound = LoadSound(ASSETS_PATH "/sounds/explosion_sound.ogg");
 
     Sound sounds[2];
     sounds[0] = collectSound;
@@ -59,14 +59,11 @@ int main(void)
 
     while (!WindowShouldClose())
     {
-
         if (menuState == EXIT_MENU) {
             break;
         }
 
         UpdateMusicStream(*currentMusic);
-
-        // move all logic outside of draw code
 
         // music management
         if (!gameInfo.musicPlaying)
