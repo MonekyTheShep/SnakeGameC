@@ -157,9 +157,6 @@ static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
     if (GuiButton(gameOverButton, "Reset"))
     {
         resetGame(&snake, &data, gameInfo, menuState);
-        applePos = moveApple(&snake, MOVE_INTERVAL);
-        apple.x = (float)applePos.x;
-        apple.y = (float)applePos.y;
     }
 }
 
