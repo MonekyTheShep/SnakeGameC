@@ -89,6 +89,7 @@ int main(void)
                 break;
             case GAME_MENU:
                 updateGameMenu(&gameInfo, &menuState);
+                break;
             default:
                 break;
         }
