@@ -35,7 +35,8 @@ Node *createNode(SnakeNode snake_node)
 
 Node *insertAtHead(LinkedList *list, SnakeNode snake_node)
 {
-    if (list->head == NULL || list->tail == NULL) {
+    if (list->head == NULL || list->tail == NULL)
+    {
         fprintf(stderr, "Cant insert element at head of NULL list.\n");
         return NULL;
     }
@@ -54,7 +55,8 @@ Node *insertAtHead(LinkedList *list, SnakeNode snake_node)
 
 Node *insertAtTail(LinkedList *list, SnakeNode snake_node)
 {
-    if (list->head == NULL || list->tail == NULL) {
+    if (list->head == NULL || list->tail == NULL)
+    {
         fprintf(stderr, "Cant insert element at tail of NULL list.\n");
         return NULL;
     }
@@ -74,7 +76,8 @@ Node *insertAtTail(LinkedList *list, SnakeNode snake_node)
 
 Node *insertAtNode(LinkedList *list, Node *node, SnakeNode snake_node)
 {
-    if (list->head == NULL || list->tail == NULL) {
+    if (list->head == NULL || list->tail == NULL)
+    {
         fprintf(stderr, "Cant insert element of NULL list.\n");
         return NULL;
     }
@@ -139,7 +142,8 @@ Node *insertAtNode(LinkedList *list, Node *node, SnakeNode snake_node)
 
 int popNode(LinkedList *list, Node **node)
 {
-    if (list->head == NULL || list->tail == NULL) {
+    if (list->head == NULL || list->tail == NULL)
+    {
         fprintf(stderr, "Cant pop element of NULL list.\n");
         return 0;
     }
