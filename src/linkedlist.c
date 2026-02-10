@@ -286,7 +286,7 @@ void printLinkedList(LinkedList *list)
 
     while (temp != NULL)
     {
-        printf("(X:%d, Y:%d) -> ", temp->snake_node.x, temp->snake_node.y);
+        printf("(X:%f, Y:%f) -> ", temp->snake_node.x, temp->snake_node.y);
         temp = temp->next;
     }
 
