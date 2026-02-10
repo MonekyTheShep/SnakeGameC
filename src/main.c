@@ -62,23 +62,25 @@ int main(void)
 
         // music management
         if (!gameInfo.musicPlaying)
+        {
             switch (menuState)
             {
-            case MAIN_MENU:
-                gameInfo.musicPlaying = 1;
-                StopMusicStream(*currentMusic);
-                currentMusic = &mainMenuSound;
-                PlayMusicStream(*currentMusic);
-                break;
-            case GAME_MENU:
-                gameInfo.musicPlaying = 1;
-                StopMusicStream(*currentMusic);
-                currentMusic = &gameMusicSound;
-                PlayMusicStream(*currentMusic);
-                break;
+                case MAIN_MENU:
+                    gameInfo.musicPlaying = 1;
+                    StopMusicStream(*currentMusic);
+                    currentMusic = &mainMenuSound;
+                    PlayMusicStream(*currentMusic);
+                    break;
+                case GAME_MENU:
+                    gameInfo.musicPlaying = 1;
+                    StopMusicStream(*currentMusic);
+                    currentMusic = &gameMusicSound;
+                    PlayMusicStream(*currentMusic);
+                    break;
 
-            default: break;
+                default: break;
             }
+        }
 
         switch (menuState)
         {
