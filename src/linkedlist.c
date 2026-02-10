@@ -255,8 +255,10 @@ int sizeOfLinkedList(LinkedList *list)
     return size;
 }
 
-int isEmpty(LinkedList *list) {
-    if (list->head == NULL || list->tail == NULL) {
+int isEmpty(LinkedList *list)
+{
+    if (list->head == NULL || list->tail == NULL)
+    {
         fprintf(stderr, "Cant check if NULL list empty.\n");
         return 0;
     }
@@ -273,7 +275,8 @@ int isEmpty(LinkedList *list) {
 
 void printLinkedList(LinkedList *list)
 {
-    if (list->head == NULL || list->tail == NULL) {
+    if (list->head == NULL || list->tail == NULL)
+    {
         fprintf(stderr, "Cant print NULL list.\n");
         return;
     }
@@ -290,10 +293,12 @@ void printLinkedList(LinkedList *list)
     printf("\n");
 }
 
-LinkedList clearList(LinkedList *list) {
+LinkedList clearList(LinkedList *list)
+{
     LinkedList clearedList = {NULL, NULL};
 
-    if (list->head == NULL || list->tail == NULL) {
+    if (list->head == NULL || list->tail == NULL)
+    {
         fprintf(stderr, "Cant free NULL list.\n");
         return (LinkedList){NULL, NULL};
     }

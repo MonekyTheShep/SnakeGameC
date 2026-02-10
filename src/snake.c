@@ -74,14 +74,16 @@ void moveSnake(const LinkedList *snake, const SnakeData *data, const float moveI
     {
         snake->head->snake_node.y = (float) GetScreenHeight();
     }
-    else if (snake->head->snake_node.y >= (float) GetScreenHeight()) {
+    else if (snake->head->snake_node.y >= (float) GetScreenHeight())
+    {
         snake->head->snake_node.y = 0;
     }
     else if (snake->head->snake_node.x < 0)
     {
         snake->head->snake_node.x = (float) GetScreenWidth();
     }
-    else if (snake->head->snake_node.x >= (float) GetScreenWidth()) {
+    else if (snake->head->snake_node.x >= (float) GetScreenWidth())
+    {
         snake->head->snake_node.x = 0;
     }
 

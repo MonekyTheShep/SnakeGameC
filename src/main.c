@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <pthread.h>
 
 #include <raylib.h>
 #define RAYGUI_IMPLEMENTATION
@@ -22,8 +21,6 @@ int main(void)
     MenuStates menuState = MAIN_MENU;
     GameInfo gameInfo = {.musicPlaying = 0};
 
-    // seed random
-    srand(time(NULL));
     // Initialise Raylib
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, GAME_TITLE);
     SetTargetFPS(60);
@@ -96,10 +93,10 @@ int main(void)
     }
 
     const int numOfSound = sizeof(sounds) / sizeof(sounds[0]);
-    cleanUpSound(sounds, numOfSound);
+    CleanUpSound(sounds, numOfSound);
 
     const int numOfMusic = sizeof(musics) / sizeof(musics[0]);
-    cleanUpMusic(musics, numOfMusic);
+    CleanUpMusic(musics, numOfMusic);
 
     CleanUpGame();
 

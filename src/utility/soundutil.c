@@ -1,6 +1,6 @@
 #include <utility/soundutil.h>
 
-inline void cleanUpSound(const Sound *sounds, const int numOfSounds)
+inline void CleanUpSound(const Sound *sounds, const int numOfSounds)
 {
     // unload all sounds in array of Sound
 
@@ -10,7 +10,7 @@ inline void cleanUpSound(const Sound *sounds, const int numOfSounds)
     }
 }
 
-inline void cleanUpMusic(const Music *musics, const int numOfMusic)
+inline void CleanUpMusic(const Music *musics, const int numOfMusic)
 {
     // unload all sounds in array of Sound
     for (int i = 0; i < numOfMusic; i++)
