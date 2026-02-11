@@ -82,7 +82,7 @@ int main(void)
             }
         }
 
-        // Update logic
+        // Update logic for each state
         switch (menuState)
         {
             case GAME_MENU:
@@ -94,17 +94,17 @@ int main(void)
 
         // Draw for each state
         BeginDrawing();
-        ClearBackground(WHITE);
-        switch (menuState)
-        {
-            case MAIN_MENU:
-                drawMainMenu(&gameInfo, &menuState);
-                break;
-            case GAME_MENU:
-                drawGame(&gameInfo, &menuState);
-                break;
-            default: break;
-        }
+            ClearBackground(WHITE);
+            switch (menuState)
+            {
+                case MAIN_MENU:
+                    drawMainMenu(&gameInfo, &menuState);
+                    break;
+                case GAME_MENU:
+                    drawGame(&gameInfo, &menuState);
+                    break;
+                default: break;
+            }
         EndDrawing();
     }
 
