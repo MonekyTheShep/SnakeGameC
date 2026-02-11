@@ -160,11 +160,7 @@ static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
     }
 }
 
-
-static void handleSnake(void)
-{
-    inputHandling();
-
+static void updateSnakePosition(void) {
     // store prev position
     int beenTimeInterval = accumulatedTime > moveTimeInterval;
     if (beenTimeInterval)
@@ -177,7 +173,12 @@ static void handleSnake(void)
     // move the snake head rectangle
     snakeHead.x = snake.head->snake_node.x;
     snakeHead.y = snake.head->snake_node.y;
+}
 
+static void handleSnake(void)
+{
+    inputHandling();
+    updateSnakePosition();
     collisionHandling();
 }
 
