@@ -82,17 +82,30 @@ int main(void)
             }
         }
 
+        // Update logic
         switch (menuState)
         {
-            case MAIN_MENU:
-                updateMainMenu(&gameInfo, &menuState);
-                break;
             case GAME_MENU:
                 updateGameMenu(&gameInfo, &menuState);
                 break;
             default:
                 break;
         }
+
+        // Draw for each state
+        BeginDrawing();
+        ClearBackground(WHITE);
+        switch (menuState)
+        {
+            case MAIN_MENU:
+                drawMainMenu(&gameInfo, &menuState);
+                break;
+            case GAME_MENU:
+                drawGame(&gameInfo, &menuState);
+                break;
+            default: break;
+        }
+        EndDrawing();
     }
 
     const int numOfSound = sizeof(sounds) / sizeof(sounds[0]);

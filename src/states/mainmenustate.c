@@ -64,18 +64,14 @@ static void drawMenu(const char *buttonLabels[], const int numButtons, GameInfo 
     }
 }
 
-void updateMainMenu(GameInfo *gameInfo, MenuStates *menuState)
+void drawMainMenu(GameInfo *gameInfo, MenuStates *menuState)
 {
-    BeginDrawing();
-        ClearBackground(RAYWHITE);
+    // Draw the title
+    drawTitle();
 
-        // Draw the title
-        drawTitle();
+    // Draw the buttons
+    const char *buttonLabels[] = {"Start", "Exit"};
+    const char numOfButtons = sizeof(buttonLabels) / sizeof(buttonLabels[0]);
 
-        // Draw the buttons
-        const char *buttonLabels[] = {"Start", "Exit"};
-        const char numOfButtons = sizeof(buttonLabels) / sizeof(buttonLabels[0]);
-
-        drawMenu(buttonLabels, numOfButtons, gameInfo, menuState, buttonMenuCallback);
-    EndDrawing();
+    drawMenu(buttonLabels, numOfButtons, gameInfo, menuState, buttonMenuCallback);
 }

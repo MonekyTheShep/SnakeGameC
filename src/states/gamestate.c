@@ -196,19 +196,16 @@ void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState)
     if (!gameOver) {
         handleSnake();
     }
+}
 
-    BeginDrawing();
-            ClearBackground(RAYWHITE);
+void drawGame(GameInfo *gameInfo, MenuStates *menuState) {
+    drawSnake();
+    DrawText(TextFormat("Score: %0i", score), 0, 0, 50, BLACK);
 
-            drawSnake();
-            DrawText(TextFormat("Score: %0i", score), 0, 0, 50, BLACK);
-
-            if (gameOver)
-            {
-                drawGameOverMenu(gameInfo, menuState);
-            }
-
-    EndDrawing();
+    if (gameOver)
+    {
+        drawGameOverMenu(gameInfo, menuState);
+    }
 }
 
 void CleanUpGame(void)

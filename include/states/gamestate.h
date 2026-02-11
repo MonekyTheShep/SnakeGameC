@@ -6,5 +6,5 @@
 
 void initializeGame(Sound (*currentSounds));
 void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState);
-
+void drawGame(GameInfo *gameinfo, MenuStates *menuState);
 void CleanUpGame(void);
