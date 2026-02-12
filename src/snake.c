@@ -15,9 +15,8 @@ LinkedList createSnake(void)
 }
 
 void initializeSnake(Snake *snake) {
-    const SnakeNode snake_node = {0, 0};
     snake->direction = RIGHT;
-    snake->snakeData = createList(snake_node);
+    snake->snakeData = createSnake();
     snake->snakeHead = (Rectangle) {0, 0, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
 }
 
