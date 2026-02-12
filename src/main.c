@@ -11,11 +11,12 @@
 #include "states/gamestate.h"
 #include "states/mainmenustate.h"
 
+#include "global.h"
+
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 #define GAME_TITLE "Snake Game"
 
-Sound sounds[2];
 Music musics[2];
 
 int main(void)

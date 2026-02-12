@@ -22,8 +22,6 @@ Rectangle apple;
 int maxSize;
 int maxSnakeSize;
 
-extern Sound sounds[];
-
 static void resetGame(Snake *snake, GameInfo *info, MenuStates *menuState)
 {
     score = 0;

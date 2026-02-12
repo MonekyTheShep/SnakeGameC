@@ -7,8 +7,8 @@
 #include <raylib.h>
 
 #include "apple.h"
+#include "global.h"
 
-extern Sound sounds[];
 extern int gameOver;
 extern int score;
 
