@@ -62,3 +62,7 @@ RandomPos moveApple(const LinkedList *snake, const int moveInterval) {
     }
     return pos;
 }
+
+void drawApple(Rectangle *apple) {
+    DrawRectangleRec(*apple, RED);
+}
