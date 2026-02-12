@@ -8,7 +8,7 @@ typedef struct RandomPos {
 } RandomPos;
 
 typedef struct Apple {
-    Rectangle apple;
+    Rectangle hitbox;
     Vector2 position;
 } Apple;
 
