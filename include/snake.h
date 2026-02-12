@@ -13,7 +13,6 @@ typedef struct Snake {
     LinkedList snakeData;
     Direction direction;
     Rectangle snakeHead;
-    Vector2 position;
 } Snake;
 
 
