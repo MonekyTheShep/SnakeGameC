@@ -44,7 +44,7 @@ Node *insertAtHead(LinkedList *list, SnakeNode snake_node)
 
     Node *newNode = createNode(snake_node);
 
-    // swap the tail with new node
+    // swap the head with new node
 
     // make new node point to head
     newNode->next = list->head;
