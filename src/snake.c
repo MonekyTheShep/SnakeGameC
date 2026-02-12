@@ -210,7 +210,6 @@ static void drawTails(Snake *snake)
         {
             gameOver = 1;
             PlaySound(sounds[EXPLOSION_SOUND]);
-            break;
         }
 
         temp = temp->next;
