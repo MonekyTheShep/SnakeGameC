@@ -15,6 +15,9 @@
 #define SCREEN_HEIGHT 600
 #define GAME_TITLE "Snake Game"
 
+Sound sounds[2];
+Music musics[2];
+
 int main(void)
 {
     // default menu
@@ -31,17 +34,15 @@ int main(void)
     const Sound collectSound = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
     const Sound explosionSound = LoadSound(ASSETS_PATH "/sounds/explosion_sound.ogg");
 
-    Sound sounds[2];
     sounds[0] = collectSound;
     sounds[1] = explosionSound;
 
-    initializeGame(sounds);
+    initializeGame();
 
     // load musics
     Music mainMenuSound = LoadMusicStream(ASSETS_PATH "/music/main_menu.ogg");
     Music gameMusicSound = LoadMusicStream(ASSETS_PATH "/music/game_music.ogg");
 
-    Music musics[2];
     musics[0] = mainMenuSound;
     musics[1] = gameMusicSound;
 

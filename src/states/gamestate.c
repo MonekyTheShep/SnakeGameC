@@ -26,7 +26,7 @@ Rectangle apple;
 int maxSize;
 int maxSnakeSize;
 
-Sound (*sounds);
+extern Sound sounds[];
 
 static void resetGame(Snake *snake, GameInfo *info, MenuStates *menuState)
 {
@@ -48,9 +48,8 @@ static void resetGame(Snake *snake, GameInfo *info, MenuStates *menuState)
 }
 
 
-void initializeGame(Sound (*currentSounds))
+void initializeGame(void)
 {
-    sounds = currentSounds;
 
     // Initialise SNAKE
     initializeSnake(&snake);
@@ -64,118 +63,9 @@ void initializeGame(Sound (*currentSounds))
 }
 
 
-float accumulatedTime = 0.0f; // Total elapsed time
-float accumulatedDebounceTime = 0.0f;
-const float moveTimeInterval = 0.1f;
-
-static void inputHandling(Snake *snake)
-{
-    // input checking
-    if (accumulatedDebounceTime > moveTimeInterval)
-    {
-        accumulatedDebounceTime = 0.0f;
-        if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && snake->direction != LEFT)
-            snake->direction = RIGHT;
-        else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && snake->direction != RIGHT)
-            snake->direction = LEFT;
-        else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && snake->direction != UP)
-            snake->direction = DOWN;
-        else if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && snake->direction != DOWN)
-            snake->direction = UP;
-    }
-}
-
-static void collisionHandling(Snake *snake)
-{
-    // if the apple is overlapping head.
-    const int appleOverlapSnakeX = snake->snakeData.head->snake_node.x == apple.x;
-    const int appleOverlapSnakeY = snake->snakeData.head->snake_node.y == apple.y;
-
-    if (appleOverlapSnakeX && appleOverlapSnakeY)
-    {
-        PlaySound(sounds[COLLECT_SOUND]);
-        score += 1;
-        growSnake(&snake->snakeData);
-
-        // new apple pos
-        applePos = moveApple(&snake->snakeData);
-
-        // move the apple
-        apple.x = (float)applePos.x;
-        apple.y = (float)applePos.y;
-
-    }
-}
-
-static void drawTails(Snake *snake)
-{
-    // prev pos stored after the head position
-    Node *temp = snake->snakeData.head->next;
-    int length = 0;
-
-    // move tail to previous positions and check if those tails are touching head
-    while (temp != NULL)
-    {
-        length++;
-
-        Rectangle tail = {(float)temp->snake_node.x, (float)temp->snake_node.y, MOVE_INTERVAL, MOVE_INTERVAL};
-        DrawRectangleRec(tail, GREEN);
-
-        const int tailOverlapHeadX = temp->snake_node.x == snake->snakeData.head->snake_node.x;
-        const int tailOverlapHeadY = temp->snake_node.y == snake->snakeData.head->snake_node.y;
-        const int hasTails = length > 1;
-        // it has to be longer than 1
-
-        // if tail overlaps head then it should game over and play death sound
-        if (tailOverlapHeadX && tailOverlapHeadY && hasTails && !gameOver)
-        {
-            gameOver = 1;
-            PlaySound(sounds[EXPLOSION_SOUND]);
-            break;
-        }
-
-        temp = temp->next;
-    }
-}
-
-static void drawHead(Snake *snake) {
-    DrawRectangleRec(snake->snakeHead, DARKGREEN);
-}
-
-static void drawSnake(Snake *snake)
-{
-    drawTails(snake);
-    drawHead(snake);
-}
-
-static void updateSnakePosition(Snake *snake) {
-    // store prev position
-    int beenTimeInterval = accumulatedTime > moveTimeInterval;
-    if (beenTimeInterval)
-    {
-        accumulatedTime = 0.0f;
-        storePrevSnakePosition(&snake->snakeData);
-        moveSnake(snake);
-    }
-
-    // move the snake head rectangle
-    snake->snakeHead.x = snake->snakeData.head->snake_node.x;
-    snake->snakeHead.y =snake->snakeData.head->snake_node.y;
-}
-
-static void handleSnake(void)
-{
-    inputHandling(&snake);
-    updateSnakePosition(&snake);
-    collisionHandling(&snake);
-}
-
-
 void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState)
 {
     const float deltaTime = GetFrameTime(); // Time since last frame
-    accumulatedTime += deltaTime;     // Add to total
-    accumulatedDebounceTime += deltaTime;
 
     if (maxSnakeSize)
     {
@@ -183,7 +73,7 @@ void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState)
     }
 
     if (!gameOver) {
-        handleSnake();
+        handleSnake(deltaTime, &snake, &apple);
     }
 }
 

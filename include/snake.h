@@ -21,3 +21,5 @@ void initializeSnake(Snake *snake);
 int growSnake(LinkedList *snake);
 void storePrevSnakePosition(const LinkedList *snake);
 void moveSnake(Snake *snake);
+void handleSnake(float deltaTime, Snake *snake, Rectangle *apple);
+void drawSnake(Snake *snake);
