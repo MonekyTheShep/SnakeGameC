@@ -7,10 +7,10 @@
 #include <raylib.h>
 
 #include "apple.h"
-#include "global.h"
 
 extern int gameOver;
 extern int score;
+extern Sound sounds[];
 
 
 LinkedList createSnake(void)
