@@ -7,6 +7,10 @@ typedef struct RandomPos {
     int y;
 } RandomPos;
 
+typedef struct Apple {
+    Rectangle apple;
+    Vector2 position;
+} Apple;
 
 RandomPos randomApplePos(int moveInterval);
 

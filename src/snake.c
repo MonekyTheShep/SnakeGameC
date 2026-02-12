@@ -1,5 +1,7 @@
 #include "snake.h"
 
+#include "constants.h"
+
 #include <stdio.h>
 
 #include <raylib.h>
@@ -10,6 +12,13 @@ LinkedList createSnake(void)
     const LinkedList snake = createList(snake_node);
 
     return snake;
+}
+
+void initializeSnake(Snake *snake) {
+    const SnakeNode snake_node = {0, 0};
+    snake->direction = RIGHT;
+    snake->snakeData = createList(snake_node);
+    snake->snakeHead = (Rectangle) {0, 0, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
 }
 
 int growSnake(LinkedList *snake)
@@ -48,43 +57,43 @@ void storePrevSnakePosition(const LinkedList *snake)
 }
 
 
-void moveSnake(const LinkedList *snake, const SnakeData *data, const float moveInterval)
+void moveSnake(Snake *snake)
 {
 
     // move the head
-    switch (*data->direction)
+    switch (snake->direction)
     {
         case UP:
-            snake->head->snake_node.y -= moveInterval;
+            snake->snakeData.head->snake_node.y -= MOVE_INTERVAL;
             break;
         case DOWN:
-            snake->head->snake_node.y += moveInterval;
+            snake->snakeData.head->snake_node.y += MOVE_INTERVAL;
             break;
         case LEFT:
-            snake->head->snake_node.x -= moveInterval;
+            snake->snakeData.head->snake_node.x -= MOVE_INTERVAL;
             break;
         case RIGHT:
-            snake->head->snake_node.x += moveInterval;
+            snake->snakeData.head->snake_node.x += MOVE_INTERVAL;
             break;
     }
 
 
     // screen wrapping'
-    if (snake->head->snake_node.y < 0)
+    if (snake->snakeData.head->snake_node.y  < 0)
     {
-        snake->head->snake_node.y = (float) GetScreenHeight();
+        snake->snakeData.head->snake_node.y  = (float) GetScreenHeight();
     }
-    else if (snake->head->snake_node.y >= (float) GetScreenHeight())
+    else if (snake->snakeData.head->snake_node.y  >= (float) GetScreenHeight())
     {
-        snake->head->snake_node.y = 0;
+        snake->snakeData.head->snake_node.y  = 0;
     }
-    else if (snake->head->snake_node.x < 0)
+    else if (snake->snakeData.head->snake_node.x < 0)
     {
-        snake->head->snake_node.x = (float) GetScreenWidth();
+       snake->snakeData.head->snake_node.x  = (float) GetScreenWidth();
     }
-    else if (snake->head->snake_node.x >= (float) GetScreenWidth())
+    else if (snake->snakeData.head->snake_node.x  >= (float) GetScreenWidth())
     {
-        snake->head->snake_node.x = 0;
+        snake->snakeData.head->snake_node.x = 0;
     }
 
 }

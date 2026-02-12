@@ -1,16 +1,28 @@
 #pragma once
+
 #include "linkedlist.h"
 #include "utility/gameutil.h"
 
-enum Direction {
+#include <raylib.h>
+
+typedef enum Direction {
     UP, DOWN, LEFT, RIGHT
-};
+} Direction;
 
 typedef struct SnakeData {
-    enum Direction *direction;
+    Direction *direction;
 } SnakeData;
 
+typedef struct Snake {
+    LinkedList snakeData;
+    Direction direction;
+    Rectangle snakeHead;
+    Vector2 position;
+} Snake;
+
+
 LinkedList createSnake(void);
+void initializeSnake(Snake *snake);
 int growSnake(LinkedList *snake);
 void storePrevSnakePosition(const LinkedList *snake);
-void moveSnake(const LinkedList *snake, const SnakeData *data, float moveInterval);
+void moveSnake(Snake *snake);

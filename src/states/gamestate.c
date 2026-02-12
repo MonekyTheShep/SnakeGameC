@@ -15,14 +15,11 @@
 #define EXPLOSION_SOUND 1
 
 
-LinkedList snake;
-enum Direction direction = RIGHT;
-SnakeData data = {.direction = &direction};
+Snake snake;
 
 int gameOver = 0;
 int score = 0;
 
-Rectangle snakeHead;
 RandomPos applePos;
 Rectangle apple;
 
@@ -31,17 +28,17 @@ int maxSnakeSize;
 
 Sound (*sounds);
 
-static void resetGame(LinkedList *snake, const SnakeData *data, GameInfo *info, MenuStates *menuState)
+static void resetGame(Snake *snake, GameInfo *info, MenuStates *menuState)
 {
     // reset snake by freeing and creating new snake
-    *snake = clearList(snake);
-    *snake = createSnake();
+    snake->snakeData = clearList(&snake->snakeData);
+    snake->snakeData = createSnake();
 
-    *data->direction = RIGHT;
+    snake->direction = RIGHT;
     score = 0;
     gameOver = 0;
     // move apple for next game
-    applePos = moveApple(snake, MOVE_INTERVAL);
+    applePos = moveApple(&snake->snakeData, MOVE_INTERVAL);
     apple.x = (float)applePos.x;
     apple.y = (float)applePos.y;
 
@@ -51,17 +48,16 @@ static void resetGame(LinkedList *snake, const SnakeData *data, GameInfo *info, 
 
 void initializeGame(Sound (*currentSounds))
 {
+
     sounds = currentSounds;
 
     // Initialise SNAKE
-    snakeHead = (Rectangle) {0, 0, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
-    snake = createSnake();
-
+    initializeSnake(&snake);
     maxSize = (GetScreenWidth()/ MOVE_INTERVAL) * (GetScreenHeight() / (int)MOVE_INTERVAL);
     maxSnakeSize = (score + 1 == maxSize);
 
     // Initialise APPLE
-    applePos = moveApple(&snake, MOVE_INTERVAL);
+    applePos = moveApple(&snake.snakeData, MOVE_INTERVAL);
     apple = (Rectangle) {(float)applePos.x, (float)applePos.y, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
 }
 
@@ -70,37 +66,37 @@ float accumulatedTime = 0.0f; // Total elapsed time
 float accumulatedDebounceTime = 0.0f;
 const float moveTimeInterval = 0.1f;
 
-static void inputHandling(void)
+static void inputHandling(Snake *snake)
 {
     // input checking
     if (accumulatedDebounceTime > moveTimeInterval)
     {
         accumulatedDebounceTime = 0.0f;
-        if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && direction != LEFT)
-            direction = RIGHT;
-        else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && direction != RIGHT)
-            direction = LEFT;
-        else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && direction != UP)
-            direction = DOWN;
-        else if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && direction != DOWN)
-            direction = UP;
+        if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && snake->direction != LEFT)
+            snake->direction = RIGHT;
+        else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && snake->direction != RIGHT)
+            snake->direction = LEFT;
+        else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && snake->direction != UP)
+            snake->direction = DOWN;
+        else if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && snake->direction != DOWN)
+            snake->direction = UP;
     }
 }
 
-static void collisionHandling(void)
+static void collisionHandling(Snake *snake)
 {
     // if the apple is overlapping head.
-    const int appleOverlapSnakeX = snake.head->snake_node.x == apple.x;
-    const int appleOverlapSnakeY = snake.head->snake_node.y == apple.y;
+    const int appleOverlapSnakeX = snake->snakeData.head->snake_node.x == apple.x;
+    const int appleOverlapSnakeY = snake->snakeData.head->snake_node.y == apple.y;
 
     if (appleOverlapSnakeX && appleOverlapSnakeY)
     {
         PlaySound(sounds[COLLECT_SOUND]);
         score += 1;
-        growSnake(&snake);
+        growSnake(&snake->snakeData);
 
         // new apple pos
-        applePos = moveApple(&snake, MOVE_INTERVAL);
+        applePos = moveApple(&snake->snakeData, MOVE_INTERVAL);
 
         // move the apple
         apple.x = (float)applePos.x;
@@ -109,10 +105,10 @@ static void collisionHandling(void)
     }
 }
 
-static void drawTails(void)
+static void drawTails(Snake *snake)
 {
     // prev pos stored after the head position
-    Node *temp = snake.head->next;
+    Node *temp = snake->snakeData.head->next;
     int length = 0;
 
     // move tail to previous positions and check if those tails are touching head
@@ -123,8 +119,8 @@ static void drawTails(void)
         Rectangle tail = {(float)temp->snake_node.x, (float)temp->snake_node.y, MOVE_INTERVAL, MOVE_INTERVAL};
         DrawRectangleRec(tail, GREEN);
 
-        const int tailOverlapHeadX = temp->snake_node.x == snake.head->snake_node.x;
-        const int tailOverlapHeadY = temp->snake_node.y == snake.head->snake_node.y;
+        const int tailOverlapHeadX = temp->snake_node.x == snake->snakeData.head->snake_node.x;
+        const int tailOverlapHeadY = temp->snake_node.y == snake->snakeData.head->snake_node.y;
         const int hasTails = length > 1;
         // it has to be longer than 1
 
@@ -140,32 +136,36 @@ static void drawTails(void)
     }
 }
 
-static void drawSnake(void)
-{
-    drawTails();
-    DrawRectangleRec(snakeHead, DARKGREEN);
+static void drawHead(Snake *snake) {
+    DrawRectangleRec(snake->snakeHead, DARKGREEN);
 }
 
-static void updateSnakePosition(void) {
+static void drawSnake(Snake *snake)
+{
+    drawTails(snake);
+    drawHead(snake);
+}
+
+static void updateSnakePosition(Snake *snake) {
     // store prev position
     int beenTimeInterval = accumulatedTime > moveTimeInterval;
     if (beenTimeInterval)
     {
         accumulatedTime = 0.0f;
-        storePrevSnakePosition(&snake);
-        moveSnake(&snake, &data, MOVE_INTERVAL);
+        storePrevSnakePosition(&snake->snakeData);
+        moveSnake(snake);
     }
 
     // move the snake head rectangle
-    snakeHead.x = snake.head->snake_node.x;
-    snakeHead.y = snake.head->snake_node.y;
+    snake->snakeHead.x = snake->snakeData.head->snake_node.x;
+    snake->snakeHead.y =snake->snakeData.head->snake_node.y;
 }
 
 static void handleSnake(void)
 {
-    inputHandling();
-    updateSnakePosition();
-    collisionHandling();
+    inputHandling(&snake);
+    updateSnakePosition(&snake);
+    collisionHandling(&snake);
 }
 
 
@@ -196,14 +196,14 @@ static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
 
     if (GuiButton(gameOverButton, "Reset"))
     {
-        resetGame(&snake, &data, gameInfo, menuState);
+        resetGame(&snake, gameInfo, menuState);
     }
 }
 
 
 void drawGame(GameInfo *gameInfo, MenuStates *menuState) {
     drawGrid();
-    drawSnake();
+    drawSnake(&snake);
     drawApple(&apple);
 
     DrawText(TextFormat("Score: %0i", score), 0, 0, 50, BLACK);
@@ -216,6 +216,6 @@ void drawGame(GameInfo *gameInfo, MenuStates *menuState) {
 
 void CleanUpGame(void)
 {
-    freeLinkedList(&snake);
+    freeLinkedList(&snake.snakeData);
 }
 
