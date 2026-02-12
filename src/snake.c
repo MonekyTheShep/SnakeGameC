@@ -156,7 +156,8 @@ static void inputHandling(Snake *snake)
 }
 
 
-static void updateSnakePosition(Snake *snake) {
+static void updateSnakePosition(Snake *snake)
+{
     // store prev position
     int beenTimeInterval = accumulatedTime > moveTimeInterval;
     if (beenTimeInterval)
@@ -216,7 +217,8 @@ static void drawTails(Snake *snake)
     }
 }
 
-static void drawHead(Snake *snake) {
+static void drawHead(Snake *snake)
+{
     DrawRectangleRec(snake->snakeHead, DARKGREEN);
 }
 
