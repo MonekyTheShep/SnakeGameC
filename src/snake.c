@@ -8,9 +8,6 @@
 
 #include "apple.h"
 
-#define COLLECT_SOUND 0
-#define EXPLOSION_SOUND 1
-
 extern Sound sounds[];
 extern int gameOver;
 extern int score;

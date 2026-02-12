@@ -11,10 +11,6 @@
 
 #include "constants.h"
 
-#define COLLECT_SOUND 0
-#define EXPLOSION_SOUND 1
-
-
 Snake snake;
 
 int gameOver = 0;
