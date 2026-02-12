@@ -9,10 +9,6 @@ typedef enum Direction {
     UP, DOWN, LEFT, RIGHT
 } Direction;
 
-typedef struct SnakeData {
-    Direction *direction;
-} SnakeData;
-
 typedef struct Snake {
     LinkedList snakeData;
     Direction direction;
