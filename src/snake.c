@@ -107,27 +107,6 @@ void moveSnake(Snake *snake)
 }
 
 
-float accumulatedTime = 0.0f; // Total elapsed time
-float accumulatedDebounceTime = 0.0f;
-const float moveTimeInterval = 0.1f;
-
-static void inputHandling(Snake *snake)
-{
-    // input checking
-    if (accumulatedDebounceTime > moveTimeInterval)
-    {
-        accumulatedDebounceTime = 0.0f;
-        if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && snake->direction != LEFT)
-            snake->direction = RIGHT;
-        else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && snake->direction != RIGHT)
-            snake->direction = LEFT;
-        else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && snake->direction != UP)
-            snake->direction = DOWN;
-        else if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && snake->direction != DOWN)
-            snake->direction = UP;
-    }
-}
-
 static void collisionHandling(Snake *snake, Rectangle *apple)
 {
     // if the apple is overlapping head.
@@ -149,6 +128,29 @@ static void collisionHandling(Snake *snake, Rectangle *apple)
 
     }
 }
+
+
+float accumulatedTime = 0.0f; // Total elapsed time
+float accumulatedDebounceTime = 0.0f;
+const float moveTimeInterval = 0.1f;
+
+static void inputHandling(Snake *snake)
+{
+    // input checking
+    if (accumulatedDebounceTime > moveTimeInterval)
+    {
+        accumulatedDebounceTime = 0.0f;
+        if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && snake->direction != LEFT)
+            snake->direction = RIGHT;
+        else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && snake->direction != RIGHT)
+            snake->direction = LEFT;
+        else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && snake->direction != UP)
+            snake->direction = DOWN;
+        else if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && snake->direction != DOWN)
+            snake->direction = UP;
+    }
+}
+
 
 static void updateSnakePosition(Snake *snake) {
     // store prev position
