@@ -50,7 +50,6 @@ static void resetGame(Snake *snake, GameInfo *info, MenuStates *menuState)
 
 void initializeGame(Sound (*currentSounds))
 {
-
     sounds = currentSounds;
 
     // Initialise SNAKE
@@ -204,7 +203,8 @@ static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
 }
 
 
-void drawGame(GameInfo *gameInfo, MenuStates *menuState) {
+void drawGame(GameInfo *gameInfo, MenuStates *menuState)
+{
     drawGrid();
     drawSnake(&snake);
     drawApple(&apple);
