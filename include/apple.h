@@ -14,6 +14,6 @@ typedef struct Apple {
 
 RandomPos randomApplePos(int moveInterval);
 
-RandomPos moveApple(const LinkedList *snake, int moveInterval);
+RandomPos moveApple(const LinkedList *snake);
 
 void drawApple(Rectangle *apple);

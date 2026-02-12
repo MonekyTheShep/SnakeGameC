@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "constants.h"
+
 #include <raylib.h>
 
 
@@ -18,9 +20,9 @@ RandomPos randomApplePos(const int moveInterval)
     return (RandomPos){xIndex * moveInterval, yIndex * moveInterval};
 }
 
-RandomPos moveApple(const LinkedList *snake, const int moveInterval) {
+RandomPos moveApple(const LinkedList *snake) {
     int validPosition = 0;
-    RandomPos pos = randomApplePos(moveInterval);
+    RandomPos pos = randomApplePos(MOVE_INTERVAL);
     while (!validPosition)
     {
         // assume valid position until proven not
@@ -57,7 +59,7 @@ RandomPos moveApple(const LinkedList *snake, const int moveInterval) {
 
         if (!validPosition)
         {
-            pos = randomApplePos(moveInterval);
+            pos = randomApplePos(MOVE_INTERVAL);
         }
     }
     return pos;

@@ -30,15 +30,17 @@ Sound (*sounds);
 
 static void resetGame(Snake *snake, GameInfo *info, MenuStates *menuState)
 {
+    score = 0;
+    gameOver = 0;
+
     // reset snake by freeing and creating new snake
     snake->snakeData = clearList(&snake->snakeData);
     snake->snakeData = createSnake();
 
     snake->direction = RIGHT;
-    score = 0;
-    gameOver = 0;
+
     // move apple for next game
-    applePos = moveApple(&snake->snakeData, MOVE_INTERVAL);
+    applePos = moveApple(&snake->snakeData);
     apple.x = (float)applePos.x;
     apple.y = (float)applePos.y;
 
@@ -53,11 +55,12 @@ void initializeGame(Sound (*currentSounds))
 
     // Initialise SNAKE
     initializeSnake(&snake);
+
     maxSize = (GetScreenWidth()/ MOVE_INTERVAL) * (GetScreenHeight() / (int)MOVE_INTERVAL);
     maxSnakeSize = (score + 1 == maxSize);
 
     // Initialise APPLE
-    applePos = moveApple(&snake.snakeData, MOVE_INTERVAL);
+    applePos = moveApple(&snake.snakeData);
     apple = (Rectangle) {(float)applePos.x, (float)applePos.y, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
 }
 
@@ -96,7 +99,7 @@ static void collisionHandling(Snake *snake)
         growSnake(&snake->snakeData);
 
         // new apple pos
-        applePos = moveApple(&snake->snakeData, MOVE_INTERVAL);
+        applePos = moveApple(&snake->snakeData);
 
         // move the apple
         apple.x = (float)applePos.x;
