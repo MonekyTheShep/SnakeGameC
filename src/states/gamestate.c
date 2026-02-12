@@ -146,20 +146,6 @@ static void drawSnake(void)
     DrawRectangleRec(snakeHead, DARKGREEN);
 }
 
-static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
-{
-    const float buttonWidth = 100;
-    const float buttonHeight = 50;
-    const float gameOverButtonX = ((float) GetScreenWidth() - buttonWidth) / 2;
-    const float gameOverButtonY = ((float) GetScreenHeight() - buttonHeight) / 2;
-    const Rectangle gameOverButton = {gameOverButtonX,gameOverButtonY,buttonWidth,buttonHeight};
-
-    if (GuiButton(gameOverButton, "Reset"))
-    {
-        resetGame(&snake, &data, gameInfo, menuState);
-    }
-}
-
 static void updateSnakePosition(void) {
     // store prev position
     int beenTimeInterval = accumulatedTime > moveTimeInterval;
@@ -198,6 +184,22 @@ void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState)
         handleSnake();
     }
 }
+
+
+static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
+{
+    const float buttonWidth = 100;
+    const float buttonHeight = 50;
+    const float gameOverButtonX = ((float) GetScreenWidth() - buttonWidth) / 2;
+    const float gameOverButtonY = ((float) GetScreenHeight() - buttonHeight) / 2;
+    const Rectangle gameOverButton = {gameOverButtonX,gameOverButtonY,buttonWidth,buttonHeight};
+
+    if (GuiButton(gameOverButton, "Reset"))
+    {
+        resetGame(&snake, &data, gameInfo, menuState);
+    }
+}
+
 
 void drawGame(GameInfo *gameInfo, MenuStates *menuState) {
     drawGrid();
