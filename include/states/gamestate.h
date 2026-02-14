@@ -6,5 +6,6 @@
 
 void initializeGame(void);
 void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState);
+void incrementScore(void);
 void drawGame(GameInfo *gameinfo, MenuStates *menuState);
 void CleanUpGame(void);

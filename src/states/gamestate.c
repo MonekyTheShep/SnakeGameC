@@ -56,6 +56,10 @@ void initializeGame(void)
     apple = (Rectangle) {(float)applePos.x, (float)applePos.y, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
 }
 
+void incrementScore(void)
+{
+    score++;
+}
 
 void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState)
 {

@@ -20,7 +20,8 @@ RandomPos randomApplePos(const int moveInterval)
     return (RandomPos){xIndex * moveInterval, yIndex * moveInterval};
 }
 
-RandomPos moveApple(const LinkedList *snake) {
+RandomPos moveApple(const LinkedList *snake)
+{
     int validPosition = 0;
     RandomPos pos = randomApplePos(MOVE_INTERVAL);
     while (!validPosition)
@@ -65,6 +66,7 @@ RandomPos moveApple(const LinkedList *snake) {
     return pos;
 }
 
-void drawApple(Rectangle *apple) {
+void drawApple(Rectangle *apple)
+{
     DrawRectangleRec(*apple, RED);
 }

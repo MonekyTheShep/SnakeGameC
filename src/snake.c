@@ -7,9 +7,9 @@
 #include <raylib.h>
 
 #include "apple.h"
+#include "states/gamestate.h"
 
 extern int gameOver;
-extern int score;
 extern Sound sounds[];
 
 
@@ -21,7 +21,8 @@ LinkedList createSnake(void)
     return snake;
 }
 
-void initializeSnake(Snake *snake) {
+void initializeSnake(Snake *snake)
+{
     snake->direction = RIGHT;
     snake->snakeData = createSnake();
     snake->snakeHead = (Rectangle) {0, 0, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
@@ -113,7 +114,7 @@ static void collisionHandling(Snake *snake, Rectangle *apple)
     if (appleOverlapSnakeX && appleOverlapSnakeY)
     {
         PlaySound(sounds[COLLECT_SOUND]);
-        score += 1;
+        incrementScore();
         growSnake(&snake->snakeData);
 
         // new apple pos
@@ -134,7 +135,8 @@ const float moveTimeInterval = 0.1f;
 static void inputHandling(Snake *snake)
 {
     // input checking
-    if (accumulatedDebounceTime > moveTimeInterval) {
+    if (accumulatedDebounceTime > moveTimeInterval)
+    {
         accumulatedDebounceTime = 0.0f;
         if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && snake->direction != LEFT)
         {
@@ -154,7 +156,6 @@ static void inputHandling(Snake *snake)
         }
     }
 }
-
 
 static void updateSnakePosition(Snake *snake)
 {
