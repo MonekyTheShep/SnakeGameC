@@ -61,9 +61,8 @@ void incrementScore(void)
     score++;
 }
 
-void updateGameMenu(GameInfo *gameInfo, MenuStates *menuState)
+void updateGameMenu(const float deltaTime, GameInfo *gameInfo, MenuStates *menuState)
 {
-    const float deltaTime = GetFrameTime(); // Time since last frame
 
     if (maxSnakeSize)
     {

@@ -59,6 +59,7 @@ int main(void)
             break;
         }
 
+        const float deltaTime = GetFrameTime();
         UpdateMusicStream(*currentMusic);
 
         // music management
@@ -87,7 +88,7 @@ int main(void)
         switch (menuState)
         {
             case GAME_MENU:
-                updateGameMenu(&gameInfo, &menuState);
+                updateGameMenu(deltaTime, &gameInfo, &menuState);
                 break;
             default:
                 break;
