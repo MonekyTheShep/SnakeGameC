@@ -105,7 +105,7 @@ Node *insertAtNode(LinkedList *list, Node *node, SnakeNode snake_node)
 
     // if the node isn't the head
     Node *temp = list->head;
-    Node *prev = list->head;
+    Node *prev = NULL;
     int hasNode = 0;
 
     // loop through list until it is the node
@@ -123,7 +123,13 @@ Node *insertAtNode(LinkedList *list, Node *node, SnakeNode snake_node)
 
     }
 
-    if (!hasNode) 
+    if (prev == NULL) {
+        fprintf(stderr, "Error occured inserting node.\n");
+        free(newNode);
+        return NULL;
+    }
+
+    if (!hasNode)
     {
         fprintf(stderr, "Node not found in list.\n");
         free(newNode);
@@ -171,7 +177,7 @@ int popNode(LinkedList *list, Node **node)
 
     // if the node isn't the head
     Node *temp = list->head;
-    Node *prev = list->head;
+    Node *prev = NULL;
     int hasNode = 0;
 
     // loop through list until it is the node
@@ -185,6 +191,11 @@ int popNode(LinkedList *list, Node **node)
         {
             hasNode = 1;
         }
+    }
+
+    if (prev == NULL) {
+        fprintf(stderr, "Error occured inserting node.\n");
+        return 0;
     }
 
     if (!hasNode) 
