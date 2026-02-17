@@ -124,7 +124,7 @@ Node *insertAtNode(LinkedList *list, Node *node, SnakeNode snake_node)
     }
 
     if (prev == NULL) {
-        fprintf(stderr, "Error occured inserting node.\n");
+        fprintf(stderr, "Error occurred inserting node.\n");
         free(newNode);
         return NULL;
     }
@@ -194,7 +194,7 @@ int popNode(LinkedList *list, Node **node)
     }
 
     if (prev == NULL) {
-        fprintf(stderr, "Error occured inserting node.\n");
+        fprintf(stderr, "Error occurred inserting node.\n");
         return 0;
     }
 
