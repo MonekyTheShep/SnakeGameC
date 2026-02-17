@@ -105,7 +105,7 @@ Node *insertAtNode(LinkedList *list, Node *node, SnakeNode snake_node)
 
     // if the node isn't the head
     Node *temp = list->head;
-    Node *prev;
+    Node *prev = list->head;
     int hasNode = 0;
 
     // loop through list until it is the node
@@ -171,7 +171,7 @@ int popNode(LinkedList *list, Node **node)
 
     // if the node isn't the head
     Node *temp = list->head;
-    Node *prev;
+    Node *prev = list->head;
     int hasNode = 0;
 
     // loop through list until it is the node
