@@ -194,7 +194,7 @@ int popNode(LinkedList *list, Node **node)
     }
 
     if (prev == NULL) {
-        fprintf(stderr, "Error occurred inserting node.\n");
+        fprintf(stderr, "Error occurred removing in list.\n");
         return 0;
     }
 
