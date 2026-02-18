@@ -109,8 +109,8 @@ void moveSnake(Snake *snake)
 static void collisionHandling(Snake *snake, Rectangle *apple)
 {
     // if the apple is overlapping head.
-    const int appleOverlapSnakeX = snake->snakeData.head->snake_node.x == apple->x;
-    const int appleOverlapSnakeY = snake->snakeData.head->snake_node.y == apple->y;
+    const bool appleOverlapSnakeX = snake->snakeData.head->snake_node.x == apple->x;
+    const bool appleOverlapSnakeY = snake->snakeData.head->snake_node.y == apple->y;
 
     if (appleOverlapSnakeX && appleOverlapSnakeY)
     {
@@ -161,7 +161,7 @@ static void inputHandling(Snake *snake)
 static void updateSnakePosition(Snake *snake)
 {
     // store prev position
-    int beenTimeInterval = accumulatedTime > moveTimeInterval;
+    const bool beenTimeInterval = accumulatedTime > moveTimeInterval;
     if (beenTimeInterval)
     {
         accumulatedTime = 0.0f;
@@ -202,9 +202,9 @@ static void drawTails(Snake *snake)
         Rectangle tail = {(float)temp->snake_node.x, (float)temp->snake_node.y, MOVE_INTERVAL, MOVE_INTERVAL};
         DrawRectangleRec(tail, GREEN);
 
-        const int tailOverlapHeadX = temp->snake_node.x == snake->snakeData.head->snake_node.x;
-        const int tailOverlapHeadY = temp->snake_node.y == snake->snakeData.head->snake_node.y;
-        const int hasTails = length > 1;
+        const bool tailOverlapHeadX = temp->snake_node.x == snake->snakeData.head->snake_node.x;
+        const bool tailOverlapHeadY = temp->snake_node.y == snake->snakeData.head->snake_node.y;
+        const bool hasTails = length > 1;
         // it has to be longer than 1
 
         // if tail overlaps head then it should game over and play death sound
