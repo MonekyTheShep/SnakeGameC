@@ -3,13 +3,14 @@
 #include "constants.h"
 
 #include <stdio.h>
+#include <stdbool.h>
 
 #include <raylib.h>
 
 #include "apple.h"
 #include "states/gamestate.h"
 
-extern int gameOver;
+extern bool gameOver;
 extern Sound sounds[];
 
 
@@ -209,7 +210,7 @@ static void drawTails(Snake *snake)
         // if tail overlaps head then it should game over and play death sound
         if (tailOverlapHeadX && tailOverlapHeadY && hasTails && !gameOver)
         {
-            gameOver = 1;
+            gameOver = true;
             PlaySound(sounds[EXPLOSION_SOUND]);
         }
 

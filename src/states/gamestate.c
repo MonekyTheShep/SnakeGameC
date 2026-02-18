@@ -1,6 +1,7 @@
 #include "states/gamestate.h"
 
 #include <stddef.h>
+#include <stdbool.h>
 
 #include <raygui.h>
 
@@ -13,7 +14,7 @@
 
 Snake snake;
 
-int gameOver = 0;
+bool gameOver = false;
 int score = 0;
 
 RandomPos applePos;
@@ -25,7 +26,7 @@ int maxSnakeSize;
 static void resetGame(Snake *snake, GameInfo *info, MenuStates *menuState)
 {
     score = 0;
-    gameOver = 0;
+    gameOver = false;
 
     // reset snake by freeing and creating new snake
     snake->snakeData = clearList(&snake->snakeData);
@@ -66,7 +67,7 @@ void updateGameMenu(const float deltaTime, GameInfo *gameInfo, MenuStates *menuS
 
     if (maxSnakeSize)
     {
-        gameOver = 1;
+        gameOver = true;
     }
 
     if (!gameOver) {
