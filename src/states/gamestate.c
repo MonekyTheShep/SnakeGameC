@@ -21,7 +21,7 @@ RandomPos applePos;
 Rectangle apple;
 
 int maxSize;
-int maxSnakeSize;
+bool maxSnakeSize;
 
 static void resetGame(Snake *snake, GameInfo *info, MenuStates *menuState)
 {
