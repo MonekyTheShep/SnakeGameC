@@ -124,7 +124,8 @@ Node *insertAtNode(LinkedList *list, Node *node, SnakeNode snake_node)
 
     }
 
-    if (prev == NULL) {
+    if (prev == NULL)
+    {
         fprintf(stderr, "Error occurred inserting node.\n");
         free(newNode);
         return NULL;
@@ -194,7 +195,8 @@ int popNode(LinkedList *list, Node **node)
         }
     }
 
-    if (prev == NULL) {
+    if (prev == NULL)
+    {
         fprintf(stderr, "Error occurred removing in list.\n");
         return 0;
     }
@@ -227,7 +229,8 @@ int popNode(LinkedList *list, Node **node)
 
 Node *shiftList(LinkedList *list)
 {
-    if (list->head == NULL || list->tail == NULL) {
+    if (list->head == NULL || list->tail == NULL)
+    {
         fprintf(stderr, "Cant shift head of NULL list.\n");
         return 0;
     }
@@ -254,7 +257,8 @@ Node *shiftList(LinkedList *list)
 
 int sizeOfLinkedList(LinkedList *list)
 {
-    if (list->head == NULL || list->tail == NULL) {
+    if (list->head == NULL || list->tail == NULL)
+    {
         fprintf(stderr, "Cant size of NULL list.\n");
         return 0;
     }
