@@ -70,7 +70,8 @@ void updateGameMenu(const float deltaTime, GameInfo *gameInfo, MenuStates *menuS
         gameOver = true;
     }
 
-    if (!gameOver) {
+    if (!gameOver)
+    {
         handleSnake(deltaTime, &snake, &apple);
     }
 }
