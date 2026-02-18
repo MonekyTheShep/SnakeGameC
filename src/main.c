@@ -8,7 +8,7 @@
 #include "utility/gameutil.h"
 #include "utility/soundutil.h"
 
-#include "states/gamestate.h"
+#include "states/gamemenustate.h"
 #include "states/mainmenustate.h"
 
 #define SCREEN_WIDTH 800

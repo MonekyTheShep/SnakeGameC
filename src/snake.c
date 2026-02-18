@@ -8,7 +8,7 @@
 #include <raylib.h>
 
 #include "apple.h"
-#include "states/gamestate.h"
+#include "states/gamemenustate.h"
 
 extern bool gameOver;
 extern Sound sounds[];
