@@ -8,4 +8,4 @@ void initializeGame(void);
 void updateGameMenu(float deltaTime, GameInfo *gameInfo, MenuStates *menuState);
 void incrementScore(void);
 void drawGame(GameInfo *gameinfo, MenuStates *menuState);
-void CleanUpGame(void);
+void CleanUpGameState(void);

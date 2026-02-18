@@ -106,7 +106,7 @@ void drawGame(GameInfo *gameInfo, MenuStates *menuState)
     }
 }
 
-void CleanUpGame(void)
+void CleanUpGameState(void)
 {
     freeLinkedList(&snake.snakeData);
 }

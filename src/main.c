@@ -116,7 +116,7 @@ int main(void)
     const int numOfMusic = sizeof(musics) / sizeof(musics[0]);
     CleanUpMusic(musics, numOfMusic);
 
-    CleanUpGame();
+    CleanUpGameState();
 
     CloseAudioDevice();
     CloseWindow();
