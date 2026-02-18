@@ -43,7 +43,8 @@ RandomPos moveApple(const LinkedList *snake)
         Node *temp = snake->head->next;
 
         // if new apple is touching any part of the tail
-        while (temp != NULL) {
+        while (temp != NULL)
+        {
             const int tailOverlapAppleX = (int) temp->snake_node.x == pos.x;
             const int tailOverlapAppleY = (int) temp->snake_node.y == pos.y;
             const int hasTails = temp->next != NULL;
