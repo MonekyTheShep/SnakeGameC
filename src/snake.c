@@ -67,7 +67,6 @@ void storePrevSnakePosition(const LinkedList *snake)
 
 void moveSnake(Snake *snake)
 {
-
     // move the head
     switch (snake->direction)
     {
@@ -87,19 +86,19 @@ void moveSnake(Snake *snake)
 
 
     // screen wrapping'
-    if (snake->snakeData.head->snake_node.y  < 0)
+    if (snake->snakeData.head->snake_node.y < 0)
     {
-        snake->snakeData.head->snake_node.y  = (float) GetScreenHeight();
+        snake->snakeData.head->snake_node.y = (float) GetScreenHeight();
     }
-    else if (snake->snakeData.head->snake_node.y  >= (float) GetScreenHeight())
+    else if (snake->snakeData.head->snake_node.y >= (float) GetScreenHeight())
     {
-        snake->snakeData.head->snake_node.y  = 0;
+        snake->snakeData.head->snake_node.y = 0;
     }
     else if (snake->snakeData.head->snake_node.x < 0)
     {
-       snake->snakeData.head->snake_node.x  = (float) GetScreenWidth();
+       snake->snakeData.head->snake_node.x = (float) GetScreenWidth();
     }
-    else if (snake->snakeData.head->snake_node.x  >= (float) GetScreenWidth())
+    else if (snake->snakeData.head->snake_node.x >= (float) GetScreenWidth())
     {
         snake->snakeData.head->snake_node.x = 0;
     }
