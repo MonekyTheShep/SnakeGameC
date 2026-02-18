@@ -1,6 +1,7 @@
 #include "linkedlist.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 LinkedList createList(SnakeNode snake_node)
 {
@@ -106,7 +107,7 @@ Node *insertAtNode(LinkedList *list, Node *node, SnakeNode snake_node)
     // if the node isn't the head
     Node *temp = list->head;
     Node *prev = NULL;
-    int hasNode = 0;
+    bool hasNode = false;
 
     // loop through list until it is the node
     while (temp != node && temp != NULL)
@@ -118,7 +119,7 @@ Node *insertAtNode(LinkedList *list, Node *node, SnakeNode snake_node)
 
         if (temp == node) 
         {
-            hasNode = 1;
+            hasNode = true;
         }
 
     }
@@ -178,7 +179,7 @@ int popNode(LinkedList *list, Node **node)
     // if the node isn't the head
     Node *temp = list->head;
     Node *prev = NULL;
-    int hasNode = 0;
+    bool hasNode = false;
 
     // loop through list until it is the node
     while (temp != *node && temp != NULL)
@@ -189,7 +190,7 @@ int popNode(LinkedList *list, Node **node)
 
         if (*node == temp)
         {
-            hasNode = 1;
+            hasNode = true;
         }
     }
 
