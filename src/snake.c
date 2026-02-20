@@ -159,9 +159,8 @@ static void inputHandling(Snake *snake)
 
 static void updateSnakePosition(Snake *snake)
 {
-    // store prev position
-    const bool beenTimeInterval = accumulatedTime > moveTimeInterval;
-    if (beenTimeInterval)
+    // store prev position and move
+    if (accumulatedTime > moveTimeInterval)
     {
         accumulatedTime = 0.0f;
         storePrevSnakePosition(&snake->snakeData);
