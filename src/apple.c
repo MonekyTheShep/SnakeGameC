@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 #include "constants.h"
 
@@ -30,8 +31,8 @@ RandomPos moveApple(const LinkedList *snake)
         validPosition = true;
 
         // if new apple overlaps snake head
-        const int appleOverlapSnakeX = (int) snake->head->snake_node.x == pos.x;
-        const int appleOverlapSnakeY = (int) snake->head->snake_node.y == pos.y;
+        const bool appleOverlapSnakeX = (int) snake->head->snake_node.x == pos.x;
+        const bool appleOverlapSnakeY = (int) snake->head->snake_node.y == pos.y;
 
         // then set valid position to false
         if (appleOverlapSnakeX && appleOverlapSnakeY)
@@ -45,11 +46,10 @@ RandomPos moveApple(const LinkedList *snake)
         // if new apple is touching any part of the tail
         while (temp != NULL)
         {
-            const int tailOverlapAppleX = (int) temp->snake_node.x == pos.x;
-            const int tailOverlapAppleY = (int) temp->snake_node.y == pos.y;
-            const int hasTails = temp->next != NULL;
+            const bool tailOverlapAppleX = (int) temp->snake_node.x == pos.x;
+            const bool tailOverlapAppleY = (int) temp->snake_node.y == pos.y;
 
-            if (tailOverlapAppleX  && tailOverlapAppleY && hasTails)
+            if (tailOverlapAppleX  && tailOverlapAppleY)
             {
                 validPosition = false;
 
