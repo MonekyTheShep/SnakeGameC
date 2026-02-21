@@ -4,6 +4,7 @@
 #define RAYGUI_IMPLEMENTATION
 #include <raygui.h>
 
+#include "constants.h"
 #include "utility/menuutil.h"
 #include "utility/gameutil.h"
 #include "utility/soundutil.h"
@@ -15,8 +16,8 @@
 #define SCREEN_HEIGHT 600
 #define GAME_TITLE "Snake Game"
 
-Music musics[2];
-Sound sounds[2];
+Music musics[NUM_OF_MUSICS];
+Sound sounds[NUM_OF_SOUNDS];
 
 int main(void)
 {
@@ -34,19 +35,19 @@ int main(void)
     const Sound collectSound = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
     const Sound explosionSound = LoadSound(ASSETS_PATH "/sounds/explosion_sound.ogg");
 
-    sounds[0] = collectSound;
-    sounds[1] = explosionSound;
+    sounds[COLLECT_SOUND] = collectSound;
+    sounds[EXPLOSION_SOUND] = explosionSound;
 
     initializeGame();
 
     // load musics
-    Music mainMenuSound = LoadMusicStream(ASSETS_PATH "/music/main_menu.ogg");
-    Music gameMusicSound = LoadMusicStream(ASSETS_PATH "/music/game_music.ogg");
+    Music mainMenuMusic = LoadMusicStream(ASSETS_PATH "/music/main_menu.ogg");
+    Music gameMenuMusic = LoadMusicStream(ASSETS_PATH "/music/game_music.ogg");
 
-    musics[0] = mainMenuSound;
-    musics[1] = gameMusicSound;
+    musics[MAIN_MENU_MUSIC] = mainMenuMusic;
+    musics[GAME_MENU_MUSIC] = gameMenuMusic;
 
-    Music *currentMusic = &mainMenuSound;
+    Music *currentMusic = &mainMenuMusic;
     PlayMusicStream(*currentMusic);
     gameInfo.musicPlaying = 1;
 
@@ -70,13 +71,13 @@ int main(void)
                 case MAIN_MENU:
                     gameInfo.musicPlaying = 1;
                     StopMusicStream(*currentMusic);
-                    currentMusic = &mainMenuSound;
+                    currentMusic = &mainMenuMusic;
                     PlayMusicStream(*currentMusic);
                     break;
                 case GAME_MENU:
                     gameInfo.musicPlaying = 1;
                     StopMusicStream(*currentMusic);
-                    currentMusic = &gameMusicSound;
+                    currentMusic = &gameMenuMusic;
                     PlayMusicStream(*currentMusic);
                     break;
 
