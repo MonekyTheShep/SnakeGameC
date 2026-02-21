@@ -1,6 +1,7 @@
 #include "snake.h"
 
 #include "constants.h"
+#include "assets.h"
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -11,8 +12,6 @@
 #include "states/gamemenustate.h"
 
 extern bool gameOver;
-extern Sound sounds[];
-
 
 LinkedList createSnake(void)
 {

@@ -5,6 +5,7 @@
 #include <raygui.h>
 
 #include "constants.h"
+#include "assets.h"
 #include "utility/menuutil.h"
 #include "utility/gameutil.h"
 #include "utility/soundutil.h"
@@ -15,9 +16,6 @@
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 #define GAME_TITLE "Snake Game"
-
-Music musics[NUM_OF_MUSICS];
-Sound sounds[NUM_OF_SOUNDS];
 
 int main(void)
 {
