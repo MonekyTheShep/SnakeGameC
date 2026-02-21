@@ -6,6 +6,7 @@
 
 #include "constants.h"
 #include "assets.h"
+
 #include "utility/menuutil.h"
 #include "utility/gameutil.h"
 #include "utility/soundutil.h"

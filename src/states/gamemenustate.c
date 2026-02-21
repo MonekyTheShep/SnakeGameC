@@ -1,6 +1,7 @@
 #include "states/gamemenustate.h"
 
 #include <stddef.h>
+#include <stdio.h>
 #include <stdbool.h>
 
 #include <raygui.h>
@@ -21,7 +22,6 @@ RandomPos applePos;
 Rectangle apple;
 
 int maxSize;
-bool maxSnakeSize;
 
 static void resetGame(Snake *snake, GameInfo *info, MenuStates *menuState)
 {
@@ -50,7 +50,6 @@ void initializeGame(void)
     initializeSnake(&snake);
 
     maxSize = (GetScreenWidth()/ MOVE_INTERVAL) * (GetScreenHeight() / (int)MOVE_INTERVAL);
-    maxSnakeSize = (score + 1 == maxSize);
 
     // Initialise APPLE
     applePos = moveApple(&snake.snakeData);
@@ -64,7 +63,7 @@ void incrementScore(void)
 
 void updateGameMenu(const float deltaTime, GameInfo *gameInfo, MenuStates *menuState)
 {
-
+    const bool maxSnakeSize = maxSize == score + 1;
     if (maxSnakeSize)
     {
         gameOver = true;
