@@ -11,8 +11,8 @@ typedef enum Direction {
 
 typedef struct Snake {
     LinkedList snakeData;
-    Direction direction;
     Rectangle snakeHead;
+    Direction direction;
 } Snake;
 
 

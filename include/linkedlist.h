@@ -5,9 +5,9 @@ typedef struct SnakeNode {
     float y;
 } SnakeNode;
 
-typedef struct Node {              
-    SnakeNode snake_node;
+typedef struct Node {
     struct Node *next;
+    SnakeNode snake_node;
 } Node;
 
 typedef struct LinkedList {
