@@ -44,8 +44,6 @@ int main(void)
     PlayMusicStream(*currentMusic);
     gameInfo.musicPlaying = 1;
 
-
-
     while (!WindowShouldClose())
     {
         if (menuState == EXIT)
@@ -63,13 +61,11 @@ int main(void)
             {
                 case MAIN_MENU:
                     if (!gameInfo.musicPlaying) {
-                        gameInfo.musicPlaying = 1;
                         changeMusic(&currentMusic, MAIN_MENU_MUSIC, musics, &gameInfo);
                     }
                     break;
                 case GAME_MENU:
                     if (!gameInfo.musicPlaying) {
-                        gameInfo.musicPlaying = 1;
                         changeMusic(&currentMusic, GAME_MENU_MUSIC, musics, &gameInfo);
                     }
                     break;

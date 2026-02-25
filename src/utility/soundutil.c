@@ -21,6 +21,7 @@ void CleanUpMusic(const Music *musics, const int numOfMusic)
 }
 
 void changeMusic(Music **currentMusic, const int musicIndex, Music *musics, GameInfo *gameInfo) {
+    gameInfo->musicPlaying = 1;
     StopMusicStream(**currentMusic);
     *currentMusic = &musics[musicIndex];
     PlayMusicStream(**currentMusic);
