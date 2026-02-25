@@ -62,16 +62,16 @@ int main(void)
             switch (menuState)
             {
                 case MAIN_MENU:
-                    gameInfo.musicPlaying = 1;
-                    StopMusicStream(*currentMusic);
-                    currentMusic = &musics[MAIN_MENU_MUSIC] ;
-                    PlayMusicStream(*currentMusic);
+                    if (!gameInfo.musicPlaying) {
+                        gameInfo.musicPlaying = 1;
+                        changeMusic(&currentMusic, MAIN_MENU_MUSIC, musics, &gameInfo);
+                    }
                     break;
                 case GAME_MENU:
-                    gameInfo.musicPlaying = 1;
-                    StopMusicStream(*currentMusic);
-                    currentMusic = &musics[GAME_MENU_MUSIC];
-                    PlayMusicStream(*currentMusic);
+                    if (!gameInfo.musicPlaying) {
+                        gameInfo.musicPlaying = 1;
+                        changeMusic(&currentMusic, GAME_MENU_MUSIC, musics, &gameInfo);
+                    }
                     break;
 
                 default: break;

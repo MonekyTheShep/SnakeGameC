@@ -1,4 +1,5 @@
 #include <utility/soundutil.h>
+#include "constants.h"
 
 void CleanUpSound(const Sound *sounds, const int numOfSounds)
 {
@@ -17,4 +18,10 @@ void CleanUpMusic(const Music *musics, const int numOfMusic)
     {
         UnloadMusicStream(musics[i]);
     }
+}
+
+void changeMusic(Music **currentMusic, const int musicIndex, Music *musics, GameInfo *gameInfo) {
+    StopMusicStream(**currentMusic);
+    *currentMusic = &musics[musicIndex];
+    PlayMusicStream(**currentMusic);
 }
