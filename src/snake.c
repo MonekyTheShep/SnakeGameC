@@ -168,7 +168,7 @@ static void updateSnakePosition(Snake *snake)
 
     // move the snake head rectangle
     snake->snakeHead.x = snake->snakeData.head->snake_node.x;
-    snake->snakeHead.y =snake->snakeData.head->snake_node.y;
+    snake->snakeHead.y = snake->snakeData.head->snake_node.y;
 }
 
 void handleSnake(const float deltaTime, Snake *snake, Rectangle *apple)

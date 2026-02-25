@@ -60,12 +60,14 @@ int main(void)
             switch (menuState)
             {
                 case MAIN_MENU:
-                    if (!gameInfo.musicPlaying) {
+                    if (!gameInfo.musicPlaying)
+                    {
                         changeMusic(&currentMusic, MAIN_MENU_MUSIC, musics, &gameInfo);
                     }
                     break;
                 case GAME_MENU:
-                    if (!gameInfo.musicPlaying) {
+                    if (!gameInfo.musicPlaying)
+                    {
                         changeMusic(&currentMusic, GAME_MENU_MUSIC, musics, &gameInfo);
                     }
                     break;
