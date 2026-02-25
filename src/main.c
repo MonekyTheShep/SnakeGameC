@@ -23,16 +23,18 @@ int main(void)
     // default menu
     MenuStates menuState = MAIN_MENU;
     GameInfo gameInfo = {.musicPlaying = 0};
-    initializeGame();
 
     // Initialise Raylib
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, GAME_TITLE);
     SetTargetFPS(60);
 
     InitAudioDevice();
+
     // load sounds
     sounds[COLLECT_SOUND] = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
     sounds[EXPLOSION_SOUND] =  LoadSound(ASSETS_PATH "/sounds/explosion_sound.ogg");
+
+    initializeGame();
 
     // load musics
     musics[MAIN_MENU_MUSIC] = LoadMusicStream(ASSETS_PATH "/music/main_menu.ogg");
