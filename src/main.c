@@ -31,22 +31,16 @@ int main(void)
     InitAudioDevice();
 
     // load sounds
-    const Sound collectSound = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
-    const Sound explosionSound = LoadSound(ASSETS_PATH "/sounds/explosion_sound.ogg");
-
-    sounds[COLLECT_SOUND] = collectSound;
-    sounds[EXPLOSION_SOUND] = explosionSound;
+    sounds[COLLECT_SOUND] = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
+    sounds[EXPLOSION_SOUND] =  LoadSound(ASSETS_PATH "/sounds/explosion_sound.ogg");
 
     initializeGame();
 
     // load musics
-    Music mainMenuMusic = LoadMusicStream(ASSETS_PATH "/music/main_menu.ogg");
-    Music gameMenuMusic = LoadMusicStream(ASSETS_PATH "/music/game_music.ogg");
+    musics[MAIN_MENU_MUSIC] = LoadMusicStream(ASSETS_PATH "/music/main_menu.ogg");
+    musics[GAME_MENU_MUSIC] = LoadMusicStream(ASSETS_PATH "/music/game_music.ogg");
 
-    musics[MAIN_MENU_MUSIC] = mainMenuMusic;
-    musics[GAME_MENU_MUSIC] = gameMenuMusic;
-
-    Music *currentMusic = &mainMenuMusic;
+    Music *currentMusic = &musics[MAIN_MENU_MUSIC];
     PlayMusicStream(*currentMusic);
     gameInfo.musicPlaying = 1;
 
@@ -70,13 +64,13 @@ int main(void)
                 case MAIN_MENU:
                     gameInfo.musicPlaying = 1;
                     StopMusicStream(*currentMusic);
-                    currentMusic = &mainMenuMusic;
+                    currentMusic = &musics[MAIN_MENU_MUSIC] ;
                     PlayMusicStream(*currentMusic);
                     break;
                 case GAME_MENU:
                     gameInfo.musicPlaying = 1;
                     StopMusicStream(*currentMusic);
-                    currentMusic = &gameMenuMusic;
+                    currentMusic = &musics[GAME_MENU_MUSIC];
                     PlayMusicStream(*currentMusic);
                     break;
 
