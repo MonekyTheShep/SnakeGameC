@@ -75,6 +75,7 @@ void moveApple(Apple *apple, const LinkedList *snake)
     apple->position.y = (float) pos.y;
 }
 
+// Handle Functions
 void handleApple(Apple *apple)
 {
     apple->rec.x = apple->position.x;
