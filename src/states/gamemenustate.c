@@ -43,7 +43,7 @@ static void resetGame(Snake *snake, GameInfo *info, MenuStates *menuState)
 }
 
 
-void initializeGame(void)
+void InitializeGame(void)
 {
 
     // Initialise SNAKE
@@ -105,7 +105,7 @@ void drawGame(GameInfo *gameInfo, MenuStates *menuState)
     }
 }
 
-void CleanUpGameState(void)
+void UnloadGameState(void)
 {
     freeLinkedList(&snake.snakeData);
 }

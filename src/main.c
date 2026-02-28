@@ -29,12 +29,13 @@ int main(void)
     SetTargetFPS(60);
 
     InitAudioDevice();
+    InitializeGame();
 
     // load sounds
     sounds[COLLECT_SOUND] = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
     sounds[EXPLOSION_SOUND] =  LoadSound(ASSETS_PATH "/sounds/explosion_sound.ogg");
 
-    initializeGame();
+
 
     // load musics
     musics[MAIN_MENU_MUSIC] = LoadMusicStream(ASSETS_PATH "/music/main_menu.ogg");
@@ -102,7 +103,7 @@ int main(void)
     const int numOfMusic = sizeof(musics) / sizeof(musics[0]);
     CleanUpMusic(musics, numOfMusic);
 
-    CleanUpGameState();
+    UnloadGameState();
 
     CloseAudioDevice();
     CloseWindow();
