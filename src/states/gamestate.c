@@ -75,7 +75,7 @@ void updateGameState(const float deltaTime, GameInfo *gameInfo, MenuStates *menu
     }
 }
 
-
+// Draw Functions
 static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
 {
     const float buttonWidth = 100;
@@ -90,8 +90,6 @@ static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
     }
 }
 
-
-// Draw Functions
 void drawGameState(GameInfo *gameInfo, MenuStates *menuState)
 {
     drawGrid();
