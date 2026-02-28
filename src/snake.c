@@ -26,7 +26,7 @@ void initializeSnake(Snake *snake)
 {
     snake->direction = RIGHT;
     snake->snakeData = createSnake();
-    snake->snakeHead = (Rectangle) {0.0f, 0.0f, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
+    snake->snakeHead = (Rectangle) {0.0f, 0.0f, (float) MOVE_INTERVAL, (float) MOVE_INTERVAL}; // x, y, width, height
 }
 
 // Logic Functions
@@ -71,16 +71,16 @@ void moveSnake(Snake *snake)
     switch (snake->direction)
     {
         case UP:
-            snake->snakeData.head->snake_node.y -= MOVE_INTERVAL;
+            snake->snakeData.head->snake_node.y -= (float) MOVE_INTERVAL;
             break;
         case DOWN:
-            snake->snakeData.head->snake_node.y += MOVE_INTERVAL;
+            snake->snakeData.head->snake_node.y += (float) MOVE_INTERVAL;
             break;
         case LEFT:
-            snake->snakeData.head->snake_node.x -= MOVE_INTERVAL;
+            snake->snakeData.head->snake_node.x -= (float) MOVE_INTERVAL;
             break;
         case RIGHT:
-            snake->snakeData.head->snake_node.x += MOVE_INTERVAL;
+            snake->snakeData.head->snake_node.x += (float) MOVE_INTERVAL;
             break;
     }
 
@@ -189,7 +189,7 @@ static void drawTails(Snake *snake)
     {
         length++;
 
-        Rectangle tail = {(float)temp->snake_node.x, (float)temp->snake_node.y, MOVE_INTERVAL, MOVE_INTERVAL};
+        const Rectangle tail = {(float)temp->snake_node.x, (float)temp->snake_node.y, (float) MOVE_INTERVAL, (float) MOVE_INTERVAL};
         DrawRectangleRec(tail, GREEN);
 
         const bool tailOverlapHeadX = temp->snake_node.x == snake->snakeData.head->snake_node.x;
