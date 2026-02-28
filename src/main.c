@@ -61,7 +61,7 @@ int main(void)
                 case TITLE_STATE:
                     changeMusic(&currentMusic, MAIN_MENU_MUSIC, musics, &gameInfo);
                     break;
-                case GAME_MENU:
+                case GAME_STATE:
                     changeMusic(&currentMusic, GAME_MENU_MUSIC, musics, &gameInfo);
                     break;
 
@@ -72,8 +72,8 @@ int main(void)
         // Update logic for each state
         switch (menuState)
         {
-            case GAME_MENU:
-                updateGameMenu(deltaTime, &gameInfo, &menuState);
+            case GAME_STATE:
+                updateGameState(deltaTime, &gameInfo, &menuState);
                 break;
             default:
                 break;
@@ -87,7 +87,7 @@ int main(void)
                 case TITLE_STATE:
                     drawMainState(&gameInfo, &menuState);
                     break;
-                case GAME_MENU:
+                case GAME_STATE:
                     drawGame(&gameInfo, &menuState);
                     break;
                 default: break;

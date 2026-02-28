@@ -11,7 +11,7 @@ static void buttonMenuCallback(int buttonIndex, GameInfo *gameInfo, MenuStates *
     switch (buttonIndex)
     {
         case 0:
-            changeMenu(gameInfo, menuState, GAME_MENU);
+            changeMenu(gameInfo, menuState, GAME_STATE);
             break;
         case 1:
             changeMenu(gameInfo, menuState, EXIT);

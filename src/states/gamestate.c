@@ -61,7 +61,7 @@ void incrementScore(void)
     score++;
 }
 
-void updateGameMenu(const float deltaTime, GameInfo *gameInfo, MenuStates *menuState)
+void updateGameState(const float deltaTime, GameInfo *gameInfo, MenuStates *menuState)
 {
     const bool maxSnakeSize = maxSize == score + 1;
     if (maxSnakeSize)
