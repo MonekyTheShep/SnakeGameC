@@ -18,14 +18,16 @@ typedef struct Snake {
 } Snake;
 
 
-// Snake Initialising
+// Initialise Functions
 LinkedList createSnake(void);
 void initializeSnake(Snake *snake);
 
-// Snake Handling
+// Logic Functions
 int growSnake(LinkedList *snake);
 void storePrevSnakePosition(const LinkedList *snake);
 void moveSnake(Snake *snake);
+
+// Handle Functions
 void handleSnake(float deltaTime, Snake *snake, Apple *apple);
 
 // Draw Functions

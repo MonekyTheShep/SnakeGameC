@@ -165,6 +165,7 @@ static void updateSnakePosition(Snake *snake)
     snake->snakeHead.y = snake->snakeData.head->snake_node.y;
 }
 
+// Handle Functions
 void handleSnake(const float deltaTime, Snake *snake, Apple *apple)
 {
     accumulatedTime += deltaTime;     // Add to total
