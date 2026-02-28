@@ -8,7 +8,12 @@
 
 #include <raylib.h>
 
+void initialiseApple(Apple *apple)
+{
+    apple->rec = (Rectangle) {0.0f, 0.0f, MOVE_INTERVAL, MOVE_INTERVAL};
+}
 
+// Logic Functions
 RandomPos randomApplePos(const int moveInterval)
 {
     const int xCount = GetScreenWidth() / moveInterval;
@@ -69,16 +74,14 @@ void moveApple(Apple *apple, const LinkedList *snake)
     apple->position.y = (float) pos.y;
 }
 
-void initialiseApple(Apple *apple)
-{
-    apple->rec = (Rectangle) {0.0f, 0.0f, MOVE_INTERVAL, MOVE_INTERVAL};
-}
-
 void handleApple(Apple *apple)
 {
     apple->rec.x = apple->position.x;
     apple->rec.y = apple->position.y;
 }
+
+
+// Draw Functions
 
 void drawApple(Apple *apple)
 {

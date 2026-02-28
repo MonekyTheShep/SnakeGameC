@@ -28,6 +28,8 @@ void initializeSnake(Snake *snake)
     snake->snakeHead = (Rectangle) {0, 0, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
 }
 
+// Logic Functions
+
 int growSnake(LinkedList *snake)
 {
     SnakeNode snake_node = {0,0};
