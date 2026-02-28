@@ -16,7 +16,7 @@ extern bool gameOver;
 // Snake Initialing
 LinkedList createSnake(void)
 {
-    const SnakeNode snake_node = {0, 0};
+    const SnakeNode snake_node = {0.0f, 0.0f};
     const LinkedList snake = createList(snake_node);
 
     return snake;
@@ -26,13 +26,13 @@ void initializeSnake(Snake *snake)
 {
     snake->direction = RIGHT;
     snake->snakeData = createSnake();
-    snake->snakeHead = (Rectangle) {0, 0, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
+    snake->snakeHead = (Rectangle) {0.0f, 0.0f, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
 }
 
 // Logic Functions
 int growSnake(LinkedList *snake)
 {
-    SnakeNode snake_node = {0,0};
+    SnakeNode snake_node = {0.0f,0.0f};
     snake_node.x = snake->tail->snake_node.x;
     snake_node.y = snake->tail->snake_node.y;
     insertAtTail(snake, snake_node);
@@ -86,21 +86,21 @@ void moveSnake(Snake *snake)
 
 
     // screen wrapping'
-    if (snake->snakeData.head->snake_node.y < 0)
+    if (snake->snakeData.head->snake_node.y < 0.0f)
     {
         snake->snakeData.head->snake_node.y = (float) GetScreenHeight();
     }
     else if (snake->snakeData.head->snake_node.y >= (float) GetScreenHeight())
     {
-        snake->snakeData.head->snake_node.y = 0;
+        snake->snakeData.head->snake_node.y = 0.0f;
     }
-    else if (snake->snakeData.head->snake_node.x < 0)
+    else if (snake->snakeData.head->snake_node.x < 0.0f)
     {
        snake->snakeData.head->snake_node.x = (float) GetScreenWidth();
     }
     else if (snake->snakeData.head->snake_node.x >= (float) GetScreenWidth())
     {
-        snake->snakeData.head->snake_node.x = 0;
+        snake->snakeData.head->snake_node.x = 0.0f;
     }
 }
 
