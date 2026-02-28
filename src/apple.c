@@ -11,7 +11,7 @@
 // Apple initialising
 void initialiseApple(Apple *apple)
 {
-    apple->rec = (Rectangle) {0.0f, 0.0f, MOVE_INTERVAL, MOVE_INTERVAL};
+    apple->rec = (Rectangle) {0.0f, 0.0f, (float) MOVE_INTERVAL, (float) MOVE_INTERVAL};
 }
 
 // Logic Functions
