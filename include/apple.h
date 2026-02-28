@@ -8,12 +8,14 @@ typedef struct RandomPos {
 } RandomPos;
 
 typedef struct Apple {
-    Rectangle hitbox;
+    Rectangle rec;
     Vector2 position;
 } Apple;
 
 RandomPos randomApplePos(int moveInterval);
 
-RandomPos moveApple(const LinkedList *snake);
+void moveApple(Apple *apple, const LinkedList *snake);
 
-void drawApple(Rectangle *apple);
+void initialiseApple(Apple *apple);
+void handleApple(Apple *apple);
+void drawApple(Apple *apple);

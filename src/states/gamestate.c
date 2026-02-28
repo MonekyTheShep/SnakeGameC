@@ -14,30 +14,25 @@
 #include "constants.h"
 
 Snake snake;
+int maxSize;
+Apple apple;
 
 bool gameOver = false;
 int score = 0;
 
-RandomPos applePos;
-Rectangle apple;
 
-int maxSize;
-
-static void resetGame(Snake *snake, GameInfo *info, MenuStates *menuState)
+static void resetGame(GameInfo *info, MenuStates *menuState)
 {
     score = 0;
     gameOver = false;
 
     // reset snake by freeing and creating new snake
-    snake->snakeData = clearList(&snake->snakeData);
-    snake->snakeData = createSnake();
-
-    snake->direction = RIGHT;
+    snake.snakeData = clearList(&snake.snakeData);
+    snake.snakeData = createSnake();
+    snake.direction = RIGHT;
 
     // move apple for next game
-    applePos = moveApple(&snake->snakeData);
-    apple.x = (float)applePos.x;
-    apple.y = (float)applePos.y;
+    moveApple(&apple, &snake.snakeData);
 
     changeMenu(info, menuState, TITLE_STATE);
 }
@@ -52,8 +47,9 @@ void InitializeGameState(void)
     maxSize = (GetScreenWidth()/ MOVE_INTERVAL) * (GetScreenHeight() / (int)MOVE_INTERVAL);
 
     // Initialise APPLE
-    applePos = moveApple(&snake.snakeData);
-    apple = (Rectangle) {(float)applePos.x, (float)applePos.y, MOVE_INTERVAL, MOVE_INTERVAL}; // x, y, width, height
+
+    initialiseApple(&apple);
+    moveApple(&apple, &snake.snakeData);
 }
 
 void incrementScore(void)
@@ -71,6 +67,7 @@ void updateGameState(const float deltaTime, GameInfo *gameInfo, MenuStates *menu
 
     if (!gameOver)
     {
+        handleApple(&apple);
         handleSnake(deltaTime, &snake, &apple);
     }
 }
@@ -86,7 +83,7 @@ static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
 
     if (GuiButton(gameOverButton, "Reset"))
     {
-        resetGame(&snake, gameInfo, menuState);
+        resetGame(gameInfo, menuState);
     }
 }
 

@@ -1,7 +1,9 @@
 #pragma once
 
 #include "linkedlist.h"
+#include "apple.h"
 #include "utility/gameutil.h"
+
 
 #include <raylib.h>
 
@@ -21,5 +23,5 @@ void initializeSnake(Snake *snake);
 int growSnake(LinkedList *snake);
 void storePrevSnakePosition(const LinkedList *snake);
 void moveSnake(Snake *snake);
-void handleSnake(float deltaTime, Snake *snake, Rectangle *apple);
+void handleSnake(float deltaTime, Snake *snake, Apple *apple);
 void drawSnake(Snake *snake);

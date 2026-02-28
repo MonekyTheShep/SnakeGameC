@@ -104,11 +104,11 @@ void moveSnake(Snake *snake)
 }
 
 
-static void collisionHandling(Snake *snake, Rectangle *apple)
+static void collisionHandling(Snake *snake, Apple *apple)
 {
     // if the apple is overlapping head.
-    const bool appleOverlapSnakeX = snake->snakeData.head->snake_node.x == apple->x;
-    const bool appleOverlapSnakeY = snake->snakeData.head->snake_node.y == apple->y;
+    const bool appleOverlapSnakeX = snake->snakeData.head->snake_node.x == apple->position.x;
+    const bool appleOverlapSnakeY = snake->snakeData.head->snake_node.y == apple->position.y;
 
     if (appleOverlapSnakeX && appleOverlapSnakeY)
     {
@@ -116,12 +116,7 @@ static void collisionHandling(Snake *snake, Rectangle *apple)
         incrementScore();
         growSnake(&snake->snakeData);
 
-        // new apple pos
-        const RandomPos applePos = moveApple(&snake->snakeData);
-
-        // move the apple
-        apple->x = (float)applePos.x;
-        apple->y = (float)applePos.y;
+        moveApple(apple, &snake->snakeData);
 
     }
 }
@@ -171,7 +166,7 @@ static void updateSnakePosition(Snake *snake)
     snake->snakeHead.y = snake->snakeData.head->snake_node.y;
 }
 
-void handleSnake(const float deltaTime, Snake *snake, Rectangle *apple)
+void handleSnake(const float deltaTime, Snake *snake, Apple *apple)
 {
     accumulatedTime += deltaTime;     // Add to total
     accumulatedDebounceTime += deltaTime;
