@@ -2,4 +2,4 @@
 #include "utility/gameutil.h"
 #include "utility/menuutil.h"
 
-void drawMainMenu(GameInfo *gameInfo, MenuStates *menuState);
+void drawMainState(GameInfo *gameInfo, MenuStates *menuState);

@@ -11,8 +11,8 @@
 #include "utility/gameutil.h"
 #include "utility/soundutil.h"
 
-#include "states/gamemenustate.h"
-#include "states/mainmenustate.h"
+#include "states/gamestate.h"
+#include "states/titlestate.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -21,7 +21,7 @@
 int main(void)
 {
     // default menu
-    MenuStates menuState = MAIN_MENU;
+    MenuStates menuState = TITLE_STATE;
     GameInfo gameInfo = {.musicPlaying = 0};
 
     // Initialise Raylib
@@ -58,7 +58,7 @@ int main(void)
         {
             switch (menuState)
             {
-                case MAIN_MENU:
+                case TITLE_STATE:
                     changeMusic(&currentMusic, MAIN_MENU_MUSIC, musics, &gameInfo);
                     break;
                 case GAME_MENU:
@@ -84,8 +84,8 @@ int main(void)
             ClearBackground(WHITE);
             switch (menuState)
             {
-                case MAIN_MENU:
-                    drawMainMenu(&gameInfo, &menuState);
+                case TITLE_STATE:
+                    drawMainState(&gameInfo, &menuState);
                     break;
                 case GAME_MENU:
                     drawGame(&gameInfo, &menuState);

@@ -3,8 +3,8 @@
 
 typedef enum MenuStates
 {
-    MAIN_MENU,
-    GAME_MENU,
+    TITLE_STATE,
+    GAME_STATE,
     EXIT
 } MenuStates;
 

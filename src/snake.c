@@ -9,7 +9,7 @@
 #include <raylib.h>
 
 #include "apple.h"
-#include "states/gamemenustate.h"
+#include "states/gamestate.h"
 
 extern bool gameOver;
 

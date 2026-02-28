@@ -1,4 +1,4 @@
-#include "states/gamemenustate.h"
+#include "states/gamestate.h"
 
 #include <stddef.h>
 #include <stdio.h>
@@ -39,7 +39,7 @@ static void resetGame(Snake *snake, GameInfo *info, MenuStates *menuState)
     apple.x = (float)applePos.x;
     apple.y = (float)applePos.y;
 
-    changeMenu(info, menuState, MAIN_MENU);
+    changeMenu(info, menuState, TITLE_STATE);
 }
 
 
