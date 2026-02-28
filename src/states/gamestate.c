@@ -40,14 +40,11 @@ static void resetGame(GameInfo *info, MenuStates *menuState)
 
 void InitializeGameState(void)
 {
-
     // Initialise SNAKE
     initializeSnake(&snake);
-
     maxSize = (GetScreenWidth()/ MOVE_INTERVAL) * (GetScreenHeight() / (int)MOVE_INTERVAL);
 
     // Initialise APPLE
-
     initialiseApple(&apple);
     moveApple(&apple, &snake.snakeData);
 }
