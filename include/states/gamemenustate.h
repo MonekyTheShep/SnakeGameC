@@ -4,7 +4,7 @@
 
 #include "utility/menuutil.h"
 
-void InitializeGame(void);
+void InitializeGameState(void);
 void updateGameMenu(float deltaTime, GameInfo *gameInfo, MenuStates *menuState);
 void incrementScore(void);
 void drawGame(GameInfo *gameinfo, MenuStates *menuState);

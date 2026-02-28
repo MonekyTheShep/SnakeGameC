@@ -43,7 +43,7 @@ static void resetGame(Snake *snake, GameInfo *info, MenuStates *menuState)
 }
 
 
-void InitializeGame(void)
+void InitializeGameState(void)
 {
 
     // Initialise SNAKE

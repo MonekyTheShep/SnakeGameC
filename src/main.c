@@ -29,13 +29,11 @@ int main(void)
     SetTargetFPS(60);
 
     InitAudioDevice();
-    InitializeGame();
+    InitializeGameState();
 
     // load sounds
     sounds[COLLECT_SOUND] = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
     sounds[EXPLOSION_SOUND] =  LoadSound(ASSETS_PATH "/sounds/explosion_sound.ogg");
-
-
 
     // load musics
     musics[MAIN_MENU_MUSIC] = LoadMusicStream(ASSETS_PATH "/music/main_menu.ogg");
