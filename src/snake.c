@@ -13,6 +13,7 @@
 
 extern bool gameOver;
 
+// Snake Initialing
 LinkedList createSnake(void)
 {
     const SnakeNode snake_node = {0, 0};
@@ -65,7 +66,6 @@ void storePrevSnakePosition(const LinkedList *snake)
     }
 }
 
-
 void moveSnake(Snake *snake)
 {
     // move the head
@@ -105,7 +105,6 @@ void moveSnake(Snake *snake)
     }
 }
 
-
 static void collisionHandling(Snake *snake, Apple *apple)
 {
     // if the apple is overlapping head.
@@ -122,7 +121,6 @@ static void collisionHandling(Snake *snake, Apple *apple)
 
     }
 }
-
 
 float accumulatedTime = 0.0f; // Total elapsed time
 float accumulatedDebounceTime = 0.0f;
@@ -177,7 +175,6 @@ void handleSnake(const float deltaTime, Snake *snake, Apple *apple)
     updateSnakePosition(snake);
     collisionHandling(snake, apple);
 }
-
 
 
 // All draw functions

@@ -13,10 +13,13 @@ typedef struct Apple {
 } Apple;
 
 
+// Apple Initialising
 void initialiseApple(Apple *apple);
 
+// Apple Handling
 RandomPos randomApplePos(int moveInterval);
 void moveApple(Apple *apple, const LinkedList *snake);
 void handleApple(Apple *apple);
 
+// Draw Functions
 void drawApple(Apple *apple);

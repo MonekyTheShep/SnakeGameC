@@ -8,6 +8,7 @@
 
 #include <raylib.h>
 
+// Apple initialising
 void initialiseApple(Apple *apple)
 {
     apple->rec = (Rectangle) {0.0f, 0.0f, MOVE_INTERVAL, MOVE_INTERVAL};
