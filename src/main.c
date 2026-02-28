@@ -14,9 +14,9 @@
 #include "states/gamestate.h"
 #include "states/titlestate.h"
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
-#define GAME_TITLE "Snake Game"
+#define SCREEN_WIDTH (800)
+#define SCREEN_HEIGHT (600)
+#define GAME_TITLE ("Snake Game")
 
 // default menu
 MenuStates menuState = TITLE_STATE;
