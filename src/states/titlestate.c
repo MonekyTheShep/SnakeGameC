@@ -28,13 +28,13 @@ static void drawTitle(void)
     const char titleText[11] = "Snake Game";
 
     const Font font = GetFontDefault();
-    const float fontSize = 50;
+    const float fontSize = 50.0f;
 
     const Vector2 size = MeasureTextEx(font, titleText, fontSize, 0);
 
-    const float textXCenter = ((float)GetScreenWidth() - size.x) / 2;
-    const float textYCenter = ((float)GetScreenHeight() - size.y) / 2;
-    const float offsetY = -50;
+    const float textXCenter = ((float)GetScreenWidth() - size.x) / 2.0f;
+    const float textYCenter = ((float)GetScreenHeight() - size.y) / 2.0f;
+    const float offsetY = -50.0f;
 
     DrawTextEx(font, titleText, (Vector2){textXCenter, textYCenter + offsetY}, fontSize, 1, BLACK);
 }
@@ -43,13 +43,13 @@ static void drawTitle(void)
 static void drawMenu(const char *buttonLabels[], const int numButtons, GameInfo *info, MenuStates *menuState, void (*buttonCallback)(int, GameInfo*, MenuStates*))
 {
     // Button information
-    const float buttonWidth = 100;
-    const float buttonHeight = 50;
-    const float buttonGap = 10;
+    const float buttonWidth = 100.0f;
+    const float buttonHeight = 50.0f;
+    const float buttonGap = 10.0f;
 
     // Calculate button position
-    const float buttonCenterX = ((float) GetScreenWidth() - buttonWidth) / 2;
-    const float buttonCenterY = ((float) GetScreenHeight() - buttonHeight) / 2;
+    const float buttonCenterX = ((float) GetScreenWidth() - buttonWidth) / 2.0f;
+    const float buttonCenterY = ((float) GetScreenHeight() - buttonHeight) / 2.0f;
 
     // Create buttons
     for (int i = 0; i < numButtons; i++)

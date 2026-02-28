@@ -78,10 +78,10 @@ void updateGameState(const float deltaTime, GameInfo *gameInfo, MenuStates *menu
 // Draw Functions
 static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
 {
-    const float buttonWidth = 100;
-    const float buttonHeight = 50;
-    const float gameOverButtonX = ((float) GetScreenWidth() - buttonWidth) / 2;
-    const float gameOverButtonY = ((float) GetScreenHeight() - buttonHeight) / 2;
+    const float buttonWidth = 100.0f;
+    const float buttonHeight = 50.0f;
+    const float gameOverButtonX = ((float) GetScreenWidth() - buttonWidth) / 2.0f;
+    const float gameOverButtonY = ((float) GetScreenHeight() - buttonHeight) / 2.0f;
     const Rectangle gameOverButton = {gameOverButtonX,gameOverButtonY,buttonWidth,buttonHeight};
 
     if (GuiButton(gameOverButton, "Reset"))
