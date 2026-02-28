@@ -8,8 +8,14 @@ typedef struct GameState {
 
 } GameState;
 
+// Intialise Functions
 void InitializeGameState(void);
-void updateGameState(float deltaTime, GameInfo *gameInfo, MenuStates *menuState);
-void incrementScore(void);
-void drawGameState(GameInfo *gameinfo, MenuStates *menuState);
 void UnloadGameState(void);
+
+// Logic Functions
+void incrementScore(void);
+void updateGameState(float deltaTime, GameInfo *gameInfo, MenuStates *menuState);
+
+// Draw Functions
+void drawGameState(GameInfo *gameinfo, MenuStates *menuState);
+

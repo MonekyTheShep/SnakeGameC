@@ -20,7 +20,25 @@ Apple apple;
 bool gameOver = false;
 int score = 0;
 
+// Initialising Functions
+void InitializeGameState(void)
+{
+    // Initialise SNAKE
+    initializeSnake(&snake);
+    maxSize = (GetScreenWidth()/ MOVE_INTERVAL) * (GetScreenHeight() / (int)MOVE_INTERVAL);
 
+    // Initialise APPLE
+    initialiseApple(&apple);
+    moveApple(&apple, &snake.snakeData);
+}
+
+void UnloadGameState(void)
+{
+    freeLinkedList(&snake.snakeData);
+}
+
+
+// Logic functions
 static void resetGame(GameInfo *info, MenuStates *menuState)
 {
     score = 0;
@@ -35,18 +53,6 @@ static void resetGame(GameInfo *info, MenuStates *menuState)
     moveApple(&apple, &snake.snakeData);
 
     changeMenu(info, menuState, TITLE_STATE);
-}
-
-
-void InitializeGameState(void)
-{
-    // Initialise SNAKE
-    initializeSnake(&snake);
-    maxSize = (GetScreenWidth()/ MOVE_INTERVAL) * (GetScreenHeight() / (int)MOVE_INTERVAL);
-
-    // Initialise APPLE
-    initialiseApple(&apple);
-    moveApple(&apple, &snake.snakeData);
 }
 
 void incrementScore(void)
@@ -85,6 +91,7 @@ static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
 }
 
 
+// Draw Functions
 void drawGameState(GameInfo *gameInfo, MenuStates *menuState)
 {
     drawGrid();
@@ -97,10 +104,5 @@ void drawGameState(GameInfo *gameInfo, MenuStates *menuState)
     {
         drawGameOverMenu(gameInfo, menuState);
     }
-}
-
-void UnloadGameState(void)
-{
-    freeLinkedList(&snake.snakeData);
 }
 

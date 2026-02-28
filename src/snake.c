@@ -30,7 +30,6 @@ void initializeSnake(Snake *snake)
 }
 
 // Logic Functions
-
 int growSnake(LinkedList *snake)
 {
     SnakeNode snake_node = {0,0};
@@ -178,7 +177,6 @@ void handleSnake(const float deltaTime, Snake *snake, Apple *apple)
 
 
 // All draw functions
-
 static void drawTails(Snake *snake)
 {
     // prev pos stored after the head position
