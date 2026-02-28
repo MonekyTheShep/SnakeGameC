@@ -18,12 +18,12 @@
 #define SCREEN_HEIGHT 600
 #define GAME_TITLE "Snake Game"
 
+// default menu
+MenuStates menuState = TITLE_STATE;
+GameInfo gameInfo = {.musicPlaying = 0};
+
 int main(void)
 {
-    // default menu
-    MenuStates menuState = TITLE_STATE;
-    GameInfo gameInfo = {.musicPlaying = 0};
-
     // Initialise Raylib
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, GAME_TITLE);
     SetTargetFPS(60);
