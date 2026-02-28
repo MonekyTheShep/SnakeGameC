@@ -91,7 +91,7 @@ static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
 }
 
 
-void drawGame(GameInfo *gameInfo, MenuStates *menuState)
+void drawGameState(GameInfo *gameInfo, MenuStates *menuState)
 {
     drawGrid();
     drawSnake(&snake);

@@ -88,7 +88,7 @@ int main(void)
                     drawMainState(&gameInfo, &menuState);
                     break;
                 case GAME_STATE:
-                    drawGame(&gameInfo, &menuState);
+                    drawGameState(&gameInfo, &menuState);
                     break;
                 default: break;
             }
