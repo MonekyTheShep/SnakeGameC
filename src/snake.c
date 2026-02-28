@@ -177,7 +177,7 @@ void handleSnake(const float deltaTime, Snake *snake, Apple *apple)
 }
 
 
-// All draw functions
+// Draw functions
 static void drawTails(Snake *snake)
 {
     // prev pos stored after the head position
