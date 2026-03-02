@@ -99,6 +99,7 @@ int main(void)
         switch (menuState)
         {
             case TITLE_STATE:
+                updateTitleState();
                 if (finishTitleState()) changeScreen(GAME_STATE);
                 break;
             case GAME_STATE:
