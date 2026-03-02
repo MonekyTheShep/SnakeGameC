@@ -9,7 +9,7 @@
 #include "apple.h"
 #include "grid.h"
 
-#include <states.h>
+#include "states.h"
 #include "constants.h"
 
 static bool finishState = false;
