@@ -44,6 +44,7 @@ static void changeScreen(MenuStates changeState) {
             break;
     }
 
+    gameInfo.musicPlaying = 0;
     menuState = changeState;
 }
 
