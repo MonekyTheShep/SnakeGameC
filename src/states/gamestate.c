@@ -56,7 +56,7 @@ void incrementScore(void)
     gameState.score++;
 }
 
-void updateGameState(const float deltaTime, GameInfo *gameInfo, States *menuState)
+void updateGameState(const float deltaTime)
 {
     const bool maxSnakeSize = gameState.maxSnakeSize == gameState.score + 1;
     if (maxSnakeSize)
@@ -72,7 +72,7 @@ void updateGameState(const float deltaTime, GameInfo *gameInfo, States *menuStat
 }
 
 // Draw Functions
-static void drawGameOverMenu(GameInfo *gameInfo, States *menuState)
+static void drawGameOverMenu(void)
 {
     const float buttonWidth = 100.0f;
     const float buttonHeight = 50.0f;
@@ -86,7 +86,7 @@ static void drawGameOverMenu(GameInfo *gameInfo, States *menuState)
     }
 }
 
-void drawGameState(GameInfo *gameInfo, States *menuState)
+void drawGameState(void)
 {
     drawGrid();
     drawSnake(&gameState.snake);
@@ -96,7 +96,7 @@ void drawGameState(GameInfo *gameInfo, States *menuState)
 
     if (gameState.gameOver)
     {
-        drawGameOverMenu(gameInfo, menuState);
+        drawGameOverMenu();
     }
 }
 

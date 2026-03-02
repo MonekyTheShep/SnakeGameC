@@ -7,7 +7,6 @@
 #include "constants.h"
 #include "assets.h"
 
-#include "utility/menuutil.h"
 #include "utility/gameutil.h"
 #include "utility/soundutil.h"
 
@@ -104,9 +103,10 @@ int main(void)
             case TITLE_STATE:
                 updateTitleState();
                 if (finishTitleState()) changeScreen(GAME_STATE);
+                if (exitState()) menuState = EXIT;
                 break;
             case GAME_STATE:
-                updateGameState(deltaTime, &gameInfo, &menuState);
+                updateGameState(deltaTime);
                 if (finishGameState()) changeScreen(TITLE_STATE);
                 break;
             default:
@@ -119,10 +119,10 @@ int main(void)
             switch (menuState)
             {
                 case TITLE_STATE:
-                    drawTitleState(&gameInfo, &menuState);
+                    drawTitleState();
                     break;
                 case GAME_STATE:
-                    drawGameState(&gameInfo, &menuState);
+                    drawGameState();
                     break;
                 default: break;
             }
