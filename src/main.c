@@ -57,6 +57,19 @@ int main(void)
         checkMusicStatus();
         updateDrawFrame();
     }
+    
+    // Unload Current State before closing window.
+    switch (menuState)
+    {
+        case TITLE_STATE:
+            unloadTitleState();
+            break;
+        case GAME_STATE:
+            unloadGameState();
+            break;
+        default:
+            break;
+    }
 
     const int numOfSound = sizeof(sounds) / sizeof(sounds[0]);
     CleanUpSound(sounds, numOfSound);
