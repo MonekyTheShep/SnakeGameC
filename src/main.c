@@ -37,7 +37,6 @@ int main(void)
     SetTargetFPS(60);
 
     InitAudioDevice();
-    initializeGameState();
 
     // load sounds
     sounds[COLLECT_SOUND] = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
