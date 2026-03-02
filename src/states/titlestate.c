@@ -11,15 +11,18 @@
 
 static bool finishState = false;
 
-void initializeTitleState(void) {
+void initializeTitleState(void)
+{
     finishState = false;
 }
 
-bool finishTitleState(void) {
+bool finishTitleState(void)
+{
     return finishState;
 }
 
-void unloadTitleState(void) {
+void unloadTitleState(void)
+{
 
 }
 

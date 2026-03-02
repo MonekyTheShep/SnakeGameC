@@ -14,7 +14,8 @@
 
 static bool finishState = false;
 
-GameState gameState = {
+GameState gameState =
+{
     .apple = {0},
     .snake = {0},
     .maxSnakeSize = 0,
@@ -42,10 +43,10 @@ void unloadGameState(void)
     gameState.gameOver = false;
 
     gameState.snake.snakeData = clearList(&gameState.snake.snakeData);
-    gameState.snake.direction = RIGHT;
 }
 
-bool finishGameState(void) {
+bool finishGameState(void)
+{
     return finishState;
 }
 
