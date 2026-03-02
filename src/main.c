@@ -103,7 +103,7 @@ int main(void)
             case TITLE_STATE:
                 updateTitleState();
                 if (finishTitleState()) changeScreen(GAME_STATE);
-                if (exitState()) menuState = EXIT;
+                if (exitState()) changeScreen(EXIT);
                 break;
             case GAME_STATE:
                 updateGameState(deltaTime);
