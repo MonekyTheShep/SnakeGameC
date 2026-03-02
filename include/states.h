@@ -12,7 +12,7 @@ typedef enum States
 } States;
 
 //----------------------------------------------------------------------------------
-// Title State
+// Title State Function Prototypes
 //----------------------------------------------------------------------------------
 void initializeTitleState(void);
 bool finishTitleState(void);
@@ -22,7 +22,7 @@ void updateTitleState(void);
 void drawTitleState(void);
 
 //----------------------------------------------------------------------------------
-// Game State
+// Game State Function Prototypes
 //----------------------------------------------------------------------------------
 void initializeGameState(void);
 void unloadGameState(void);

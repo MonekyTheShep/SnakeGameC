@@ -88,7 +88,7 @@ int main(void)
 }
 
 //----------------------------------------------------------------------------------
-// Function Declaration
+// Function Implementation
 //----------------------------------------------------------------------------------
 static void changeState(States changeState)
 {
