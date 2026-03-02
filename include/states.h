@@ -15,9 +15,9 @@ typedef enum States
 // Title State Function Prototypes
 //----------------------------------------------------------------------------------
 void initializeTitleState(void);
+void unloadTitleState(void);
 bool finishTitleState(void);
 bool exitState(void);
-void unloadTitleState(void);
 void updateTitleState(void);
 void drawTitleState(void);
 
