@@ -2,20 +2,16 @@
 
 #include "snake.h"
 
-#include "utility/menuutil.h"
-
 typedef struct GameState {
+    Snake snake;
+    Apple apple;
+
+    int maxSnakeSize;
+    int score;
+    bool gameOver;
 
 } GameState;
 
-// Intialise Functions
-void InitializeGameState(void);
-void UnloadGameState(void);
-
 // Logic Functions
 void incrementScore(void);
-void updateGameState(float deltaTime, GameInfo *gameInfo, MenuStates *menuState);
-
-// Draw Functions
-void drawGameState(GameInfo *gameinfo, MenuStates *menuState);
 

@@ -1,7 +1,5 @@
 #include "states/gamestate.h"
 
-#include <stddef.h>
-#include <stdio.h>
 #include <stdbool.h>
 
 #include <raygui.h>
@@ -11,67 +9,63 @@
 #include "apple.h"
 #include "grid.h"
 
+#include <states.h>
 #include "constants.h"
 
-Snake snake;
-int maxSize;
-Apple apple;
+static bool finishState = false;
 
-bool gameOver = false;
-int score = 0;
+GameState gameState = {
+    .apple = {0},
+    .snake = {0},
+    .maxSnakeSize = 0,
+    .score = 0,
+    .gameOver = false
+};
 
 // Initialising Functions
-void InitializeGameState(void)
+void initializeGameState(void)
 {
+    finishState = false;
+
     // Initialise SNAKE
-    initializeSnake(&snake);
-    maxSize = (GetScreenWidth()/ MOVE_INTERVAL) * (GetScreenHeight() / (int)MOVE_INTERVAL);
+    initializeSnake(&gameState.snake);
+    gameState.maxSnakeSize = (GetScreenWidth()/ MOVE_INTERVAL) * (GetScreenHeight() / MOVE_INTERVAL);
 
     // Initialise APPLE
-    initialiseApple(&apple);
-    moveApple(&apple, &snake.snakeData);
+    initialiseApple(&gameState.apple);
+    moveApple(&gameState.apple, &gameState.snake.snakeData);
 }
 
-void UnloadGameState(void)
+void unloadGameState(void)
 {
-    freeLinkedList(&snake.snakeData);
+    gameState.score = 0;
+    gameState.gameOver = false;
+
+    gameState.snake.snakeData = clearList(&gameState.snake.snakeData);
+    gameState.snake.direction = RIGHT;
 }
 
-
-// Logic functions
-static void resetGame(GameInfo *info, MenuStates *menuState)
-{
-    score = 0;
-    gameOver = false;
-
-    // reset snake by freeing and creating new snake
-    snake.snakeData = clearList(&snake.snakeData);
-    snake.snakeData = createSnake();
-    snake.direction = RIGHT;
-
-    // move apple for next game
-    moveApple(&apple, &snake.snakeData);
-
-    changeMenu(info, menuState, TITLE_STATE);
+bool finishGameState(void) {
+    return finishState;
 }
 
 void incrementScore(void)
 {
-    score++;
+    gameState.score++;
 }
 
 void updateGameState(const float deltaTime, GameInfo *gameInfo, MenuStates *menuState)
 {
-    const bool maxSnakeSize = maxSize == score + 1;
+    const bool maxSnakeSize = gameState.maxSnakeSize == gameState.score + 1;
     if (maxSnakeSize)
     {
-        gameOver = true;
+        gameState.gameOver = true;
     }
 
-    if (!gameOver)
+    if (!gameState.gameOver)
     {
-        handleApple(&apple);
-        handleSnake(deltaTime, &snake, &apple);
+        handleApple(&gameState.apple);
+        handleSnake(deltaTime, &gameState.snake, &gameState.apple);
     }
 }
 
@@ -86,19 +80,19 @@ static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
 
     if (GuiButton(gameOverButton, "Reset"))
     {
-        resetGame(gameInfo, menuState);
+       finishState = true;
     }
 }
 
 void drawGameState(GameInfo *gameInfo, MenuStates *menuState)
 {
     drawGrid();
-    drawSnake(&snake);
-    drawApple(&apple);
+    drawSnake(&gameState.snake);
+    drawApple(&gameState.apple);
 
-    DrawText(TextFormat("Score: %0i", score), 0, 0, 50, BLACK);
+    DrawText(TextFormat("Score: %0i", gameState.score), 0, 0, 50, BLACK);
 
-    if (gameOver)
+    if (gameState.gameOver)
     {
         drawGameOverMenu(gameInfo, menuState);
     }

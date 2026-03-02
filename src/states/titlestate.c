@@ -6,19 +6,40 @@
 #include "utility/menuutil.h"
 #include  "utility/gameutil.h"
 
+#include "states.h"
+
+
+static bool finishState = false;
+
+void initializeTitleState(void) {
+    finishState = false;
+}
+
+bool finishTitleState(void) {
+    return finishState;
+}
+
+void unloadTitleState(void) {
+
+}
+
 // Logic Functions
 static void buttonMenuCallback(int buttonIndex, GameInfo *gameInfo, MenuStates *menuState)
 {
     switch (buttonIndex)
     {
         case 0:
-            changeMenu(gameInfo, menuState, GAME_STATE);
+            finishState = true;
             break;
         case 1:
             changeMenu(gameInfo, menuState, EXIT);
             break;
         default: break;
     }
+}
+
+void updateTitleState(void) {
+
 }
 
 // Draw Functions
@@ -68,7 +89,7 @@ static void drawMenu(const char *buttonLabels[], const int numButtons, GameInfo 
     }
 }
 
-void drawMainState(GameInfo *gameInfo, MenuStates *menuState)
+void drawTitleState(GameInfo *gameInfo, MenuStates *menuState)
 {
     // Draw the title
     drawTitle();

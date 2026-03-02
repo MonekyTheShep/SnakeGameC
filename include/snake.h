@@ -2,8 +2,6 @@
 
 #include "linkedlist.h"
 #include "apple.h"
-#include "utility/gameutil.h"
-
 
 #include <raylib.h>
 

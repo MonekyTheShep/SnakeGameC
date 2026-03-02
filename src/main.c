@@ -11,8 +11,7 @@
 #include "utility/gameutil.h"
 #include "utility/soundutil.h"
 
-#include "states/gamestate.h"
-#include "states/titlestate.h"
+#include "states.h"
 
 #define SCREEN_WIDTH (800)
 #define SCREEN_HEIGHT (600)
@@ -22,6 +21,32 @@
 MenuStates menuState = TITLE_STATE;
 GameInfo gameInfo = {.musicPlaying = 0};
 
+
+static void changeScreen(MenuStates changeState) {
+    switch (menuState) {
+        case TITLE_STATE:
+            unloadTitleState();
+            break;
+        case GAME_STATE:
+            unloadGameState();
+            break;
+        default:
+            break;
+    }
+
+    switch (changeState) {
+        case TITLE_STATE:
+            initializeTitleState();
+            break;
+        case GAME_STATE:
+            initializeGameState();
+        default:
+            break;
+    }
+
+    menuState = changeState;
+}
+
 int main(void)
 {
     // Initialise Raylib
@@ -29,7 +54,7 @@ int main(void)
     SetTargetFPS(60);
 
     InitAudioDevice();
-    InitializeGameState();
+    initializeGameState();
 
     // load sounds
     sounds[COLLECT_SOUND] = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
@@ -72,8 +97,12 @@ int main(void)
         // Update logic for each state
         switch (menuState)
         {
+            case TITLE_STATE:
+                if (finishTitleState()) changeScreen(GAME_STATE);
+                break;
             case GAME_STATE:
                 updateGameState(deltaTime, &gameInfo, &menuState);
+                if (finishGameState()) changeScreen(TITLE_STATE);
                 break;
             default:
                 break;
@@ -85,7 +114,7 @@ int main(void)
             switch (menuState)
             {
                 case TITLE_STATE:
-                    drawMainState(&gameInfo, &menuState);
+                    drawTitleState(&gameInfo, &menuState);
                     break;
                 case GAME_STATE:
                     drawGameState(&gameInfo, &menuState);
@@ -100,8 +129,6 @@ int main(void)
 
     const int numOfMusic = sizeof(musics) / sizeof(musics[0]);
     CleanUpMusic(musics, numOfMusic);
-
-    UnloadGameState();
 
     CloseAudioDevice();
     CloseWindow();
