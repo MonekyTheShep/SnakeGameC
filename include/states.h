@@ -1,13 +1,23 @@
 #pragma once
 #include <stdbool.h>
 
-
 typedef enum States
 {
     TITLE_STATE,
     GAME_STATE,
     EXIT
 } States;
+
+// Title State
+// Initialise Functions
+void initializeTitleState(void);
+bool finishTitleState(void);
+bool exitState(void);
+void unloadTitleState(void);
+void updateTitleState(void);
+
+// Draw Functions
+void drawTitleState(void);
 
 // GameState
 // Initialise Functions
@@ -20,13 +30,3 @@ void updateGameState(float deltaTime);
 void drawGameState(void);
 
 
-// Title State
-// Initialise Functions
-void initializeTitleState(void);
-bool finishTitleState(void);
-bool exitState(void);
-void unloadTitleState(void);
-void updateTitleState(void);
-
-// Draw Functions
-void drawTitleState(void);

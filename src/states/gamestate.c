@@ -56,11 +56,13 @@ void incrementScore(void)
     gameState.score++;
 }
 
-void gameOver(void) {
+void gameOver(void)
+{
     gameState.gameOver = true;
 }
 
-bool isGameOver(void) {
+bool isGameOver(void)
+{
     return gameState.gameOver;
 }
 
