@@ -7,10 +7,10 @@
 void initializeGameState(void);
 void unloadGameState(void);
 bool finishGameState(void);
-void updateGameState(float deltaTime, GameInfo *gameInfo, MenuStates *menuState);
+void updateGameState(float deltaTime, GameInfo *gameInfo, States *menuState);
 
 // Draw Functions
-void drawGameState(GameInfo *gameinfo, MenuStates *menuState);
+void drawGameState(GameInfo *gameinfo, States *menuState);
 
 
 // Title State
@@ -21,4 +21,4 @@ void unloadTitleState(void);
 void updateTitleState(void);
 
 // Draw Functions
-void drawTitleState(GameInfo *gameInfo, MenuStates *menuState);
+void drawTitleState(GameInfo *gameInfo, States *menuState);

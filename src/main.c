@@ -18,11 +18,11 @@
 #define GAME_TITLE ("Snake Game")
 
 // default menu
-MenuStates menuState = TITLE_STATE;
+States menuState = TITLE_STATE;
 GameInfo gameInfo = {.musicPlaying = 0};
 
 
-static void changeScreen(MenuStates changeState)
+static void changeScreen(States changeState)
 {
     switch (menuState)
     {

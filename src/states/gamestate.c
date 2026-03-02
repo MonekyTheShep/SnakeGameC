@@ -28,6 +28,9 @@ void initializeGameState(void)
 {
     finishState = false;
 
+    gameState.score = 0;
+    gameState.gameOver = false;
+
     // Initialise SNAKE
     initializeSnake(&gameState.snake);
     gameState.maxSnakeSize = (GetScreenWidth()/ MOVE_INTERVAL) * (GetScreenHeight() / MOVE_INTERVAL);
@@ -39,9 +42,6 @@ void initializeGameState(void)
 
 void unloadGameState(void)
 {
-    gameState.score = 0;
-    gameState.gameOver = false;
-
     gameState.snake.snakeData = clearList(&gameState.snake.snakeData);
 }
 
@@ -50,12 +50,13 @@ bool finishGameState(void)
     return finishState;
 }
 
+// Logic Functions
 void incrementScore(void)
 {
     gameState.score++;
 }
 
-void updateGameState(const float deltaTime, GameInfo *gameInfo, MenuStates *menuState)
+void updateGameState(const float deltaTime, GameInfo *gameInfo, States *menuState)
 {
     const bool maxSnakeSize = gameState.maxSnakeSize == gameState.score + 1;
     if (maxSnakeSize)
@@ -71,7 +72,7 @@ void updateGameState(const float deltaTime, GameInfo *gameInfo, MenuStates *menu
 }
 
 // Draw Functions
-static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
+static void drawGameOverMenu(GameInfo *gameInfo, States *menuState)
 {
     const float buttonWidth = 100.0f;
     const float buttonHeight = 50.0f;
@@ -85,7 +86,7 @@ static void drawGameOverMenu(GameInfo *gameInfo, MenuStates *menuState)
     }
 }
 
-void drawGameState(GameInfo *gameInfo, MenuStates *menuState)
+void drawGameState(GameInfo *gameInfo, States *menuState)
 {
     drawGrid();
     drawSnake(&gameState.snake);

@@ -1,12 +1,12 @@
 #pragma once
 #include "utility/gameutil.h"
 
-typedef enum MenuStates
+typedef enum States
 {
     TITLE_STATE,
     GAME_STATE,
     EXIT
-} MenuStates;
+} States;
 
-void changeMenu(GameInfo *info, MenuStates *currentState, MenuStates changeState);
+void changeMenu(GameInfo *info, States *currentState, States changeState);
 

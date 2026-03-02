@@ -27,7 +27,7 @@ void unloadTitleState(void)
 }
 
 // Logic Functions
-static void buttonMenuCallback(int buttonIndex, GameInfo *gameInfo, MenuStates *menuState)
+static void buttonMenuCallback(int buttonIndex, GameInfo *gameInfo, States *menuState)
 {
     switch (buttonIndex)
     {
@@ -64,7 +64,7 @@ static void drawTitle(void)
 }
 
 
-static void drawMenu(const char *buttonLabels[], const int numButtons, GameInfo *info, MenuStates *menuState, void (*buttonCallback)(int, GameInfo*, MenuStates*))
+static void drawMenu(const char *buttonLabels[], const int numButtons, GameInfo *info, States *menuState, void (*buttonCallback)(int, GameInfo*, States*))
 {
     // Button information
     const float buttonWidth = 100.0f;
@@ -92,7 +92,7 @@ static void drawMenu(const char *buttonLabels[], const int numButtons, GameInfo 
     }
 }
 
-void drawTitleState(GameInfo *gameInfo, MenuStates *menuState)
+void drawTitleState(GameInfo *gameInfo, States *menuState)
 {
     // Draw the title
     drawTitle();

@@ -1,5 +1,6 @@
 #pragma once
 
-typedef struct GameInfo{
+typedef struct GameInfo
+{
     int musicPlaying;
 } GameInfo;
