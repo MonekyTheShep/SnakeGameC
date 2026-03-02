@@ -42,7 +42,6 @@ int main(void)
     musics[MAIN_MENU_MUSIC] = LoadMusicStream(ASSETS_PATH "/music/main_menu.ogg");
     musics[GAME_MENU_MUSIC] = LoadMusicStream(ASSETS_PATH "/music/game_music.ogg");
 
-
     currentMusic = &musics[MAIN_MENU_MUSIC];
     PlayMusicStream(*currentMusic);
     gameInfo.musicPlaying = 1;
@@ -112,7 +111,8 @@ static void changeState(States changeState)
     menuState = changeState;
 }
 
-static void checkMusicStatus(void) {
+static void checkMusicStatus(void)
+{
     // music management
     if (!gameInfo.musicPlaying)
     {
@@ -130,7 +130,8 @@ static void checkMusicStatus(void) {
     }
 }
 
-static void updateDrawFrame(void) {
+static void updateDrawFrame(void)
+{
     const float deltaTime = GetFrameTime();
     UpdateMusicStream(*currentMusic);
 
