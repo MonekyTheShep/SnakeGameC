@@ -22,8 +22,10 @@ MenuStates menuState = TITLE_STATE;
 GameInfo gameInfo = {.musicPlaying = 0};
 
 
-static void changeScreen(MenuStates changeState) {
-    switch (menuState) {
+static void changeScreen(MenuStates changeState)
+{
+    switch (menuState)
+    {
         case TITLE_STATE:
             unloadTitleState();
             break;
@@ -34,7 +36,8 @@ static void changeScreen(MenuStates changeState) {
             break;
     }
 
-    switch (changeState) {
+    switch (changeState)
+    {
         case TITLE_STATE:
             initializeTitleState();
             break;

@@ -2,7 +2,8 @@
 
 #include "snake.h"
 
-typedef struct GameState {
+typedef struct GameState
+{
     Snake snake;
     Apple apple;
 
