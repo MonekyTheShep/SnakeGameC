@@ -117,6 +117,28 @@ static void collisionHandling(Snake *snake, Apple *apple)
         moveApple(apple, &snake->snakeData);
 
     }
+
+    // Tail Collision Handling
+    Node *temp = snake->snakeData.head->next;
+    int length = 0;
+
+    // draw tail to previous positions and check if those tails are touching head
+    while (temp != NULL) {
+        length++;
+        const bool tailOverlapHeadX = temp->snake_node.x == snake->snakeData.head->snake_node.x;
+        const bool tailOverlapHeadY = temp->snake_node.y == snake->snakeData.head->snake_node.y;
+        const bool hasTails = length > 1;
+        // it has to be longer than 1
+
+        // if tail overlaps head then it should game over and play death sound
+        if (tailOverlapHeadX && tailOverlapHeadY && hasTails && !isGameOver())
+        {
+            gameOver();
+            PlaySound(sounds[EXPLOSION_SOUND]);
+        }
+
+        temp = temp->next;
+    }
 }
 
 static float accumulatedTime = 0.0f; // Total elapsed time
@@ -179,27 +201,12 @@ static void drawTails(Snake *snake)
 {
     // prev pos stored after the head position
     Node *temp = snake->snakeData.head->next;
-    int length = 0;
 
-    // draw tail to previous positions and check if those tails are touching head
+    // Draw Tails
     while (temp != NULL)
     {
-        length++;
-
         const Rectangle tail = {(float)temp->snake_node.x, (float)temp->snake_node.y, (float) MOVE_INTERVAL, (float) MOVE_INTERVAL};
         DrawRectangleRec(tail, GREEN);
-
-        const bool tailOverlapHeadX = temp->snake_node.x == snake->snakeData.head->snake_node.x;
-        const bool tailOverlapHeadY = temp->snake_node.y == snake->snakeData.head->snake_node.y;
-        const bool hasTails = length > 1;
-        // it has to be longer than 1
-
-        // if tail overlaps head then it should game over and play death sound
-        if (tailOverlapHeadX && tailOverlapHeadY && hasTails && !isGameOver())
-        {
-            gameOver();
-            PlaySound(sounds[EXPLOSION_SOUND]);
-        }
 
         temp = temp->next;
     }
