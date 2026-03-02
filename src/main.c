@@ -22,6 +22,7 @@ GameInfo gameInfo = {.musicPlaying = 0};
 Music *currentMusic;
 
 static void changeState(States changeState);
+static void checkMusicStatus(void);
 static void updateDrawFrame(void);
 
 int main(void)
@@ -53,22 +54,7 @@ int main(void)
             break;
         }
 
-        // music management
-        if (!gameInfo.musicPlaying)
-        {
-            switch (menuState)
-            {
-                case TITLE_STATE:
-                    changeMusic(&currentMusic, MAIN_MENU_MUSIC, musics, &gameInfo);
-                    break;
-                case GAME_STATE:
-                    changeMusic(&currentMusic, GAME_MENU_MUSIC, musics, &gameInfo);
-                    break;
-
-                default: break;
-            }
-        }
-
+        checkMusicStatus();
         updateDrawFrame();
     }
 
@@ -111,6 +97,24 @@ static void changeState(States changeState)
 
     gameInfo.musicPlaying = 0;
     menuState = changeState;
+}
+
+static void checkMusicStatus(void) {
+    // music management
+    if (!gameInfo.musicPlaying)
+    {
+        switch (menuState)
+        {
+            case TITLE_STATE:
+                changeMusic(&currentMusic, MAIN_MENU_MUSIC, musics, &gameInfo);
+                break;
+            case GAME_STATE:
+                changeMusic(&currentMusic, GAME_MENU_MUSIC, musics, &gameInfo);
+                break;
+
+            default: break;
+        }
+    }
 }
 
 static void updateDrawFrame(void) {
