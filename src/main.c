@@ -76,10 +76,10 @@ int main(void)
     }
 
     const int numOfSound = sizeof(sounds) / sizeof(sounds[0]);
-    CleanUpSound(sounds, numOfSound);
+    cleanUpSound(sounds, numOfSound);
 
     const int numOfMusic = sizeof(musics) / sizeof(musics[0]);
-    CleanUpMusic(musics, numOfMusic);
+    cleanUpMusic(musics, numOfMusic);
 
     CloseAudioDevice();
     CloseWindow();
