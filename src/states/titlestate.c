@@ -6,7 +6,7 @@
 #include "states.h"
 
 //----------------------------------------------------------------------------------
-// Local Variables
+// Module Local Variables
 //----------------------------------------------------------------------------------
 static bool finishState = false;
 static bool exitAllState = false;
