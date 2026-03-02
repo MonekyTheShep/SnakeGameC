@@ -12,9 +12,12 @@
 #include "states.h"
 #include "constants.h"
 
+//----------------------------------------------------------------------------------
+// Local Variables
+//----------------------------------------------------------------------------------
 static bool finishState = false;
 
-GameState gameState =
+static GameState gameState =
 {
     .apple = {0},
     .snake = {0},
@@ -23,7 +26,9 @@ GameState gameState =
     .gameOver = false
 };
 
-// Initialising Functions
+//----------------------------------------------------------------------------------
+// Initialise Functions
+//----------------------------------------------------------------------------------
 void initializeGameState(void)
 {
     finishState = false;
@@ -50,7 +55,9 @@ bool finishGameState(void)
     return finishState;
 }
 
+//----------------------------------------------------------------------------------
 // Logic Functions
+//----------------------------------------------------------------------------------
 void incrementScore(void)
 {
     gameState.score++;
@@ -81,7 +88,9 @@ void updateGameState(const float deltaTime)
     }
 }
 
+//----------------------------------------------------------------------------------
 // Draw Functions
+//----------------------------------------------------------------------------------
 static void drawGameOverMenu(void)
 {
     const float buttonWidth = 100.0f;

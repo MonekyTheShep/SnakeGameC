@@ -16,11 +16,16 @@
 #define SCREEN_HEIGHT (600)
 #define GAME_TITLE ("Snake Game")
 
-// default menu
+//----------------------------------------------------------------------------------
+// Main Module Variables
+//----------------------------------------------------------------------------------
 States menuState = TITLE_STATE;
 GameInfo gameInfo = {.musicPlaying = 0};
 Music *currentMusic;
 
+//----------------------------------------------------------------------------------
+// Function Prototypes
+//----------------------------------------------------------------------------------
 static void changeState(States changeState);
 static void checkMusicStatus(void);
 static void updateDrawFrame(void);
@@ -82,6 +87,9 @@ int main(void)
     return 0;
 }
 
+//----------------------------------------------------------------------------------
+// Function Declaration
+//----------------------------------------------------------------------------------
 static void changeState(States changeState)
 {
     switch (menuState)

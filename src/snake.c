@@ -11,7 +11,9 @@
 #include "apple.h"
 #include "states/gamestate.h"
 
-// Snake Initialing
+//----------------------------------------------------------------------------------
+// Initialise Functions
+//----------------------------------------------------------------------------------
 LinkedList createSnake(void)
 {
     const SnakeNode snake_node = {0.0f, 0.0f};
@@ -27,7 +29,9 @@ void initializeSnake(Snake *snake)
     snake->snakeHead = (Rectangle) {0.0f, 0.0f, (float) MOVE_INTERVAL, (float) MOVE_INTERVAL}; // x, y, width, height
 }
 
+//----------------------------------------------------------------------------------
 // Logic Functions
+//----------------------------------------------------------------------------------
 int growSnake(LinkedList *snake)
 {
     SnakeNode snake_node = {0.0f,0.0f};
@@ -185,7 +189,9 @@ static void updateSnakePosition(Snake *snake)
     snake->snakeHead.y = snake->snakeData.head->snake_node.y;
 }
 
+//----------------------------------------------------------------------------------
 // Handle Functions
+//----------------------------------------------------------------------------------
 void handleSnake(const float deltaTime, Snake *snake, Apple *apple)
 {
     accumulatedTime += deltaTime;     // Add to total
@@ -197,7 +203,9 @@ void handleSnake(const float deltaTime, Snake *snake, Apple *apple)
 }
 
 
-// Draw functions
+//----------------------------------------------------------------------------------
+// Draw Functions
+//----------------------------------------------------------------------------------
 static void drawTails(Snake *snake)
 {
     // prev pos stored after the head position
