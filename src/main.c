@@ -21,7 +21,7 @@ States menuState = TITLE_STATE;
 GameInfo gameInfo = {.musicPlaying = 0};
 
 
-static void changeScreen(States changeState)
+static void changeState(States changeState)
 {
     switch (menuState)
     {
@@ -102,12 +102,12 @@ int main(void)
         {
             case TITLE_STATE:
                 updateTitleState();
-                if (finishTitleState()) changeScreen(GAME_STATE);
-                if (exitState()) changeScreen(EXIT);
+                if (finishTitleState()) changeState(GAME_STATE);
+                if (exitState()) changeState(EXIT);
                 break;
             case GAME_STATE:
                 updateGameState(deltaTime);
-                if (finishGameState()) changeScreen(TITLE_STATE);
+                if (finishGameState()) changeState(TITLE_STATE);
                 break;
             default:
                 break;
