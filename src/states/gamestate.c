@@ -47,7 +47,7 @@ void initializeGameState(void)
 
 void unloadGameState(void)
 {
-    gameState.snake.snakeData = clearList(&gameState.snake.snakeData);
+    cleanupSnake(&gameState.snake);
 }
 
 bool finishGameState(void)

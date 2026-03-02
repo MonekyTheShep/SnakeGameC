@@ -29,6 +29,10 @@ void initializeSnake(Snake *snake)
     snake->snakeHead = (Rectangle) {0.0f, 0.0f, (float) MOVE_INTERVAL, (float) MOVE_INTERVAL}; // x, y, width, height
 }
 
+void cleanupSnake(Snake *snake) {
+    snake->snakeData = clearList(&snake->snakeData);
+}
+
 //----------------------------------------------------------------------------------
 // Logic Functions
 //----------------------------------------------------------------------------------
