@@ -11,8 +11,6 @@
 #include "apple.h"
 #include "states/gamestate.h"
 
-extern GameState gameState;
-
 // Snake Initialing
 LinkedList createSnake(void)
 {
@@ -198,9 +196,9 @@ static void drawTails(Snake *snake)
         // it has to be longer than 1
 
         // if tail overlaps head then it should game over and play death sound
-        if (tailOverlapHeadX && tailOverlapHeadY && hasTails && !gameState.gameOver)
+        if (tailOverlapHeadX && tailOverlapHeadY && hasTails && !isGameOver())
         {
-            gameState.gameOver = true;
+            gameOver();
             PlaySound(sounds[EXPLOSION_SOUND]);
         }
 

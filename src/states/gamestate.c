@@ -56,6 +56,14 @@ void incrementScore(void)
     gameState.score++;
 }
 
+void gameOver(void) {
+    gameState.gameOver = true;
+}
+
+bool isGameOver(void) {
+    return gameState.gameOver;
+}
+
 void updateGameState(const float deltaTime)
 {
     const bool maxSnakeSize = gameState.maxSnakeSize == gameState.score + 1;

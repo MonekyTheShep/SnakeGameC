@@ -15,4 +15,6 @@ typedef struct GameState
 
 // Logic Functions
 void incrementScore(void);
+void gameOver(void);
+bool isGameOver(void);
 
