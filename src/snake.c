@@ -181,7 +181,7 @@ static void drawTails(Snake *snake)
     Node *temp = snake->snakeData.head->next;
     int length = 0;
 
-    // move tail to previous positions and check if those tails are touching head
+    // draw tail to previous positions and check if those tails are touching head
     while (temp != NULL)
     {
         length++;
