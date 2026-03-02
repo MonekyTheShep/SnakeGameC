@@ -123,7 +123,8 @@ static void collisionHandling(Snake *snake, Apple *apple)
     int length = 0;
 
     // draw tail to previous positions and check if those tails are touching head
-    while (temp != NULL) {
+    while (temp != NULL)
+    {
         length++;
         const bool tailOverlapHeadX = temp->snake_node.x == snake->snakeData.head->snake_node.x;
         const bool tailOverlapHeadY = temp->snake_node.y == snake->snakeData.head->snake_node.y;

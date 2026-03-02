@@ -19,7 +19,8 @@ bool finishTitleState(void)
     return finishState;
 }
 
-bool exitState(void) {
+bool exitState(void)
+{
     return exitAllState;
 }
 
@@ -43,7 +44,8 @@ static void buttonMenuCallback(int buttonIndex)
     }
 }
 
-void updateTitleState(void) {
+void updateTitleState(void)
+{
 
 }
 
