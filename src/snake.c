@@ -119,14 +119,13 @@ static void collisionHandling(Snake *snake, Apple *apple)
     }
 }
 
-float accumulatedTime = 0.0f; // Total elapsed time
-float accumulatedDebounceTime = 0.0f;
-const float moveTimeInterval = 0.1f;
+static float accumulatedTime = 0.0f; // Total elapsed time
+static float accumulatedDebounceTime = 0.0f;
 
 static void inputHandling(Snake *snake)
 {
     // input checking
-    if (accumulatedDebounceTime > moveTimeInterval)
+    if (accumulatedDebounceTime > SNAKE_TIME_INTERVAL)
     {
         accumulatedDebounceTime = 0.0f;
         if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && snake->direction != LEFT)
@@ -151,7 +150,7 @@ static void inputHandling(Snake *snake)
 static void updateSnakePosition(Snake *snake)
 {
     // store prev position and move
-    if (accumulatedTime > moveTimeInterval)
+    if (accumulatedTime > SNAKE_TIME_INTERVAL)
     {
         accumulatedTime = 0.0f;
         storePrevSnakePosition(&snake->snakeData);

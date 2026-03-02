@@ -13,3 +13,6 @@
 #define MAIN_MENU_MUSIC (0)
 #define GAME_MENU_MUSIC (1)
 
+// Snake
+#define SNAKE_TIME_INTERVAL (0.1f)
+

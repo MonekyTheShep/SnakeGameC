@@ -57,7 +57,7 @@ int main(void)
         checkMusicStatus();
         updateDrawFrame();
     }
-    
+
     // Unload Current State before closing window.
     switch (menuState)
     {
