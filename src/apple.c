@@ -19,22 +19,22 @@ void initialiseApple(Apple *apple)
 //----------------------------------------------------------------------------------
 // Logic Functions
 //----------------------------------------------------------------------------------
-RandomPos randomApplePos(const int moveInterval)
+RandomPos randomApplePos(void)
 {
-    const int xCount = GetScreenWidth() / moveInterval;
-    const int xIndex = rand() % xCount;
+    const int xCount = GetScreenWidth() / MOVE_INTERVAL;
+    const int xIndex = GetRandomValue(0, xCount - 1);
 
 
-    const int yCount = GetScreenHeight() / moveInterval;
-    const int yIndex = rand() % yCount;
+    const int yCount = GetScreenHeight() / MOVE_INTERVAL;
+    const int yIndex = GetRandomValue(0, yCount - 1);
 
-    return (RandomPos){xIndex * moveInterval, yIndex * moveInterval};
+    return (RandomPos){xIndex * MOVE_INTERVAL, yIndex * MOVE_INTERVAL};
 }
 
 void moveApple(Apple *apple, const LinkedList *snake)
 {
     bool validPosition = false;
-    RandomPos pos = randomApplePos(MOVE_INTERVAL);
+    RandomPos pos = randomApplePos();
     while (!validPosition)
     {
         // assume valid position until proven not
@@ -71,7 +71,7 @@ void moveApple(Apple *apple, const LinkedList *snake)
 
         if (!validPosition)
         {
-            pos = randomApplePos(MOVE_INTERVAL);
+            pos = randomApplePos();
         }
     }
 
