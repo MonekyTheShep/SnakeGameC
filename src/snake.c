@@ -94,7 +94,7 @@ void moveSnake(Snake *snake)
     // screen wrapping'
     if (snake->snakeData.head->snake_node.y < 0.0f)
     {
-        snake->snakeData.head->snake_node.y = (float) GetScreenHeight();
+        snake->snakeData.head->snake_node.y = (float) GetScreenHeight() - MOVE_INTERVAL;
     }
     else if (snake->snakeData.head->snake_node.y >= (float) GetScreenHeight())
     {
@@ -102,7 +102,7 @@ void moveSnake(Snake *snake)
     }
     else if (snake->snakeData.head->snake_node.x < 0.0f)
     {
-       snake->snakeData.head->snake_node.x = (float) GetScreenWidth();
+       snake->snakeData.head->snake_node.x = (float) GetScreenWidth() - MOVE_INTERVAL;
     }
     else if (snake->snakeData.head->snake_node.x >= (float) GetScreenWidth())
     {
