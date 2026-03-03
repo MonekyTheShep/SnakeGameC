@@ -29,5 +29,3 @@ void unloadGameState(void);
 bool finishGameState(void);
 void updateGameState(float deltaTime);
 void drawGameState(void);
-
-
