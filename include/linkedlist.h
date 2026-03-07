@@ -1,16 +1,19 @@
 #pragma once
 
-typedef struct SnakeNode {
+typedef struct SnakeNode
+{
     float x;
     float y;
 } SnakeNode;
 
-typedef struct Node {
+typedef struct Node
+{
     struct Node *next;
     SnakeNode snake_node;
 } Node;
 
-typedef struct LinkedList {
+typedef struct LinkedList
+{
     Node *head;          
     Node *tail;
 } LinkedList;
