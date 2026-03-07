@@ -24,7 +24,7 @@ typedef struct Snake {
 //----------------------------------------------------------------------------------
 LinkedList createSnake(void);
 void initializeSnake(Snake *snake);
-void cleanupSnake(Snake *snake);
+void cleanUpSnake(Snake *snake);
 
 //----------------------------------------------------------------------------------
 // Logic Functions
