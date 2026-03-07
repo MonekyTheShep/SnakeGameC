@@ -8,11 +8,16 @@
 //----------------------------------------------------------------------------------
 // Typedefs
 //----------------------------------------------------------------------------------
-typedef enum Direction {
-    UP, DOWN, LEFT, RIGHT
+typedef enum Direction
+{
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
 } Direction;
 
-typedef struct Snake {
+typedef struct Snake
+{
     LinkedList snakeData;
     Rectangle snakeHead;
     Direction direction;

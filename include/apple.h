@@ -5,12 +5,14 @@
 //----------------------------------------------------------------------------------
 // Typedefs
 //----------------------------------------------------------------------------------
-typedef struct RandomPos {
+typedef struct RandomPos
+{
     int x;
     int y;
 } RandomPos;
 
-typedef struct Apple {
+typedef struct Apple
+{
     Rectangle rec;
     Vector2 position;
 } Apple;
