@@ -38,6 +38,8 @@ int main(void)
 
     InitAudioDevice();
 
+    initializeTitleState();
+
     // load sounds
     sounds[COLLECT_SOUND] = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
     sounds[EXPLOSION_SOUND] =  LoadSound(ASSETS_PATH "/sounds/explosion_sound.ogg");
