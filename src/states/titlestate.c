@@ -97,7 +97,13 @@ static void drawMenu(const char *buttonLabels[], const int numButtons, void (*bu
         const float currentButtonX = buttonCenterX;
         const float currentButtonY = buttonCenterY + buttonYOffset;
 
-        const Rectangle button = { currentButtonX, currentButtonY , buttonWidth , buttonHeight };
+        const Rectangle button = {
+                .x = currentButtonX,
+                .y = currentButtonY ,
+                .width = buttonWidth ,
+                .height = buttonHeight
+        };
+
         if (GuiButton(button, buttonLabels[i]))
         {
             buttonCallback(i);

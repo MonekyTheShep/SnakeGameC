@@ -26,7 +26,12 @@ void initializeSnake(Snake *snake)
 {
     snake->direction = RIGHT;
     snake->snakeData = createSnake();
-    snake->snakeHead = (Rectangle) {0.0f, 0.0f, (float) MOVE_INTERVAL, (float) MOVE_INTERVAL}; // x, y, width, height
+    snake->snakeHead = (Rectangle){
+        .x = 0.0f,
+        .y = 0.0f,
+        .width = (float) MOVE_INTERVAL,
+        .height = (float) MOVE_INTERVAL
+    }; // x, y, width, height
 }
 
 void cleanUpSnake(Snake *snake) {
@@ -38,7 +43,10 @@ void cleanUpSnake(Snake *snake) {
 //----------------------------------------------------------------------------------
 int growSnake(LinkedList *snake)
 {
-    SnakeNode snake_node = {0.0f,0.0f};
+    SnakeNode snake_node = {
+            .x = 0.0f,
+            .y = 0.0f
+    };
     snake_node.x = snake->tail->snake_node.x;
     snake_node.y = snake->tail->snake_node.y;
     insertAtTail(snake, snake_node);
@@ -64,7 +72,6 @@ void storePrevSnakePosition(const LinkedList *snake)
         // set prev for next iteration
         prevX = tempPrevX;
         prevY = tempPrevY;
-
 
         temp = temp->next;
 
@@ -123,7 +130,6 @@ static void collisionHandling(Snake *snake, Apple *apple)
         growSnake(&snake->snakeData);
 
         moveApple(apple, &snake->snakeData);
-
     }
 
     // Tail Collision Handling
@@ -218,7 +224,13 @@ static void drawTails(Snake *snake)
     // Draw Tails
     while (temp != NULL)
     {
-        const Rectangle tail = {(float)temp->snake_node.x, (float)temp->snake_node.y, (float) MOVE_INTERVAL, (float) MOVE_INTERVAL};
+        const Rectangle tail = {
+                .x = (float)temp->snake_node.x,
+                .y = (float)temp->snake_node.y,
+                .width = (float) MOVE_INTERVAL,
+                .height = (float) MOVE_INTERVAL
+        };
+
         DrawRectangleRec(tail, GREEN);
 
         temp = temp->next;

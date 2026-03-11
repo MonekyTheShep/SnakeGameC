@@ -13,7 +13,12 @@
 //----------------------------------------------------------------------------------
 void initialiseApple(Apple *apple)
 {
-    apple->rec = (Rectangle) {0.0f, 0.0f, (float) MOVE_INTERVAL, (float) MOVE_INTERVAL};
+    apple->rec = (Rectangle) {
+        .x = 0.0f,
+        .y = 0.0f,
+        .width = (float) MOVE_INTERVAL,
+        .height = (float) MOVE_INTERVAL
+    };
 }
 
 //----------------------------------------------------------------------------------
@@ -48,7 +53,6 @@ void moveApple(Apple *apple, const LinkedList *snake)
         if (appleOverlapSnakeX && appleOverlapSnakeY)
         {
             validPosition = false;
-            printf("Moved of the head.\n");
         }
 
         Node *temp = snake->head->next;
@@ -62,8 +66,6 @@ void moveApple(Apple *apple, const LinkedList *snake)
             if (tailOverlapAppleX  && tailOverlapAppleY)
             {
                 validPosition = false;
-
-                printf("Moved of the tail.\n");
             }
 
             temp = temp->next;

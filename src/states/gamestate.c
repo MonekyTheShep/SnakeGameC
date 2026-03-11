@@ -97,7 +97,13 @@ static void drawGameOverMenu(void)
     const float buttonHeight = 50.0f;
     const float gameOverButtonX = ((float) GetScreenWidth() - buttonWidth) / 2.0f;
     const float gameOverButtonY = ((float) GetScreenHeight() - buttonHeight) / 2.0f;
-    const Rectangle gameOverButton = {gameOverButtonX,gameOverButtonY,buttonWidth,buttonHeight};
+
+    const Rectangle gameOverButton = {
+            .x = gameOverButtonX,
+            .y =gameOverButtonY,
+            .width =buttonWidth,
+            .height = buttonHeight
+    };
 
     if (GuiButton(gameOverButton, "Reset"))
     {
