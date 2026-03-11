@@ -16,7 +16,10 @@
 //----------------------------------------------------------------------------------
 LinkedList createSnake(void)
 {
-    const SnakeNode snake_node = {0.0f, 0.0f};
+    const SnakeNode snake_node = {
+            .x = 0.0f,
+            .y = 0.0f
+    };
     const LinkedList snake = createList(snake_node);
 
     return snake;
@@ -96,7 +99,6 @@ void moveSnake(Snake *snake)
             snake->snakeData.head->snake_node.x += (float) MOVE_INTERVAL;
             break;
     }
-
 
     // screen wrapping'
     if (snake->snakeData.head->snake_node.y < 0.0f)
