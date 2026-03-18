@@ -2,6 +2,9 @@
 
 #include <stdbool.h>
 
+#include <raylib.h>
+#include <raygui.h>
+
 #include "grid.h"
 #include "snake.h"
 #include "apple.h"
@@ -13,8 +16,7 @@
 
 #include "constants.h"
 
-#include <raylib.h>
-#include <raygui.h>
+
 
 
 
