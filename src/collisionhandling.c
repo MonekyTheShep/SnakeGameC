@@ -7,8 +7,6 @@
 
 #include "events.h"
 
-
-
 void moveApple(Apple *apple, const LinkedList *snake)
 {
     bool validPosition = false;
@@ -53,7 +51,6 @@ void moveApple(Apple *apple, const LinkedList *snake)
     apple->position.x = (float) pos.x;
     apple->position.y = (float) pos.y;
 }
-
 
 void collisionHandling(Snake *snake, Apple *apple)
 {

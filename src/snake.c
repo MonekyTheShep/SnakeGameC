@@ -1,11 +1,10 @@
 #include "snake.h"
 
-#include "constants.h"
-#include "assets.h"
-
 #include <stdio.h>
 
 #include <raylib.h>
+
+#include "constants.h"
 
 //----------------------------------------------------------------------------------
 // Initialise Functions
