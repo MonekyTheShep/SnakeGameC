@@ -26,7 +26,6 @@ void initialiseApple(Apple *apple);
 // Logic Functions
 //----------------------------------------------------------------------------------
 RandomPos randomApplePos(void);
-void moveApple(Apple *apple, const LinkedList *snake);
 
 //----------------------------------------------------------------------------------
 // Handle Functions

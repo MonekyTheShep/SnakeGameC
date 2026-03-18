@@ -1,7 +1,6 @@
 #pragma once
 
 #include "linkedlist.h"
-#include "apple.h"
 
 #include <raylib.h>
 
@@ -41,7 +40,7 @@ void moveSnake(Snake *snake);
 //----------------------------------------------------------------------------------
 // Handle Functions
 //----------------------------------------------------------------------------------
-void handleSnake(float deltaTime, Snake *snake, Apple *apple);
+void handleSnake(float deltaTime, Snake *snake);
 
 //----------------------------------------------------------------------------------
 // Draw Functions

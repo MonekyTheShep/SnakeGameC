@@ -5,9 +5,8 @@
 #include <raygui.h>
 
 #include "linkedlist.h"
-#include "snake.h"
-#include "apple.h"
 #include "grid.h"
+#include "collisionhandling.h"
 
 #include "states.h"
 #include "constants.h"
@@ -84,7 +83,8 @@ void updateGameState(const float deltaTime)
     if (!gameState.gameOver)
     {
         handleApple(&gameState.apple);
-        handleSnake(deltaTime, &gameState.snake, &gameState.apple);
+        handleSnake(deltaTime, &gameState.snake);
+        collisionHandling(&gameState.snake, &gameState.apple);
     }
 }
 

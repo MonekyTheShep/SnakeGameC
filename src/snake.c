@@ -119,44 +119,6 @@ void moveSnake(Snake *snake)
     }
 }
 
-static void collisionHandling(Snake *snake, Apple *apple)
-{
-    // if the apple is overlapping head.
-    const bool appleOverlapSnakeX = snake->snakeData.head->snake_node.x == apple->position.x;
-    const bool appleOverlapSnakeY = snake->snakeData.head->snake_node.y == apple->position.y;
-
-    if (appleOverlapSnakeX && appleOverlapSnakeY)
-    {
-        PlaySound(sounds[COLLECT_SOUND]);
-        incrementScore();
-        growSnake(&snake->snakeData);
-
-        moveApple(apple, &snake->snakeData);
-    }
-
-    // Tail Collision Handling
-    Node *temp = snake->snakeData.head->next;
-    int length = 0;
-
-    while (temp != NULL)
-    {
-        length++;
-        const bool tailOverlapHeadX = temp->snake_node.x == snake->snakeData.head->snake_node.x;
-        const bool tailOverlapHeadY = temp->snake_node.y == snake->snakeData.head->snake_node.y;
-        // it has to be longer than 1
-        const bool hasTails = length > 1;
-
-        // if tail overlaps head then it should game over and play death sound
-        if (tailOverlapHeadX && tailOverlapHeadY && hasTails && !isGameOver())
-        {
-            gameOver();
-            PlaySound(sounds[EXPLOSION_SOUND]);
-        }
-
-        temp = temp->next;
-    }
-}
-
 static float accumulatedTime = 0.0f; // Total elapsed time
 static float accumulatedDebounceTime = 0.0f;
 
@@ -203,14 +165,13 @@ static void updateSnakePosition(Snake *snake)
 //----------------------------------------------------------------------------------
 // Handle Functions
 //----------------------------------------------------------------------------------
-void handleSnake(const float deltaTime, Snake *snake, Apple *apple)
+void handleSnake(const float deltaTime, Snake *snake)
 {
     accumulatedTime += deltaTime;     // Add to total
     accumulatedDebounceTime += deltaTime;
 
     inputHandling(snake);
     updateSnakePosition(snake);
-    collisionHandling(snake, apple);
 }
 
 
