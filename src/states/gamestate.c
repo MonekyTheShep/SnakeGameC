@@ -1,4 +1,5 @@
 #include "states/gamestate.h"
+#include "states.h"
 
 #include <stdbool.h>
 
@@ -9,8 +10,6 @@
 #include "snake.h"
 #include "apple.h"
 #include "collisionhandling.h"
-
-#include "states.h"
 
 #include "events.h"
 
