@@ -1,10 +1,13 @@
 #include "collisionhandling.h"
 
+#include <stdlib.h>
+#include <stdbool.h>
+
 #include "assets.h"
 
 #include "events.h"
 
-#include <stdlib.h>
+
 
 void moveApple(Apple *apple, const LinkedList *snake)
 {
