@@ -1,18 +1,10 @@
 #pragma once
 
-#include "snake.h"
-#include "apple.h"
+#include <stdbool.h>
 
 //----------------------------------------------------------------------------------
-// Typedefs
+// Logic Functions
 //----------------------------------------------------------------------------------
-typedef struct GameState
-{
-    Snake snake;
-    Apple apple;
-
-    int maxSnakeSize;
-    int score;
-    bool gameOver;
-
-} GameState;
+void incrementScore(void);
+void gameOver(void);
+bool isGameOver(void);

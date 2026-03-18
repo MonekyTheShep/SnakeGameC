@@ -1,7 +1,8 @@
 #include "collisionhandling.h"
 
 #include "assets.h"
-#include "states/gamestate.h"
+
+#include "events.h"
 
 #include <stdlib.h>
 

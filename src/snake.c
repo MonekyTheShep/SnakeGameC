@@ -4,12 +4,8 @@
 #include "assets.h"
 
 #include <stdio.h>
-#include <stdbool.h>
 
 #include <raylib.h>
-
-#include "apple.h"
-#include "states/gamestate.h"
 
 //----------------------------------------------------------------------------------
 // Initialise Functions

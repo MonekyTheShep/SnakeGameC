@@ -5,10 +5,19 @@
 #include <raygui.h>
 
 #include "grid.h"
+#include "snake.h"
+#include "apple.h"
 #include "collisionhandling.h"
 
 #include "states.h"
+
+#include "events.h"
+
 #include "constants.h"
+
+#include "raylib.h"
+
+
 
 //----------------------------------------------------------------------------------
 // Module Local Variables
