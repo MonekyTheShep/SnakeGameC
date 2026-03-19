@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdbool.h>
+
 #include "snake.h"
 #include "apple.h"
 
