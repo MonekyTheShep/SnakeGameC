@@ -32,7 +32,8 @@ void initializeSnake(Snake *snake)
     }; // x, y, width, height
 }
 
-void cleanUpSnake(Snake *snake) {
+void cleanUpSnake(Snake *snake)
+{
     snake->snakeData = clearList(&snake->snakeData);
 }
 
