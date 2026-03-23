@@ -43,11 +43,9 @@ void cleanUpSnake(Snake *snake)
 int growSnake(LinkedList *snake)
 {
     SnakeNode snake_node = {
-            .x = 0.0f,
-            .y = 0.0f
+            .x = snake->tail->snake_node.x,
+            .y = snake->tail->snake_node.y
     };
-    snake_node.x = snake->tail->snake_node.x;
-    snake_node.y = snake->tail->snake_node.y;
     insertAtTail(snake, snake_node);
     return 0;
 }
