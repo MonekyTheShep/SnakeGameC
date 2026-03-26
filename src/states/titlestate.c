@@ -62,7 +62,7 @@ void updateTitleState(void)
 static void drawTitle(void)
 {
     // Draw the title
-    const char titleText[11] = "Snake Game";
+    const char titleText[] = "Snake Game";
 
     const Font font = GetFontDefault();
     const float fontSize = 50.0f;
