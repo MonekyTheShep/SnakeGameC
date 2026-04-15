@@ -9,7 +9,7 @@
 #include "grid.h"
 #include "snake.h"
 #include "apple.h"
-#include "collisionhandling.h"
+#include "collision_handling.h"
 
 #include "events.h"
 

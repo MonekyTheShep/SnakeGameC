@@ -1,4 +1,4 @@
-#include "collisionhandling.h"
+#include "collision_handling.h"
 
 #include <stdlib.h>
 #include <stdbool.h>
@@ -65,28 +65,6 @@ void collisionHandling(Snake *snake, Apple *apple)
         growSnake(&snake->snakeData);
 
         moveApple(apple, &snake->snakeData);
-    }
-
-    // Tail Collision Handling
-    Node *temp = snake->snakeData.head->next;
-    int length = 0;
-
-    while (temp != NULL)
-    {
-        length++;
-        const bool tailOverlapHeadX = temp->snake_node.x == snake->snakeData.head->snake_node.x;
-        const bool tailOverlapHeadY = temp->snake_node.y == snake->snakeData.head->snake_node.y;
-        // it has to be longer than 1
-        const bool hasTails = length > 1;
-
-        // if tail overlaps head then it should game over and play death sound
-        if (tailOverlapHeadX && tailOverlapHeadY && hasTails && !isGameOver())
-        {
-            gameOver();
-            PlaySound(sounds[EXPLOSION_SOUND]);
-        }
-
-        temp = temp->next;
     }
 }
 

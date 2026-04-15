@@ -5,6 +5,8 @@
 #include <raylib.h>
 
 #include "constants.h"
+#include "events.h"
+#include "assets.h"
 
 //----------------------------------------------------------------------------------
 // Initialise Functions
@@ -113,11 +115,39 @@ void moveSnake(Snake *snake)
     }
 }
 
+static void collisionHandling(Snake *snake)
+{
+    // Tail Collision Handling
+    Node *temp = snake->snakeData.head->next;
+    int length = 0;
+
+    while (temp != NULL)
+    {
+        length++;
+        const bool tailOverlapHeadX = temp->snake_node.x == snake->snakeData.head->snake_node.x;
+        const bool tailOverlapHeadY = temp->snake_node.y == snake->snakeData.head->snake_node.y;
+        // it has to be longer than 1
+        const bool hasTails = length > 1;
+
+        // if tail overlaps head then it should game over and play death sound
+        if (tailOverlapHeadX && tailOverlapHeadY && hasTails && !isGameOver())
+        {
+            gameOver();
+            PlaySound(sounds[EXPLOSION_SOUND]);
+        }
+
+        temp = temp->next;
+    }
+}
+
+
 static float accumulatedTime = 0.0f; // Total elapsed time
 static float accumulatedDebounceTime = 0.0f;
 
-static void inputHandling(Snake *snake)
+static void inputHandling(Snake *snake, const float deltaTime)
 {
+    accumulatedDebounceTime += deltaTime;
+
     // input checking
     if (accumulatedDebounceTime > SNAKE_TIME_INTERVAL)
     {
@@ -141,8 +171,10 @@ static void inputHandling(Snake *snake)
     }
 }
 
-static void updateSnakePosition(Snake *snake)
+static void updateSnakePosition(Snake *snake, const float deltaTime)
 {
+    accumulatedTime += deltaTime;
+
     // store prev position and move
     if (accumulatedTime > SNAKE_TIME_INTERVAL)
     {
@@ -161,11 +193,9 @@ static void updateSnakePosition(Snake *snake)
 //----------------------------------------------------------------------------------
 void handleSnake(const float deltaTime, Snake *snake)
 {
-    accumulatedTime += deltaTime;     // Add to total
-    accumulatedDebounceTime += deltaTime;
-
-    inputHandling(snake);
-    updateSnakePosition(snake);
+    inputHandling(snake, deltaTime);
+    updateSnakePosition(snake, deltaTime);
+    collisionHandling(snake);
 }
 
 
