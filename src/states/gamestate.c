@@ -78,8 +78,7 @@ bool isGameOver(void)
 
 void updateGameState(const float deltaTime)
 {
-    const bool maxSnakeSize = gameState.maxSnakeSize == gameState.score + 1;
-    if (maxSnakeSize)
+    if (gameState.snake.length == gameState.maxSnakeSize)
     {
         gameState.gameOver = true;
     }

@@ -34,7 +34,7 @@ void cleanUpSnake(Snake *snake);
 //----------------------------------------------------------------------------------
 // Logic Functions
 //----------------------------------------------------------------------------------
-int growSnake(LinkedList *snake);
+int growSnake(Snake *snake);
 void storePrevSnakePosition(const LinkedList *snake);
 void moveSnake(Snake *snake);
 

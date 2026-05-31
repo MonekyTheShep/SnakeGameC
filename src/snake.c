@@ -32,7 +32,8 @@ void initializeSnake(Snake *snake)
         .y = 0.0f,
         .width = (float) MOVE_INTERVAL,
         .height = (float) MOVE_INTERVAL
-    }; // x, y, width, height
+    };
+    snake->length = 1;
 }
 
 void cleanUpSnake(Snake *snake)
@@ -43,15 +44,16 @@ void cleanUpSnake(Snake *snake)
 //----------------------------------------------------------------------------------
 // Logic Functions
 //----------------------------------------------------------------------------------
-int growSnake(LinkedList *snake)
+int growSnake(Snake *snake)
 {
     SnakeNode snake_node = {
-            .x = snake->tail->snake_node.x,
-            .y = snake->tail->snake_node.y,
+            .x = snake->snakeData.tail->snake_node.x,
+            .y = snake->snakeData.tail->snake_node.y,
             .active = false // Only active when its from a stored prev position
     };
 
-    insertAtTail(snake, snake_node);
+    insertAtTail(&snake->snakeData, snake_node);
+    snake->length++;
     return 0;
 }
 
