@@ -1,9 +1,12 @@
 #pragma once
 
+#include <stdbool.h>
+
 typedef struct SnakeNode
 {
     float x;
     float y;
+    bool active;
 } SnakeNode;
 
 typedef struct Node

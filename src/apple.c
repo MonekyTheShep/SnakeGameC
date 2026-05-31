@@ -20,7 +20,7 @@ void initialiseApple(Apple *apple)
 //----------------------------------------------------------------------------------
 // Logic Functions
 //----------------------------------------------------------------------------------
-RandomPos randomApplePos(void)
+Vector2 randomApplePos(void)
 {
     const int xCount = GetScreenWidth() / MOVE_INTERVAL;
     const int xIndex = GetRandomValue(0, xCount - 1);
@@ -29,7 +29,7 @@ RandomPos randomApplePos(void)
     const int yCount = GetScreenHeight() / MOVE_INTERVAL;
     const int yIndex = GetRandomValue(0, yCount - 1);
 
-    return (RandomPos){xIndex * MOVE_INTERVAL, yIndex * MOVE_INTERVAL};
+    return (Vector2){(float) xIndex * MOVE_INTERVAL, (float) yIndex * MOVE_INTERVAL};
 }
 
 //----------------------------------------------------------------------------------
@@ -40,7 +40,6 @@ void handleApple(Apple *apple)
     apple->rec.x = apple->position.x;
     apple->rec.y = apple->position.y;
 }
-
 
 //----------------------------------------------------------------------------------
 // Draw Functions

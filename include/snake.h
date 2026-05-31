@@ -20,6 +20,7 @@ typedef struct Snake
     LinkedList snakeData;
     Rectangle snakeHead;
     Direction direction;
+    int length;
 } Snake;
 
 

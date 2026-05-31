@@ -1,6 +1,7 @@
 #include "snake.h"
 
 #include <stdio.h>
+#include <stdbool.h>
 
 #include <raylib.h>
 
@@ -46,12 +47,13 @@ int growSnake(LinkedList *snake)
 {
     SnakeNode snake_node = {
             .x = snake->tail->snake_node.x,
-            .y = snake->tail->snake_node.y
+            .y = snake->tail->snake_node.y,
+            .active = false // Only active when its from a stored prev position
     };
+
     insertAtTail(snake, snake_node);
     return 0;
 }
-
 
 void storePrevSnakePosition(const LinkedList *snake)
 {
@@ -67,13 +69,13 @@ void storePrevSnakePosition(const LinkedList *snake)
 
         temp->snake_node.x = prevX;
         temp->snake_node.y = prevY;
+        temp->snake_node.active = true;
 
         // set prev for next iteration
         prevX = tempPrevX;
         prevY = tempPrevY;
 
         temp = temp->next;
-
     }
 }
 
@@ -119,18 +121,15 @@ static void collisionHandling(Snake *snake)
 {
     // Tail Collision Handling
     Node *temp = snake->snakeData.head->next;
-    int length = 0;
 
     while (temp != NULL)
     {
-        length++;
         const bool tailOverlapHeadX = temp->snake_node.x == snake->snakeData.head->snake_node.x;
         const bool tailOverlapHeadY = temp->snake_node.y == snake->snakeData.head->snake_node.y;
-        // it has to be longer than 1
-        const bool hasTails = length > 1;
+        const bool tailActive = temp->snake_node.active;
 
         // if tail overlaps head then it should game over and play death sound
-        if (tailOverlapHeadX && tailOverlapHeadY && hasTails && !isGameOver())
+        if (tailOverlapHeadX && tailOverlapHeadY && tailActive && !isGameOver())
         {
             gameOver();
             PlaySound(sounds[EXPLOSION_SOUND]);
@@ -139,7 +138,6 @@ static void collisionHandling(Snake *snake)
         temp = temp->next;
     }
 }
-
 
 static float accumulatedTime = 0.0f; // Total elapsed time
 static float accumulatedDebounceTime = 0.0f;
@@ -197,7 +195,6 @@ void handleSnake(const float deltaTime, Snake *snake)
     updateSnakePosition(snake, deltaTime);
     collisionHandling(snake);
 }
-
 
 //----------------------------------------------------------------------------------
 // Draw Functions

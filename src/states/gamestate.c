@@ -9,7 +9,7 @@
 #include "grid.h"
 #include "snake.h"
 #include "apple.h"
-#include "collision_handling.h"
+#include "collision.h"
 
 #include "events.h"
 
@@ -88,7 +88,7 @@ void updateGameState(const float deltaTime)
     {
         handleApple(&gameState.apple);
         handleSnake(deltaTime, &gameState.snake);
-        collisionHandling(&gameState.snake, &gameState.apple);
+        resolveSnakeAppleCollisions(&gameState.snake, &gameState.apple);
     }
 }
 
