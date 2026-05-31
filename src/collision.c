@@ -61,7 +61,7 @@ void resolveSnakeAppleCollisions(Snake *snake, Apple *apple)
     {
         PlaySound(sounds[COLLECT_SOUND]);
         incrementScore();
-        growSnake(&snake->snakeData);
+        growSnake(snake);
         moveApple(apple, &snake->snakeData);
     }
 }
