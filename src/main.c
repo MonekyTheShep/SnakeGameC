@@ -24,6 +24,7 @@ Music *currentMusic;
 //----------------------------------------------------------------------------------
 // Function Prototypes
 //----------------------------------------------------------------------------------
+static void unloadCurrentState(void);
 static void changeState(States changeState);
 static void updateDrawFrame(void);
 static void changeMusic(const int musicIndex);
@@ -36,9 +37,6 @@ int main(void)
 
     InitAudioDevice();
 
-    initializeTitleState();
-    changeMusic(MAIN_MENU_MUSIC);
-
     // load sounds
     sounds[COLLECT_SOUND] = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
     sounds[EXPLOSION_SOUND] = LoadSound(ASSETS_PATH "/sounds/explosion_sound.ogg");
@@ -47,8 +45,8 @@ int main(void)
     musics[MAIN_MENU_MUSIC] = LoadMusicStream(ASSETS_PATH "/music/main_menu.ogg");
     musics[GAME_MENU_MUSIC] = LoadMusicStream(ASSETS_PATH "/music/game_music.ogg");
 
-    currentMusic = &musics[MAIN_MENU_MUSIC];
-    PlayMusicStream(*currentMusic);
+    initializeTitleState();
+    changeMusic(MAIN_MENU_MUSIC);
 
     while (!WindowShouldClose())
     {
@@ -56,27 +54,13 @@ int main(void)
         {
             break;
         }
+
         updateDrawFrame();
     }
+    unloadCurrentState();
 
-    // Unload Current State before closing window.
-    switch (menuState)
-    {
-        case TITLE_STATE:
-            unloadTitleState();
-            break;
-        case GAME_STATE:
-            unloadGameState();
-            break;
-        default:
-            break;
-    }
-
-    const int numOfSound = sizeof(sounds) / sizeof(sounds[0]);
-    cleanUpSound(sounds, numOfSound);
-
-    const int numOfMusic = sizeof(musics) / sizeof(musics[0]);
-    cleanUpMusic(musics, numOfMusic);
+    cleanUpSound(sounds, NUM_OF_SOUNDS);
+    cleanUpMusic(musics, NUM_OF_MUSICS);
 
     CloseAudioDevice();
     CloseWindow();
@@ -89,12 +73,12 @@ int main(void)
 //----------------------------------------------------------------------------------
 static void changeMusic(const int musicIndex)
 {
-    StopMusicStream(*currentMusic);
+    if (currentMusic) StopMusicStream(*currentMusic);
     currentMusic = &musics[musicIndex];
     PlayMusicStream(*currentMusic);
 }
 
-static void changeState(States changeState)
+static void unloadCurrentState(void)
 {
     switch (menuState)
     {
@@ -107,6 +91,11 @@ static void changeState(States changeState)
         default:
             break;
     }
+}
+
+static void changeState(States changeState)
+{
+    unloadCurrentState();
 
     switch (changeState)
     {
