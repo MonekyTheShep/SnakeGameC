@@ -26,4 +26,4 @@ void handleApple(Apple *apple);
 //----------------------------------------------------------------------------------
 // Draw Functions
 //----------------------------------------------------------------------------------
-void drawApple(Apple *apple);
+void drawApple(const Apple *apple);
