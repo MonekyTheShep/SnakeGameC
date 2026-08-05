@@ -1,13 +1,11 @@
 #include <stdio.h>
+#include <_stdio.h>
 
 #include <raylib.h>
 #define RAYGUI_IMPLEMENTATION
 #include <raygui.h>
 
-#include "constants.h"
 #include "assets.h"
-
-#include "utility/soundutil.h"
 
 #include "states.h"
 
@@ -27,7 +25,7 @@ Music *currentMusic = NULL;
 static void unloadCurrentState(void);
 static void changeState(States changeState);
 static void updateDrawFrame(void);
-static void changeMusic(const int musicIndex);
+static void changeMusic(int musicIndex);
 
 int main(void)
 {

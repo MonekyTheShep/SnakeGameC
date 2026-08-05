@@ -1,5 +1,7 @@
 #include <utility/soundutil.h>
 
+#include "raylib.h"
+
 void cleanUpSound(const Sound *sounds, const int numOfSounds)
 {
     // unload all sounds in array of Sound
