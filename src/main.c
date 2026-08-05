@@ -19,7 +19,7 @@
 // Main Module Variables
 //----------------------------------------------------------------------------------
 States menuState = TITLE_STATE;
-Music *currentMusic;
+Music *currentMusic = NULL;
 
 //----------------------------------------------------------------------------------
 // Function Prototypes
