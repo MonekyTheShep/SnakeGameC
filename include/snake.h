@@ -22,6 +22,10 @@ typedef struct Snake
     int length;
 } Snake;
 
+// Constants
+#define SNAKE_SQUARE_SIZE (50)
+#define SNAKE_TIME_INTERVAL (0.1f)
+
 //----------------------------------------------------------------------------------
 // Initialise Functions
 //----------------------------------------------------------------------------------
