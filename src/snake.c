@@ -168,7 +168,7 @@ static void handleInput(Snake *snake, const float deltaTime)
     }
 }
 
-static void updateSnakePosition(Snake *snake, const float deltaTime)
+static void handleSnakePosition(Snake *snake, const float deltaTime)
 {
     accumulatedTime += deltaTime;
 
@@ -187,7 +187,7 @@ static void updateSnakePosition(Snake *snake, const float deltaTime)
 void handleSnake(const float deltaTime, Snake *snake)
 {
     handleInput(snake, deltaTime);
-    updateSnakePosition(snake, deltaTime);
+    handleSnakePosition(snake, deltaTime);
     handleCollision(snake);
 }
 
