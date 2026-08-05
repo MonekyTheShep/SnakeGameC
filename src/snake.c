@@ -15,7 +15,8 @@
 //----------------------------------------------------------------------------------
 LinkedList createSnake(void)
 {
-    const SnakeNode snake_node = {
+    const SnakeNode snake_node = 
+    {
             .x = 0.0f,
             .y = 0.0f
     };
@@ -41,7 +42,8 @@ void cleanUpSnake(Snake *snake)
 //----------------------------------------------------------------------------------
 int growSnake(Snake *snake)
 {
-    SnakeNode snake_node = {
+    SnakeNode snake_node = 
+    {
             .x = snake->snakeData.tail->snake_node.x,
             .y = snake->snakeData.tail->snake_node.y,
             .active = false // Only active when its from a stored prev position
@@ -199,7 +201,8 @@ static void drawTails(const Snake *snake)
     // Draw Tails
     while (temp != NULL)
     {
-        const Rectangle tail = {
+        const Rectangle tail = 
+        {
                 .x = (float) temp->snake_node.x,
                 .y = (float) temp->snake_node.y,
                 .width = (float) SNAKE_SQUARE_SIZE,
@@ -216,7 +219,8 @@ static void drawHead(const Snake *snake)
 {
     SnakeNode node = snake->snakeData.head->snake_node;
 
-    const Rectangle head = {
+    const Rectangle head = 
+    {
         .x = (float) node.x,
         .y = (float) node.y,
         .width = (float) SNAKE_SQUARE_SIZE,
