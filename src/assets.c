@@ -2,6 +2,8 @@
 
 #include "raylib.h"
 
+#include "utility/soundutil.h"
+
 //----------------------------------------------------------------------------------
 // Global Asset Variables
 //----------------------------------------------------------------------------------
@@ -17,4 +19,10 @@ void initAssets(void)
     // load musics
     musics[MAIN_MENU_MUSIC] = LoadMusicStream(ASSETS_PATH "/music/main_menu.ogg");
     musics[GAME_MENU_MUSIC] = LoadMusicStream(ASSETS_PATH "/music/game_music.ogg");
+}
+
+void cleanUpAssets(void)
+{
+    cleanUpSound(sounds, NUM_OF_SOUNDS);
+    cleanUpMusic(musics, NUM_OF_MUSICS);
 }

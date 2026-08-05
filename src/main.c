@@ -52,9 +52,7 @@ int main(void)
     }
     unloadCurrentState();
 
-    cleanUpSound(sounds, NUM_OF_SOUNDS);
-    cleanUpMusic(musics, NUM_OF_MUSICS);
-
+    cleanUpAssets();
     CloseAudioDevice();
     CloseWindow();
 

@@ -23,3 +23,4 @@ extern Music musics[NUM_OF_MUSICS];
 extern Sound sounds[NUM_OF_SOUNDS];
 
 void initAssets(void);
+void cleanUpAssets(void);
