@@ -7,7 +7,6 @@
 #include "constants.h"
 #include "assets.h"
 
-#include "utility/gameutil.h"
 #include "utility/soundutil.h"
 
 #include "states.h"
@@ -20,15 +19,14 @@
 // Main Module Variables
 //----------------------------------------------------------------------------------
 States menuState = TITLE_STATE;
-GameInfo gameInfo = {.musicPlaying = 0};
 Music *currentMusic;
 
 //----------------------------------------------------------------------------------
 // Function Prototypes
 //----------------------------------------------------------------------------------
 static void changeState(States changeState);
-static void checkMusicStatus(void);
 static void updateDrawFrame(void);
+static void changeMusic(const int musicIndex);
 
 int main(void)
 {
@@ -39,6 +37,7 @@ int main(void)
     InitAudioDevice();
 
     initializeTitleState();
+    changeMusic(MAIN_MENU_MUSIC);
 
     // load sounds
     sounds[COLLECT_SOUND] = LoadSound(ASSETS_PATH "/sounds/collect_sound.ogg");
@@ -50,7 +49,6 @@ int main(void)
 
     currentMusic = &musics[MAIN_MENU_MUSIC];
     PlayMusicStream(*currentMusic);
-    gameInfo.musicPlaying = 1;
 
     while (!WindowShouldClose())
     {
@@ -58,8 +56,6 @@ int main(void)
         {
             break;
         }
-
-        checkMusicStatus();
         updateDrawFrame();
     }
 
@@ -91,6 +87,13 @@ int main(void)
 //----------------------------------------------------------------------------------
 // Function Implementation
 //----------------------------------------------------------------------------------
+static void changeMusic(const int musicIndex)
+{
+    StopMusicStream(*currentMusic);
+    currentMusic = &musics[musicIndex];
+    PlayMusicStream(*currentMusic);
+}
+
 static void changeState(States changeState)
 {
     switch (menuState)
@@ -109,34 +112,16 @@ static void changeState(States changeState)
     {
         case TITLE_STATE:
             initializeTitleState();
+            changeMusic(MAIN_MENU_MUSIC);
             break;
         case GAME_STATE:
             initializeGameState();
+            changeMusic(GAME_MENU_MUSIC);
         default:
             break;
     }
 
-    gameInfo.musicPlaying = 0;
     menuState = changeState;
-}
-
-static void checkMusicStatus(void)
-{
-    // music management
-    if (!gameInfo.musicPlaying)
-    {
-        switch (menuState)
-        {
-            case TITLE_STATE:
-                changeMusic(&currentMusic, MAIN_MENU_MUSIC, musics, &gameInfo);
-                break;
-            case GAME_STATE:
-                changeMusic(&currentMusic, GAME_MENU_MUSIC, musics, &gameInfo);
-                break;
-
-            default: break;
-        }
-    }
 }
 
 static void updateDrawFrame(void)
