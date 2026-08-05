@@ -3,8 +3,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "assets.h"
+#include "raylib.h"
 
+#include "assets.h"
 #include "events.h"
 
 void moveApple(Apple *apple, const LinkedList *snake)
