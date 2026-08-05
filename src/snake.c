@@ -116,7 +116,7 @@ void moveSnake(Snake *snake)
     }
 }
 
-static void collisionHandling(Snake *snake)
+static void handleCollision(Snake *snake)
 {
     // Tail Collision Handling
     Node *temp = snake->snakeData.head->next;
@@ -188,7 +188,7 @@ void handleSnake(const float deltaTime, Snake *snake)
 {
     handleInput(snake, deltaTime);
     updateSnakePosition(snake, deltaTime);
-    collisionHandling(snake);
+    handleCollision(snake);
 }
 
 //----------------------------------------------------------------------------------
