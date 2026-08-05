@@ -41,7 +41,7 @@ void initializeGameState(void)
 
     // Initialise SNAKE
     initializeSnake(&gameState.snake);
-    gameState.maxSnakeSize = (GetScreenWidth()/ MOVE_INTERVAL) * (GetScreenHeight() / MOVE_INTERVAL);
+    gameState.maxSnakeSize = (GetScreenWidth()/ SNAKE_SQUARE_SIZE) * (GetScreenHeight() / SNAKE_SQUARE_SIZE);
 
     // Initialise APPLE
     initialiseApple(&gameState.apple);

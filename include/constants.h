@@ -22,5 +22,5 @@ enum Musics
 // ------------------------------------------------------------------
 // Snake Constants
 //----------------------------------------------------------------------------------
-#define MOVE_INTERVAL (50)
+#define SNAKE_SQUARE_SIZE (50)
 #define SNAKE_TIME_INTERVAL (0.1f)

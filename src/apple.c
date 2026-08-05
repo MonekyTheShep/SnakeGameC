@@ -12,8 +12,8 @@ void initialiseApple(Apple *apple)
     apple->rec = (Rectangle) {
         .x = 0.0f,
         .y = 0.0f,
-        .width = (float) MOVE_INTERVAL,
-        .height = (float) MOVE_INTERVAL
+        .width = (float) SNAKE_SQUARE_SIZE,
+        .height = (float) SNAKE_SQUARE_SIZE
     };
 }
 
@@ -22,14 +22,14 @@ void initialiseApple(Apple *apple)
 //----------------------------------------------------------------------------------
 Vector2 randomApplePos(void)
 {
-    const int xCount = GetScreenWidth() / MOVE_INTERVAL;
+    const int xCount = GetScreenWidth() / SNAKE_SQUARE_SIZE;
     const int xIndex = GetRandomValue(0, xCount - 1);
 
 
-    const int yCount = GetScreenHeight() / MOVE_INTERVAL;
+    const int yCount = GetScreenHeight() / SNAKE_SQUARE_SIZE;
     const int yIndex = GetRandomValue(0, yCount - 1);
 
-    return (Vector2){(float) xIndex * MOVE_INTERVAL, (float) yIndex * MOVE_INTERVAL};
+    return (Vector2){(float) xIndex * SNAKE_SQUARE_SIZE, (float) yIndex * SNAKE_SQUARE_SIZE};
 }
 
 //----------------------------------------------------------------------------------

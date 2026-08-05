@@ -9,13 +9,13 @@
 //----------------------------------------------------------------------------------
 void drawGrid(void)
 {
-    for (int i = 0; i < GetScreenWidth() / MOVE_INTERVAL; i++)
+    for (int i = 0; i < GetScreenWidth() / SNAKE_SQUARE_SIZE; i++)
     {
-        DrawLine(i * MOVE_INTERVAL,0,i * MOVE_INTERVAL,GetScreenHeight(), Fade(BLACK, 0.5f));
+        DrawLine(i * SNAKE_SQUARE_SIZE,0,i * SNAKE_SQUARE_SIZE,GetScreenHeight(), Fade(BLACK, 0.5f));
     }
 
-    for (int i = 0; i < GetScreenHeight() / MOVE_INTERVAL; i++)
+    for (int i = 0; i < GetScreenHeight() / SNAKE_SQUARE_SIZE; i++)
     {
-        DrawLine(0,i * MOVE_INTERVAL,GetScreenWidth(),i * MOVE_INTERVAL, Fade(BLACK, 0.5f));
+        DrawLine(0,i * SNAKE_SQUARE_SIZE,GetScreenWidth(),i * SNAKE_SQUARE_SIZE, Fade(BLACK, 0.5f));
     }
 }

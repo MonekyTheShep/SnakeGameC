@@ -65,4 +65,3 @@ void resolveSnakeAppleCollisions(Snake *snake, Apple *apple)
         moveApple(apple, &snake->snakeData);
     }
 }
-

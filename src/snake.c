@@ -8,6 +8,7 @@
 #include "constants.h"
 #include "events.h"
 #include "assets.h"
+#include "linkedlist.h"
 
 //----------------------------------------------------------------------------------
 // Initialise Functions
@@ -27,12 +28,6 @@ void initializeSnake(Snake *snake)
 {
     snake->direction = RIGHT;
     snake->snakeData = createSnake();
-    snake->snakeHead = (Rectangle){
-        .x = 0.0f,
-        .y = 0.0f,
-        .width = (float) MOVE_INTERVAL,
-        .height = (float) MOVE_INTERVAL
-    };
     snake->length = 1;
 }
 
@@ -87,16 +82,16 @@ void moveSnake(Snake *snake)
     switch (snake->direction)
     {
         case UP:
-            snake->snakeData.head->snake_node.y -= (float) MOVE_INTERVAL;
+            snake->snakeData.head->snake_node.y -= (float) SNAKE_SQUARE_SIZE;
             break;
         case DOWN:
-            snake->snakeData.head->snake_node.y += (float) MOVE_INTERVAL;
+            snake->snakeData.head->snake_node.y += (float) SNAKE_SQUARE_SIZE;
             break;
         case LEFT:
-            snake->snakeData.head->snake_node.x -= (float) MOVE_INTERVAL;
+            snake->snakeData.head->snake_node.x -= (float) SNAKE_SQUARE_SIZE;
             break;
         case RIGHT:
-            snake->snakeData.head->snake_node.x += (float) MOVE_INTERVAL;
+            snake->snakeData.head->snake_node.x += (float) SNAKE_SQUARE_SIZE;
             break;
     }
 
@@ -182,10 +177,6 @@ static void updateSnakePosition(Snake *snake, const float deltaTime)
         storePrevSnakePosition(&snake->snakeData);
         moveSnake(snake);
     }
-
-    // move the snake head rectangle
-    snake->snakeHead.x = snake->snakeData.head->snake_node.x;
-    snake->snakeHead.y = snake->snakeData.head->snake_node.y;
 }
 
 //----------------------------------------------------------------------------------
@@ -201,19 +192,18 @@ void handleSnake(const float deltaTime, Snake *snake)
 //----------------------------------------------------------------------------------
 // Draw Functions
 //----------------------------------------------------------------------------------
-static void drawTails(Snake *snake)
+static void drawTails(const Snake *snake)
 {
-    // prev pos stored after the head position
     Node *temp = snake->snakeData.head->next;
 
     // Draw Tails
     while (temp != NULL)
     {
         const Rectangle tail = {
-                .x = (float)temp->snake_node.x,
-                .y = (float)temp->snake_node.y,
-                .width = (float) MOVE_INTERVAL,
-                .height = (float) MOVE_INTERVAL
+                .x = (float) temp->snake_node.x,
+                .y = (float) temp->snake_node.y,
+                .width = (float) SNAKE_SQUARE_SIZE,
+                .height = (float) SNAKE_SQUARE_SIZE
         };
 
         DrawRectangleRec(tail, GREEN);
@@ -222,12 +212,21 @@ static void drawTails(Snake *snake)
     }
 }
 
-static void drawHead(Snake *snake)
+static void drawHead(const Snake *snake)
 {
-    DrawRectangleRec(snake->snakeHead, DARKGREEN);
+    SnakeNode node = snake->snakeData.head->snake_node;
+
+    const Rectangle head = {
+        .x = (float) node.x,
+        .y = (float) node.y,
+        .width = (float) SNAKE_SQUARE_SIZE,
+        .height = (float) SNAKE_SQUARE_SIZE
+    };
+
+    DrawRectangleRec(head, DARKGREEN);
 }
 
-void drawSnake(Snake *snake)
+void drawSnake(const Snake *snake)
 {
     drawTails(snake);
     drawHead(snake);

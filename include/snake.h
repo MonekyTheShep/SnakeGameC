@@ -18,11 +18,9 @@ typedef enum Direction
 typedef struct Snake
 {
     LinkedList snakeData;
-    Rectangle snakeHead;
     Direction direction;
     int length;
 } Snake;
-
 
 //----------------------------------------------------------------------------------
 // Initialise Functions
@@ -46,4 +44,4 @@ void handleSnake(float deltaTime, Snake *snake);
 //----------------------------------------------------------------------------------
 // Draw Functions
 //----------------------------------------------------------------------------------
-void drawSnake(Snake *snake);
+void drawSnake(const Snake *snake);
