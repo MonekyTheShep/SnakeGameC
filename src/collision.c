@@ -1,12 +1,16 @@
 #include "collision.h"
 
+#include <_stdlib.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
 #include "raylib.h"
 
+#include "apple.h"
+#include "linkedlist.h"
 #include "assets.h"
 #include "events.h"
+#include "snake.h"
 
 void moveApple(Apple *apple, const LinkedList *snake)
 {
