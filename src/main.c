@@ -39,13 +39,8 @@ int main(void)
     initializeTitleState();
     changeMusic(MAIN_MENU_MUSIC);
 
-    while (!WindowShouldClose())
+    while (!WindowShouldClose() && menuState != EXIT)
     {
-        if (menuState == EXIT)
-        {
-            break;
-        }
-
         updateDrawFrame();
     }
     unloadCurrentState();
