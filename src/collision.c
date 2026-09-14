@@ -11,11 +11,10 @@
 void moveApple(Apple *apple, const LinkedList *snake)
 {
     bool validPosition = true;
-
+    Vector2 pos = randomApplePos();
+    
     do
     {
-        Vector2 pos = randomApplePos();
-
         validPosition = true;
 
         // if new apple overlaps snake head
@@ -31,11 +30,9 @@ void moveApple(Apple *apple, const LinkedList *snake)
         {
             const bool tailOverlapAppleX = temp->snake_node.x == pos.x;
             const bool tailOverlapAppleY = temp->snake_node.y == pos.y;
-
-            if (tailOverlapAppleX  && tailOverlapAppleY)
-            {
-                validPosition = false;
-            }
+            const bool overlap = (tailOverlapAppleX  && tailOverlapAppleY);
+            
+            validPosition = !overlap
 
             temp = temp->next;
         }
