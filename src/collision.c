@@ -28,9 +28,9 @@ void moveApple(Apple *apple, const LinkedList *snake)
         // if new apple is touching any part of the tail
         while (temp != NULL)
         {
-            const bool appleOverlapTableX = (temp->snake_node.x == pos.x);
-            const bool appleOverlapTableY = (temp->snake_node.y == pos.y);
-            const bool appleOverlapTail = (appleOverlapTailX  && appleOverTailY);
+            const bool appleOverlapTailX = (temp->snake_node.x == pos.x);
+            const bool appleOverlapTailY = (temp->snake_node.y == pos.y);
+            const bool appleOverlapTail = (appleOverlapTailX  && appleOverlapTailY);
             
             validPosition = !appleOverlapTail;
 
@@ -41,7 +41,7 @@ void moveApple(Apple *apple, const LinkedList *snake)
         {
             pos = randomApplePos();
         }
-    } while (!validPosition)
+    } while (!validPosition);
         
     apple->position.x = (float) pos.x;
     apple->position.y = (float) pos.y;
